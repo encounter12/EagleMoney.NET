@@ -279,6 +279,37 @@ namespace EagleMoney.NET.ConsoleUI
 
             var d = new Currency("EUR");
             Console.WriteLine($"new Currency(Currency.USD).ToString():{d}");
+
+            var m40 = new Money(0.3M, Currency.BGN);
+
+            Money[] allocated = m40.Allocate(3);
+
+            foreach (var item in allocated)
+            {
+                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
+            }
+
+            Console.WriteLine("----------------------");
+            
+            var m41 = new Money(0.5M, Currency.BGN);
+
+            Money[] allocated2 = m41.Allocate(3);
+
+            foreach (var item in allocated2)
+            {
+                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
+            }
+            
+            Console.WriteLine("----------------------");
+            
+            var m42 = new Money(0.05M, Currency.BGN);
+
+            Money[] allocated3 = m42.Allocate(3);
+
+            foreach (var item in allocated3)
+            {
+                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
+            }
         }
     }
 }

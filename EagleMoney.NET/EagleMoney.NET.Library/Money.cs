@@ -8,19 +8,6 @@ namespace EagleMoney.NET.Library
     {
         private readonly BigInteger _amount;
 
-        public Money(decimal amount, Currency currency)
-        {
-            if (amount < 0M)
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(amount), amount, "Amount should be equal or greater than zero");
-            }
-
-            int centFactor = Cents[currency.DefaultFractionDigits];
-            _amount = (BigInteger) (amount * centFactor);
-            Currency = currency;
-        }
-
         public Money(decimal amount, string currencyCode)
         {
             if (amount < 0M)
@@ -31,10 +18,35 @@ namespace EagleMoney.NET.Library
 
             var currency = new Currency(currencyCode);
             int centFactor = Cents[currency.DefaultFractionDigits];
-            _amount = (BigInteger) (amount * centFactor);
+            _amount = (BigInteger) Math.Round(amount * centFactor);
+            Currency = currency;
+        }
+        
+        public Money(decimal amount, Currency currency)
+        {
+            if (amount < 0M)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(amount), amount, "Amount should be equal or greater than zero");
+            }
+
+            int centFactor = Cents[currency.DefaultFractionDigits];
+            _amount = (BigInteger) Math.Round(amount * centFactor);
             Currency = currency;
         }
 
+        private Money(BigInteger amount, Currency currency)
+        {
+            if (amount < 0)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(amount), amount, "Amount should be equal or greater than zero");
+            }
+            
+            _amount = amount;
+            Currency = currency;
+        }
+        
         private static int[] Cents => new[] {1, 10, 100, 1000};
 
         private int CentFactor => Cents[Currency.DefaultFractionDigits];
@@ -42,7 +54,40 @@ namespace EagleMoney.NET.Library
         public decimal Amount => (decimal)_amount / CentFactor;
 
         public Currency Currency { get; init; }
-        
+
+        //Credit: Martin Fowler and Matt Foemmel, Book: Patterns of Enterprise Application Architecture, p.494
+        public Money[] Allocate(int n)
+        {
+            BigInteger[] allocatedInternalAmounts = AllocateEven(_amount, n);
+
+            var currency = Currency;
+            var allocated = Array.ConvertAll(
+                allocatedInternalAmounts, x => new Money(x, currency));
+            
+            return allocated;
+        }
+
+        private BigInteger[] AllocateEven(BigInteger amount, int n)
+        {
+            BigInteger lowResult = amount / n;
+            BigInteger highResult = lowResult + 1;
+            
+            BigInteger[] results = new BigInteger[n];
+            int remainder = (int)amount % n;
+
+            for (int i = 0; i < remainder; i++)
+            {
+                results[i] = highResult;
+            }
+
+            for (int i = remainder; i < n; i++)
+            {
+                results[i] = lowResult;
+            }
+
+            return results;
+        }
+
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
@@ -59,7 +104,7 @@ namespace EagleMoney.NET.Library
         {
             builder.Append(nameof(Amount));
             builder.Append(" = ");
-            builder.Append(Amount.ToString("F"));
+            builder.Append(Amount);
 
             builder.Append(", ");
 
@@ -249,7 +294,7 @@ namespace EagleMoney.NET.Library
             => new(-m.Amount, m.Currency);
 
         public static Money operator ++(Money m)
-            => new(m.Amount + 1M, m.Currency);
+            => new(m.Amount + 1, m.Currency);
 
         public static Money operator --(Money m)
             => new(m.Amount - 1M, m.Currency);
