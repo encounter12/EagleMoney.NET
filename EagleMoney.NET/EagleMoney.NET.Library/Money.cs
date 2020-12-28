@@ -6,7 +6,7 @@ namespace EagleMoney.NET.Library
 {
     public readonly struct Money : IEquatable<Money>, IComparable<Money>, IComparable
     {
-        private readonly BigInteger _amount;
+        private readonly long _amount;
 
         public Money(decimal amount, string currencyCode)
         {
@@ -18,7 +18,7 @@ namespace EagleMoney.NET.Library
 
             var currency = new Currency(currencyCode);
             int centFactor = Cents[currency.DefaultFractionDigits];
-            _amount = (BigInteger) Math.Round(amount * centFactor);
+            _amount = (long) Math.Round(amount * centFactor);
             Currency = currency;
         }
         
@@ -31,11 +31,11 @@ namespace EagleMoney.NET.Library
             }
 
             int centFactor = Cents[currency.DefaultFractionDigits];
-            _amount = (BigInteger) Math.Round(amount * centFactor);
+            _amount = (long) Math.Round(amount * centFactor);
             Currency = currency;
         }
 
-        private Money(BigInteger amount, Currency currency)
+        private Money(long amount, Currency currency)
         {
             if (amount < 0)
             {
@@ -58,7 +58,7 @@ namespace EagleMoney.NET.Library
         //Credit: Martin Fowler and Matt Foemmel, Book: Patterns of Enterprise Application Architecture, p.494
         public Money[] Allocate(int n)
         {
-            BigInteger[] allocatedInternalAmounts = AllocateEven(_amount, n);
+            long[] allocatedInternalAmounts = AllocateEven(_amount, n);
 
             var currency = Currency;
             var allocated = Array.ConvertAll(
@@ -67,12 +67,12 @@ namespace EagleMoney.NET.Library
             return allocated;
         }
 
-        private BigInteger[] AllocateEven(BigInteger amount, int n)
+        private long[] AllocateEven(long amount, int n)
         {
-            BigInteger lowResult = amount / n;
-            BigInteger highResult = lowResult + 1;
+            long lowResult = amount / n;
+            long highResult = lowResult + 1;
             
-            BigInteger[] results = new BigInteger[n];
+            long[] results = new long[n];
             int remainder = (int)amount % n;
 
             for (int i = 0; i < remainder; i++)
@@ -294,7 +294,7 @@ namespace EagleMoney.NET.Library
             => new(-m.Amount, m.Currency);
 
         public static Money operator ++(Money m)
-            => new(m.Amount + 1, m.Currency);
+            => new(m.Amount + 1M, m.Currency);
 
         public static Money operator --(Money m)
             => new(m.Amount - 1M, m.Currency);
