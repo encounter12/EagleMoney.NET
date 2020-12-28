@@ -24,7 +24,7 @@ namespace EagleMoney.NET.Library
             DefaultFractionDigits = selectedCurrency.DefaultFractionDigits;
         }
         
-        private Currency(string code, int number, string sign, int defaultFractionDigits)
+        public Currency(string code, int number, string sign, int defaultFractionDigits)
         {
             Code = code;
             Number = number;

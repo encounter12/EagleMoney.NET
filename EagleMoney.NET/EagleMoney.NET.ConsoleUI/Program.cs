@@ -310,6 +310,16 @@ namespace EagleMoney.NET.ConsoleUI
             {
                 Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
             }
+
+            var m43 = new Money(12.45M, new Currency("Bitcoin", 120, "‡", 2));
+
+            Console.WriteLine($"m43 (custom currency): {m43}");
+            
+            var m44 = new Money(15M, new Currency("Bitcoin", 120, "‡", 2));
+
+            var m45 = m43 + m44;
+
+            Console.WriteLine($"Adding custom currencies (m43 + m44):{m45.Amount} {m45.Currency.Code}");
         }
     }
 }
