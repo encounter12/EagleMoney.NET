@@ -344,13 +344,13 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine(m49);
 
-            var m50 = new Money(312.49M, Country.Codes.FR);
+            var m50 = new Money(312.49M, CountryCode.FR);
 
             Console.WriteLine(m50);
 
             foreach (var country in m50.Currency.Countries)
             {
-                Console.WriteLine($"Country: {country.Name}, CodeAlpha2: {country.CodeAlpha2}, CurrencyCode: {country.CurrencyCode}");
+                Console.WriteLine($"Country: {country.Name}, CodeAlpha2: {country.CodeAlpha2}, CurrencyCode: {country.Currency}");
             }
 
             var m51 = Money.BGN(380.52M, MidpointRounding.AwayFromZero);

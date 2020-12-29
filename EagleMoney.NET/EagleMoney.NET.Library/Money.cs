@@ -74,7 +74,7 @@ namespace EagleMoney.NET.Library
             Currency = currency;
         }
         
-        public Money(decimal amount, Country.Codes countryCode)
+        public Money(decimal amount, CountryCode countryCode)
         {
             if (amount < 0M)
             {

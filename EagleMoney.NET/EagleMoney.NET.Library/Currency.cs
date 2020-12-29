@@ -1,5 +1,4 @@
 // ReSharper disable InconsistentNaming
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ namespace EagleMoney.NET.Library
         public Currency(string currencyCode)
         {
             Code = currencyCode;
-            var selectedCurrency = worldCurrencies.FirstOrDefault(x => x.Code == currencyCode);
+            var selectedCurrency = CurrenciesContainer.Currencies.FirstOrDefault(x => x.Code == currencyCode);
 
             if (selectedCurrency == default(Currency))
             {
@@ -26,15 +25,15 @@ namespace EagleMoney.NET.Library
             Countries = GetCountries(currencyCode);
         }
         
-        public Currency(Country.Codes countryCode)
+        public Currency(CountryCode countryCode)
         {
-            var selectedCountry = Country.Countries.FirstOrDefault(x => x.CodeAlpha2 == countryCode.ToString());
-            var selectedCurrency = worldCurrencies.FirstOrDefault(x => x.Code == selectedCountry.CurrencyCode);
+            var selectedCountry = CountriesContainer.Countries.FirstOrDefault(x => x.CodeAlpha2 == countryCode.ToString());
+            var selectedCurrency = CurrenciesContainer.Currencies.FirstOrDefault(x => x.Code == selectedCountry.Currency);
 
             if (selectedCurrency == default(Currency))
             {
                 throw new InvalidOperationException(
-                    $"No currency {selectedCountry.CurrencyCode} for country: {selectedCountry.Name} exists. Use the overloaded constructor to define custom currency.");
+                    $"No currency {selectedCountry.Currency} for country: {selectedCountry.Name} exists. Use the overloaded constructor to define custom currency.");
             }
 
             Code = selectedCurrency.Code;
@@ -65,8 +64,8 @@ namespace EagleMoney.NET.Library
 
         private static HashSet<Country> GetCountries(string code)
         {
-            var countries = Country.Countries
-                .Where(c => c.CurrencyCode == code)
+            var countries = CountriesContainer.Countries
+                .Where(c => c.Currency == code)
                 .ToHashSet();
 
             return countries;
@@ -130,23 +129,14 @@ namespace EagleMoney.NET.Library
         public static bool operator !=(Currency? c1, Currency? c2)
             =>!(c1 == c2);
         
-        public const string AFN = "AFN";
+        public static readonly string AFN = CurrencyCode.AFN.ToString();
 
-        public const string BGN = "BGN";
+        public static readonly string BGN = CurrencyCode.BGN.ToString();
         
-        public const string EUR = "EUR";
+        public static readonly string EUR = CurrencyCode.EUR.ToString();
         
-        public const string GBP = "GBP";
+        public static readonly string GBP = CurrencyCode.GBP.ToString();
         
-        public const string USD = "USD";
-
-        private static readonly Currency[] worldCurrencies =
-        {
-            new ("AFN", 971, "", 2),
-            new ("BGN", 975, "", 2),
-            new ("EUR", 978, "€", 2),
-            new ("GBP", 826, "£", 2),
-            new ("USD", 840, "$", 2)
-        };
+        public static readonly string USD = CurrencyCode.USD.ToString();
     }
 }
