@@ -1,4 +1,6 @@
-﻿using System;
+﻿// ReSharper disable InconsistentNaming
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
@@ -39,7 +41,7 @@ namespace EagleMoney.NET.Library
     
     // TODO: Write unit tests (NUnit)
     
-    // TODO: Write documentation
+    // TODO: Write documentation on GitHub
     
     public readonly struct Money : IEquatable<Money>, IComparable<Money>, IComparable
     {
@@ -67,6 +69,20 @@ namespace EagleMoney.NET.Library
                     nameof(amount), amount, "Amount should be equal or greater than zero");
             }
 
+            int centFactor = Cents[currency.DefaultFractionDigits];
+            _amount = (BigInteger) Math.Round(amount * centFactor);
+            Currency = currency;
+        }
+        
+        public Money(decimal amount, Country.Codes countryCode)
+        {
+            if (amount < 0M)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(amount), amount, "Amount should be equal or greater than zero");
+            }
+
+            var currency = new Currency(countryCode);
             int centFactor = Cents[currency.DefaultFractionDigits];
             _amount = (BigInteger) Math.Round(amount * centFactor);
             Currency = currency;
@@ -244,15 +260,24 @@ namespace EagleMoney.NET.Library
 
             return CompareTo((Money) other);
         }
+        
+        public static Money USD(decimal amount) 
+            => new(amount, Currency.USD);
+        
+        public static Money USD(decimal amount, MidpointRounding mode) 
+            => new(amount, mode, Currency.USD);
 
-        // ReSharper disable once InconsistentNaming
-        public static Money USD(decimal moneyValue) => new(moneyValue, Currency.USD);
+        public static Money EUR(decimal amount) 
+            => new(amount, Currency.EUR);
         
-        // ReSharper disable once InconsistentNaming
-        public static Money EUR(decimal moneyValue) => new(moneyValue, Currency.EUR);
+        public static Money EUR(decimal amount, MidpointRounding mode) 
+            => new(amount, mode, Currency.EUR);
         
-        // ReSharper disable once InconsistentNaming
-        public static Money BGN(decimal moneyValue) => new(moneyValue, Currency.BGN);
+        public static Money BGN(decimal amount) 
+            => new(amount, Currency.BGN);
+        
+        public static Money BGN(decimal amount, MidpointRounding mode) 
+            => new(amount, mode, Currency.BGN);
 
         public static bool operator ==(Money? m1, Money? m2)
             => m1.HasValue && m2.HasValue ? m1.Equals(m2) : !m1.HasValue && !m2.HasValue;
