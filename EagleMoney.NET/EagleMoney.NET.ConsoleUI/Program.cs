@@ -282,7 +282,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             var m40 = new Money(0.3M, Currency.BGN);
 
-            Money[] allocated = m40.Allocate(3);
+            Money[] allocated = m40.AllocateEven(3);
 
             foreach (var item in allocated)
             {
@@ -293,7 +293,7 @@ namespace EagleMoney.NET.ConsoleUI
             
             var m41 = new Money(0.5M, Currency.BGN);
 
-            Money[] allocated2 = m41.Allocate(3);
+            Money[] allocated2 = m41.AllocateEven(3);
 
             foreach (var item in allocated2)
             {
@@ -304,7 +304,7 @@ namespace EagleMoney.NET.ConsoleUI
             
             var m42 = new Money(0.05M, Currency.BGN);
 
-            Money[] allocated3 = m42.Allocate(3);
+            Money[] allocated3 = m42.AllocateEven(3);
 
             foreach (var item in allocated3)
             {
@@ -320,6 +320,22 @@ namespace EagleMoney.NET.ConsoleUI
             var m45 = m43 + m44;
 
             Console.WriteLine($"Adding custom currencies (m43 + m44):{m45.Amount} {m45.Currency.Code}");
+
+            long[] allocation = {3, 10, 1, 4, 3};
+
+            Money[] result = Money.USD(100M).AllocateByRatios(allocation);
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                Console.WriteLine($"Allocated by ratio {i}: {result[i].Amount} {result[i].Currency.Code}");
+            }
+
+            var m46 = Money.USD(10M);
+            var m47 = m46.Percentage(20);
+            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
+            
+            m47 = m46.Percentage(21.5M);
+            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
         }
     }
 }
