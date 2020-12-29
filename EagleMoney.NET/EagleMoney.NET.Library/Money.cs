@@ -10,6 +10,9 @@ namespace EagleMoney.NET.Library
     
     // TODO: Implement Parse()
     // e.g. Money.Parse("180 USD"), Money.Parse("180USD"), Money.Parse("USD180.24"), Money.Parse("$180.24"), Money.Parse("180.24$")
+    
+    // TODO: Create static methods for all world currencies, e.g. Money.USD(decimal amount) - see ISO4217: https://www.iso.org/iso-4217-currency-codes.html
+    // TODO: Add all world currencies details to array: worldCurrencies
         
     // TODO: public Property or method for getting the internal amount (_amount)
     
