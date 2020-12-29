@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 
 namespace EagleMoney.NET.Library
@@ -14,23 +15,32 @@ namespace EagleMoney.NET.Library
     
     // TODO: Add Arithmetic operations Pow(), Sqrt() - using Math.Pow(), Math.Sqrt()
         
-    // TODO: Consider what type should: _amount (cents) be? If string is selected, arithmetic operations should be refactored.
-    // long - long.Max: 9,223,372,036,854,775,807
-    // decimal - Decimal.Max: 79,228,162,514,264,337,593,543,950,335
-    // BigInteger - no max
-    // string
-
+    // TODO: Arithmetics with string numbers - Consider overloading constructor with string amount parameter
+    // Implement arithmetics with numbers as strings
+    
     // TODO: ToString() - Consider formatting - decimal separator (Globalization, Localization). Add ToString() with C1, C2 arguments
         
     // TODO: Consider adding constructor overload with parameter _amount type: double
     
     // TODO: Operator overloading (>, <, >=, <=) - add support for comparing Nullable Money objects
     
+    // TODO: Currency: Add custom currencies to the list of worldCurrencies (for the scope of the variable)
+    
+    // TODO: Implement ToJson() method
+    
+    // TODO: Should money constructor allow negative values for amount?
+    
+    // TODO: Consider overloading money constructor with new parameter for rounding - see Math.Round(Decimal, MidpointRounding)
+    
+    // TODO: Consider adding checked (OverflowException) for decimal 
+    
     // TODO: Write unit tests (NUnit)
+    
+    // TODO: Write documentation
     
     public readonly struct Money : IEquatable<Money>, IComparable<Money>, IComparable
     {
-        private readonly long _amount;
+        private readonly BigInteger _amount;
 
         public Money(decimal amount, string currencyCode)
         {
@@ -42,7 +52,7 @@ namespace EagleMoney.NET.Library
 
             var currency = new Currency(currencyCode);
             int centFactor = Cents[currency.DefaultFractionDigits];
-            _amount = (long) Math.Round(amount * centFactor);
+            _amount = (BigInteger) Math.Round(amount * centFactor);
             Currency = currency;
         }
         
@@ -55,11 +65,25 @@ namespace EagleMoney.NET.Library
             }
 
             int centFactor = Cents[currency.DefaultFractionDigits];
-            _amount = (long) Math.Round(amount * centFactor);
+            _amount = (BigInteger) Math.Round(amount * centFactor);
+            Currency = currency;
+        }
+        
+        public Money(decimal amount, MidpointRounding mode, string currencyCode)
+        {
+            if (amount < 0M)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(amount), amount, "Amount should be equal or greater than zero");
+            }
+
+            var currency = new Currency(currencyCode);
+            int centFactor = Cents[currency.DefaultFractionDigits];
+            _amount = (BigInteger) Math.Round(amount * centFactor, mode);
             Currency = currency;
         }
 
-        private Money(long amount, Currency currency)
+        private Money(BigInteger amount, Currency currency)
         {
             if (amount < 0)
             {
@@ -82,7 +106,7 @@ namespace EagleMoney.NET.Library
         //Credit: Martin Fowler and Matt Foemmel, Book: Patterns of Enterprise Application Architecture, p.494
         public Money[] AllocateEven(int n)
         {
-            long[] allocatedInternalAmounts = AllocateCentsEven(_amount, n);
+            BigInteger[] allocatedInternalAmounts = AllocateCentsEven(_amount, n);
 
             var currency = Currency;
             var allocated = Array.ConvertAll(
@@ -91,13 +115,13 @@ namespace EagleMoney.NET.Library
             return allocated;
         }
 
-        private static long[] AllocateCentsEven(long centsAmount, int n)
+        private static BigInteger[] AllocateCentsEven(BigInteger centsAmount, int n)
         {
-            long lowResult = centsAmount / n;
-            long highResult = lowResult + 1;
+            BigInteger lowResult = centsAmount / n;
+            BigInteger highResult = lowResult + 1;
             
-            long[] results = new long[n];
-            int remainder = (int)centsAmount % n;
+            var results = new BigInteger[n];
+            var remainder = (int)centsAmount % n;
 
             for (int i = 0; i < remainder; i++)
             {
@@ -113,9 +137,9 @@ namespace EagleMoney.NET.Library
         }
 
         //Credit: Martin Fowler and Matt Foemmel, Book: Patterns of Enterprise Application Architecture, p.494
-        public Money[] AllocateByRatios(long[] ratios)
+        public Money[] AllocateByRatios(int[] ratios)
         {
-            long[] allocatedInternalAmounts = AllocateCentsByRatios(_amount, ratios);
+            BigInteger[] allocatedInternalAmounts = AllocateCentsByRatios(_amount, ratios);
 
             var currency = Currency;
             var allocated = Array.ConvertAll(
@@ -124,13 +148,13 @@ namespace EagleMoney.NET.Library
             return allocated;
         }
         
-        private static long[] AllocateCentsByRatios(long centsAmount, IReadOnlyList<long> ratios)
+        private static BigInteger[] AllocateCentsByRatios(BigInteger centsAmount, IReadOnlyList<int> ratios)
         {
-            long total = ratios.Sum();
+            int total = ratios.Sum();
 
-            long remainder = centsAmount;
+            BigInteger remainder = centsAmount;
             
-            long[] results = new long[ratios.Count];
+            var results = new BigInteger[ratios.Count];
 
             for (int i = 0; i < results.Length; i++)
             {

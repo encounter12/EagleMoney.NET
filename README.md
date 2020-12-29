@@ -1,2 +1,2 @@
 # EagleMoney.NET
-A repository implementing Money Value Object in .NET
+A simple library implementing Money Value Object in .NET

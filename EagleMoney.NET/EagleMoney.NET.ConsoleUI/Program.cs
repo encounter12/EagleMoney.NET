@@ -321,13 +321,13 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine($"Adding custom currencies (m43 + m44):{m45.Amount} {m45.Currency.Code}");
 
-            long[] allocation = {3, 10, 1, 4, 3};
+            int[] allocation = {3, 10, 1, 4, 3};
 
-            Money[] result = Money.USD(100M).AllocateByRatios(allocation);
+            Money[] allocatedByRatios = Money.USD(100M).AllocateByRatios(allocation);
 
-            for (int i = 0; i < result.Length; i++)
+            for (int i = 0; i < allocatedByRatios.Length; i++)
             {
-                Console.WriteLine($"Allocated by ratio {i}: {result[i].Amount} {result[i].Currency.Code}");
+                Console.WriteLine($"Allocated by ratio {i}: {allocatedByRatios[i].Amount} {allocatedByRatios[i].Currency.Code}");
             }
 
             var m46 = Money.USD(10M);
@@ -336,6 +336,9 @@ namespace EagleMoney.NET.ConsoleUI
             
             m47 = m46.Percentage(21.5M);
             Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
+            
+            var m48 = new Money(3.445446M, MidpointRounding.AwayFromZero, Currency.USD);
+            Console.WriteLine($"m48 - MidpointRounding.AwayFromZero: {m48.Amount} {m48.Currency.Code}");
         }
     }
 }
