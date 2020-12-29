@@ -24,6 +24,8 @@ namespace EagleMoney.NET.Library
         
     // TODO: Consider adding constructor overload with parameter _amount type: double
     
+    // TODO: Operator overloading (>, <, >=, <=) - add support for comparing Nullable Money objects
+    
     // TODO: Write unit tests (NUnit)
     
     public readonly struct Money : IEquatable<Money>, IComparable<Money>, IComparable
