@@ -7,41 +7,7 @@ using System.Numerics;
 using System.Text;
 
 namespace EagleMoney.NET.Library
-{
-    // TODO: bool Equals(Money other) - throw InvalidOperationException if the two currencies are different
-    // discarded - if there is such validation List<T>.Contains(T) throws an error - List could be used as Money bag.
-    
-    // TODO: Implement Parse()
-    // e.g. Money.Parse("180 USD"), Money.Parse("180USD"), Money.Parse("USD180.24"), Money.Parse("$180.24"), Money.Parse("180.24$")
-    
-    // TODO: Create static methods for all world currencies, e.g. Money.USD(decimal amount) - see ISO4217: https://www.iso.org/iso-4217-currency-codes.html
-    // TODO: Add all world currencies details to array: worldCurrencies
-        
-    // TODO: public Property or method for getting the internal amount (_amount)
-    
-    // TODO: Add Arithmetic operations Pow(), Sqrt() - using Math.Pow(), Math.Sqrt()
-        
-    // TODO: Arithmetics with string numbers - Consider overloading constructor with string amount parameter
-    // Implement arithmetics with numbers as strings
-    
-    // TODO: ToString() - Consider formatting - decimal separator (Globalization, Localization). Add ToString() with C1, C2 arguments
-        
-    // TODO: Consider adding constructor overload with parameter _amount type: double
-    
-    // TODO: Operator overloading (>, <, >=, <=) - add support for comparing Nullable Money objects
-    
-    // TODO: Currency: Add custom currencies to the list of worldCurrencies (for the scope of the variable)
-    
-    // TODO: Implement ToJson() method
-    
-    // TODO: Should money constructor allow negative values for amount?
-
-    // TODO: Consider adding checked (OverflowException) for decimal 
-    
-    // TODO: Write unit tests (NUnit)
-    
-    // TODO: Write documentation on GitHub
-    
+{ 
     public readonly struct Money : IEquatable<Money>, IComparable<Money>, IComparable
     {
         private readonly BigInteger _amount;
