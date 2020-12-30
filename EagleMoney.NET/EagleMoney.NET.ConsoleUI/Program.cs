@@ -464,6 +464,13 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine($"{m66.Amount} {m66.Currency.Sign}");
 
             Console.WriteLine($"{(m66 + 0.01m).Amount}");
+
+            var m67 = new Money(12.45m, Currency.BGN);
+
+            var m68 = Money.MKD(12.45m);
+
+            Console.WriteLine(m68);
+            Console.WriteLine(m68.ToString("C"));
         }
     }
 }

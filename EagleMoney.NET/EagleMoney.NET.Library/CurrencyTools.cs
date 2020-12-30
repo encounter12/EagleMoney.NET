@@ -9,11 +9,14 @@ namespace EagleMoney.NET.Library
     // Credit: spender - 3 Digit currency code to currency symbol (https://stackoverflow.com/a/12374378/1961386)
     public static class CurrencyTools
     {
-        private static IDictionary<string, string> map;
+        private static IDictionary<string, string> _map;
+        
+        private static List<Currency> _currencies;
 
         static CurrencyTools()
         {
-            map = GetCurrencySymbols();
+            _map = GetCurrencySymbols();
+            _currencies = GetCurrencies();
         }
 
         private static IDictionary<string, string> GetCurrencySymbols()
@@ -42,14 +45,14 @@ namespace EagleMoney.NET.Library
             string isoCurrencyCode, 
             out string symbol)
         {
-            if (map != null && map.Count > 0)
+            if (_map != null && _map.Any())
             {
-                return map.TryGetValue(isoCurrencyCode, out symbol);
+                return _map.TryGetValue(isoCurrencyCode, out symbol);
             }
 
-            map = GetCurrencySymbols();
+            _map = GetCurrencySymbols();
 
-            return map.TryGetValue(isoCurrencyCode,out symbol);
+            return _map.TryGetValue(isoCurrencyCode,out symbol);
         }
 
         public static List<string> CurrencyCodes = GetCurrencies()
@@ -59,6 +62,11 @@ namespace EagleMoney.NET.Library
         
         public static List<Currency> GetCurrencies()
         {
+            if (_currencies != null && _currencies.Any())
+            {
+                return _currencies;
+            }
+            
             var fileName = "list_one.xml";
             var currentDirectory = Directory.GetCurrentDirectory();
             var iso4217FilePath = Path.Combine(currentDirectory, "ISO-4217", fileName);
