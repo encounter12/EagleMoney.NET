@@ -141,7 +141,7 @@ namespace EagleMoney.NET.Library
 
         public Money Percentage(decimal percent) 
             => new ((Amount / 100) * percent, Currency);
-
+        
         public override string ToString()
             => $"{Amount} {Currency.Code}";
         
@@ -160,6 +160,22 @@ namespace EagleMoney.NET.Library
 
             return moneyString;
         }
+
+        public static Money Parse(string moneyStr, string currencyCode)
+        {
+            var amount = decimal.Parse(moneyStr);
+            return new Money(amount, currencyCode);
+        }
+        
+        // TODO: Complete method
+        
+        // public static Money Parse(string moneyStr)
+        // {
+        //     moneyStr = moneyStr.Trim();
+        //     
+        //     var amount = decimal.Parse(moneyStr);
+        //     return new Money();
+        // }
 
         public bool Equals(Money other)
             => Currency == other.Currency && Amount == other.Amount;

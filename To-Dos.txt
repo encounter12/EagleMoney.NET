@@ -24,6 +24,8 @@
 
 // TODO: Implement ToJson() method
 
+// TODO: Implement Money Converter
+
 // TODO: Should money constructor allow negative values for amount?
 
 // TODO: Consider adding checked (OverflowException) for decimal 

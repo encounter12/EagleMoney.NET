@@ -471,6 +471,14 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine(m68);
             Console.WriteLine(m68.ToString("C"));
+            
+            var m69 = Money.BGN(12.45m);
+            Console.WriteLine(m69.ToString("C"));
+
+            var m70 = Money.Parse("678.423", Currency.BGN);
+
+            Console.WriteLine(m70);
+            Console.WriteLine(m70.ToString("C"));
         }
     }
 }
