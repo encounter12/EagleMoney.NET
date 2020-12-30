@@ -9,11 +9,16 @@ namespace EagleMoney.NET.Library
     // Credit: spender - 3 Digit currency code to currency symbol (https://stackoverflow.com/a/12374378/1961386)
     public static class CurrencyTools
     {
-        private static IDictionary<string,string> map;
-        
+        private static IDictionary<string, string> map;
+
         static CurrencyTools()
         {
-            map = CultureInfo
+            map = GetCurrencySymbols();
+        }
+
+        private static IDictionary<string, string> GetCurrencySymbols()
+        {
+            IDictionary<string,string> currencyCodeSymbol = CultureInfo
                 .GetCultures(CultureTypes.AllCultures)
                 .Where(c => !c.IsNeutralCulture)
                 .Select(culture => {
@@ -29,14 +34,24 @@ namespace EagleMoney.NET.Library
                 .Where(ri => ri != null)
                 .GroupBy(ri => ri.ISOCurrencySymbol)
                 .ToDictionary(x => x.Key, x => x.First().CurrencySymbol);
+
+            return currencyCodeSymbol;
         }
+        
         public static bool TryGetCurrencySymbol(
             string isoCurrencyCode, 
             out string symbol)
         {
+            if (map != null && map.Count > 0)
+            {
+                return map.TryGetValue(isoCurrencyCode, out symbol);
+            }
+
+            map = GetCurrencySymbols();
+
             return map.TryGetValue(isoCurrencyCode,out symbol);
         }
-        
+
         public static List<string> CurrencyCodes = GetCurrencies()
             .Select(c => c.Code)
             .OrderBy(c => c)
@@ -50,7 +65,7 @@ namespace EagleMoney.NET.Library
             
             XElement iso4217 = XElement.Load(iso4217FilePath);
             
-            List<Currency> currencies = iso4217.Descendants("CcyNtry")
+            var currenciesXmlDict = iso4217.Descendants("CcyNtry")
                 .Select(x => new
                 {
                     CountryName =  x.Element("CtryNm")?.Value,
@@ -61,7 +76,7 @@ namespace EagleMoney.NET.Library
                 })
                 .Where(x => x.CurrencyMinorUnits != null && x.CurrencyMinorUnits != "N.A.")
                 .GroupBy(x => x.CurrencyCode)
-                .Select(x => new Currency
+                .Select(x => new CurrencyXml
                 {
                     Code = x.Key,
                     Number = x.First().CurrencyNumber,
@@ -71,7 +86,38 @@ namespace EagleMoney.NET.Library
                 })
                 .ToList();
 
+            currenciesXmlDict.ForEach(x =>
+            {
+                string symbol;
+                if (TryGetCurrencySymbol(x.Code, out symbol))
+                {
+                    x.Sign = symbol;
+                }
+            });
+
+            List<Currency> currencies = currenciesXmlDict.Select(x => new Currency
+            {
+                Code = x.Code,
+                Number = x.Number,
+                Sign = x.Sign,
+                DefaultFractionDigits = x.DefaultFractionDigits,
+                Countries = x.Countries
+            }).ToList();
+            
             return currencies;
         }
+    }
+
+    public class CurrencyXml
+    {
+        public string Code { get; set; }
+        
+        public string Number { get; set; }
+        
+        public string Sign { get; set; }
+        
+        public int DefaultFractionDigits { get; set; }
+        
+        public HashSet<string> Countries { get; set; }
     }
 }

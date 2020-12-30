@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Text;
 
 namespace EagleMoney.NET.Library
 { 
@@ -144,30 +143,12 @@ namespace EagleMoney.NET.Library
             => new ((Amount / 100) * percent, Currency);
 
         public override string ToString()
-        {
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(nameof(Money));
-            stringBuilder.Append(" { ");
-
-            PrintMembers(stringBuilder);
-
-            stringBuilder.Append(" }");
-            return stringBuilder.ToString();
-        }
-
-        private void PrintMembers(StringBuilder builder)
-        {
-            builder.Append(nameof(Amount));
-            builder.Append(" = ");
-            builder.Append(Amount);
-
-            builder.Append(", ");
-
-            builder.Append(nameof(Currency));
-            builder.Append(" = ");
-            builder.Append(Currency.ToString());
-        }
-
+            => $"{Amount} {Currency.Code}";
+        
+        public string ToString(string formattingLetter)
+            => formattingLetter?.ToUpper() == "C" ?
+                Amount.FormatCurrency(Currency.Code) : $"{Amount} {Currency.Code}";
+        
         public string ToString(MoneyFormattingType formattingType)
         {
             var moneyString = formattingType switch

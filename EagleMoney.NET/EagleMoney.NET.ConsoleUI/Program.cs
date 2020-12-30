@@ -425,12 +425,45 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine(m58);
 
+            Console.WriteLine($"m58.ToString('C'): {m58.ToString("C")}");
+
             Money[] allocatedEven = m58.AllocateEven(5);
 
             foreach (var ae in allocatedEven)
             {
-                Console.WriteLine($"{ae.Amount} { ae.Currency.Sign} {ae.Currency.Number}");
+                Console.WriteLine($"{ae.Amount} { ae.Currency.Sign} {ae.Currency.Code}");
             }
+
+            foreach (var ab in allocatedEven)
+            {
+                Console.WriteLine(ab.ToString("C"));
+            }
+
+            var m59 = Money.USD(12.34m);
+            Console.WriteLine(m59.ToString("C"));
+            
+            var m60 = Money.EUR(40.15M);
+            Console.WriteLine(m60.ToString("C"));
+            
+            var m61 = Money.GBP(72.13m);
+            Console.WriteLine(m61.ToString("C"));
+            
+            var m62 = Money.BGN(83.95m);
+            Console.WriteLine(m62.ToString("C"));
+            
+            var m63 = Money.CHF(100000.23m);
+            Console.WriteLine(m63.ToString("C"));
+            
+            var m64 = Money.AFN(125.34m);
+            Console.WriteLine(m64.ToString("C"));
+            
+            var m65 = Money.USD(1234.56m);
+            Console.WriteLine(m65);
+            
+            var m66 = Money.USD(432100000009.24m);
+            Console.WriteLine($"{m66.Amount} {m66.Currency.Sign}");
+
+            Console.WriteLine($"{(m66 + 0.01m).Amount}");
         }
     }
 }
