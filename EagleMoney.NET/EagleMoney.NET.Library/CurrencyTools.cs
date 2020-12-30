@@ -114,18 +114,18 @@ namespace EagleMoney.NET.Library
             
             return currencies;
         }
-    }
-
-    public class CurrencyXml
-    {
-        public string Code { get; set; }
         
-        public string Number { get; set; }
+        private class CurrencyXml
+        {
+            public string Code { get; set; }
         
-        public string Sign { get; set; }
+            public string Number { get; set; }
         
-        public int DefaultFractionDigits { get; set; }
+            public string Sign { get; set; }
         
-        public HashSet<string> Countries { get; set; }
+            public int DefaultFractionDigits { get; set; }
+        
+            public HashSet<string> Countries { get; set; }
+        }
     }
 }
