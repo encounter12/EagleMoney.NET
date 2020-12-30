@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using EagleMoney.NET.Library;
 
@@ -311,11 +312,11 @@ namespace EagleMoney.NET.ConsoleUI
                 Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
             }
 
-            var m43 = new Money(12.45M, new Currency("Bitcoin", 120, "‡", 2));
+            var m43 = new Money(12.45M, new Currency("Bitcoin", "120", "‡", 2));
 
             Console.WriteLine($"m43 (custom currency): {m43}");
             
-            var m44 = new Money(15M, new Currency("Bitcoin", 120, "‡", 2));
+            var m44 = new Money(15M, new Currency("Bitcoin", "120", "‡", 2));
 
             var m45 = m43 + m44;
 
@@ -343,19 +344,93 @@ namespace EagleMoney.NET.ConsoleUI
             var m49 = new Money(124.5M, new Currency("AFN"));
 
             Console.WriteLine(m49);
-
-            var m50 = new Money(312.49M, CountryCode.FR);
-
-            Console.WriteLine(m50);
-
-            foreach (var country in m50.Currency.Countries)
-            {
-                Console.WriteLine($"Country: {country.Name}, CodeAlpha2: {country.CodeAlpha2}, CurrencyCode: {country.Currency}");
-            }
-
+            
             var m51 = Money.BGN(380.52M, MidpointRounding.AwayFromZero);
 
             Console.WriteLine(m51);
+
+            var m52 = Money.USD(124.43M);
+
+            Console.WriteLine(m51 == m52);
+
+            // var m53 = Money.USD(79228162514264337593543950335M);
+            
+            // var m53 = Money.USD(Decimal.MaxValue / 99);
+
+            var m54 = new Money(124.5M, new Currency("EUR"));
+
+            foreach (var x in m54.Currency.Countries)
+            {
+                Console.WriteLine(x);
+            }
+
+            var m55 = new Money(12.3M, Currency.AFN);
+
+            Console.WriteLine($"{m55.Amount} {m55.Currency}");
+            
+            Console.WriteLine("Currency Symbol: {0}",
+                NumberFormatInfo.GetInstance(new CultureInfo("en-GB")).CurrencySymbol);
+            
+            // Gets a NumberFormatInfo associated with the en-US culture.
+            NumberFormatInfo nfi = new CultureInfo( "en-US", false ).NumberFormat;
+
+            // Displays a negative value with the default number of decimal digits (2).
+            Int64 myInt = -1234;
+            Console.WriteLine( myInt.ToString( "C", nfi ) );
+
+            // Displays the same value with four decimal digits.
+            nfi.CurrencyDecimalDigits = 4;
+            Console.WriteLine( myInt.ToString( "C", nfi ) );
+            
+            // CultureInfo[] custom = CultureInfo.GetCultures(CultureTypes.UserCustomCulture);
+            // if (custom.Length == 0) {
+            //     Console.WriteLine("There are no user-defined custom cultures.");
+            // }
+            // else {
+            //     Console.WriteLine("Custom cultures:");
+            //     foreach (var culture in custom)
+            //         Console.WriteLine("   {0} -- {1}", culture.Name, culture.DisplayName);
+            // }
+            //
+            // CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.AllCultures);
+            //
+            // foreach (var ci in cultures)
+            // {
+            //     Console.WriteLine($"{ci.Name} - {ci.DisplayName}");
+            // }
+
+            string symbol;
+            bool symbolExists = CurrencyTools.TryGetCurrencySymbol("USD", out symbol);
+
+            Console.WriteLine(symbol);
+
+            string symbol2;
+            if(CurrencyTools.TryGetCurrencySymbol("BGN", out symbol2))
+            {
+                Console.WriteLine("symbol2 is {0}", symbol2);
+            }
+
+            // foreach (var curr in CurrencyTools.CurrencyCodes)
+            // {
+            //     Console.WriteLine(curr);
+            // }
+
+            var m56 = Money.CAD(120m);
+
+            Console.WriteLine(m56);
+
+            var m57 = Money.SAR(15.25M);
+
+            var m58 = Money.AOA(15.34M, MidpointRounding.ToZero);
+
+            Console.WriteLine(m58);
+
+            Money[] allocatedEven = m58.AllocateEven(5);
+
+            foreach (var ae in allocatedEven)
+            {
+                Console.WriteLine($"{ae.Amount} { ae.Currency.Sign} {ae.Currency.Number}");
+            }
         }
     }
 }
