@@ -73,7 +73,7 @@ namespace EagleMoney.NET.Library
             
             XElement iso4217 = XElement.Load(iso4217FilePath);
             
-            var currenciesXmlDict = iso4217.Descendants("CcyNtry")
+            var currenciesXmlList = iso4217.Descendants("CcyNtry")
                 .Select(x => new
                 {
                     CountryName =  x.Element("CtryNm")?.Value,
@@ -94,7 +94,7 @@ namespace EagleMoney.NET.Library
                 })
                 .ToList();
 
-            currenciesXmlDict.ForEach(x =>
+            currenciesXmlList.ForEach(x =>
             {
                 string symbol;
                 if (TryGetCurrencySymbol(x.Code, out symbol))
@@ -103,7 +103,7 @@ namespace EagleMoney.NET.Library
                 }
             });
 
-            List<Currency> currencies = currenciesXmlDict.Select(x => new Currency
+            List<Currency> currencies = currenciesXmlList.Select(x => new Currency
             {
                 Code = x.Code,
                 Number = x.Number,
