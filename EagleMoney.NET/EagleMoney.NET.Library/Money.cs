@@ -11,6 +11,11 @@ namespace EagleMoney.NET.Library
     {
         private readonly BigInteger _amount;
         
+        // Used constructor chaining, Credit:
+        // DI-Friendly Library (Mark Seemann), https://blog.ploeh.dk/2014/05/19/di-friendly-library/
+        // Dependency Inject (DI) “friendly” library (Mark Seemann):
+        // https://stackoverflow.com/questions/2045904/dependency-inject-di-friendly-library/2047657
+        
         public Money(decimal amount, string currencyCode) : this(amount, new Currency(currencyCode))
         {
             if (amount < 0M)
