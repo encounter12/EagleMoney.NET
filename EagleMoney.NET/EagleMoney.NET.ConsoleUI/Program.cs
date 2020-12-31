@@ -14,7 +14,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine($"m1.ToString(): {m1}");
             Console.WriteLine($"m1.Amount: {m1.Amount}");
-            Console.WriteLine($"m1.Currency: {m1.Currency}");
+            Console.WriteLine($"m1.Currency: {m1.MCurrency}");
 
             var m2 = new Money(120M, Currency.USD);
 
@@ -30,17 +30,17 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine($"m1 == m1: {m1 == m1}");
             Console.WriteLine($"m1 != m2: {m1 != m2}");
 
-            Money? m3 = null;
-            Money? m4 = null;
+            Money m3 = null;
+            Money m4 = null;
 
-            Console.WriteLine($"m3.Equals(m4): {m3.Equals(m4)}");
+            //Console.WriteLine($"m3.Equals(m4): {m3.Equals(m4)}");
             Console.WriteLine($"m3 == m4: {m3 == m4}");
             Console.WriteLine($"(object)null == (object)null: {(object) null == (object) null}");
 
-            Money? m5 = null;
-            Money? m6 = new Money(65M, Currency.BGN);
+            Money m5 = null;
+            Money m6 = new Money(65M, Currency.BGN);
 
-            Console.WriteLine($"m5.Equals(m5): {m5.Equals(m5)}");
+            //Console.WriteLine($"m5.Equals(m5): {m5.Equals(m5)}");
 
             Console.WriteLine($"m6 == m5: {m6 == m5}");
             Console.WriteLine($"m5 == m6: {m5 == m6}");
@@ -66,7 +66,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             Money? m9 = null;
             Money? m10 = new Money(143, Currency.EUR);
-            Console.WriteLine($"m9.Equals(m10): {m9.Equals(m10)}");
+            //Console.WriteLine($"m9.Equals(m10): {m9.Equals(m10)}");
 
             var m11 = new Money(470, Currency.EUR);
             var m12 = new Money(140, Currency.EUR);
@@ -75,12 +75,12 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine($"m11 < m12: {m11 < m12}");
             Console.WriteLine($"m11 <= m12: {m11 <= m12}");
 
-            Money? m13 = null;
-            var m14 = new Money(140, Currency.EUR);
-            Console.WriteLine($"m13 > m14: {m13 > m14}");
-            Console.WriteLine($"m14 > m13: {m14 > m13}");
-            Console.WriteLine($"m13 > m13: {m13 > m13}");
-            Console.WriteLine($"m13 == m13: {m13 == m13}");
+            // Money m13 = null;
+            // var m14 = new Money(140, Currency.EUR);
+            // Console.WriteLine($"m13 > m14: {m13 > m14}");
+            // Console.WriteLine($"m14 > m13: {m14 > m13}");
+            // Console.WriteLine($"m13 > m13: {m13 > m13}");
+            // Console.WriteLine($"m13 == m13: {m13 == m13}");
 
             var m15 = new Money(30, Currency.EUR);
             Money? m16 = new Money(70, Currency.EUR);
@@ -121,8 +121,8 @@ namespace EagleMoney.NET.ConsoleUI
             var m30MoneyValue = (decimal) m30;
             Console.WriteLine($"m30MoneyValue = (decimal) m30: {m30MoneyValue}");
 
-            var m31 = new Money();
-            Console.WriteLine($"m31.ToString(): {m31.ToString()}");
+            // var m31 = new Money();
+            // Console.WriteLine($"m31.ToString(): {m31.ToString()}");
 
             var m32 = new Money(5.5M, Currency.BGN);
             var m33 = m32 % 2;
@@ -253,7 +253,7 @@ namespace EagleMoney.NET.ConsoleUI
                 new(130.72M, Currency.USD)
             };
 
-            // moneyCollection2.Add(new Money(130.72M, CurrencyCode.AED));
+            // moneyCollection2.Add(new Money(130.72M, Currency.AED));
 
 
             foreach (var money in moneyCollection2)
@@ -287,7 +287,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var item in allocated)
             {
-                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
+                Console.WriteLine($"allocated element: {item.Amount} {item.MCurrency.Code}");
             }
 
             Console.WriteLine("----------------------");
@@ -298,7 +298,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var item in allocated2)
             {
-                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
+                Console.WriteLine($"allocated element: {item.Amount} {item.MCurrency.Code}");
             }
             
             Console.WriteLine("----------------------");
@@ -309,7 +309,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var item in allocated3)
             {
-                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
+                Console.WriteLine($"allocated element: {item.Amount} {item.MCurrency.Code}");
             }
 
             var m43 = new Money(12.45M, new Currency("Bitcoin", "120", "‡", 2));
@@ -320,7 +320,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             var m45 = m43 + m44;
 
-            Console.WriteLine($"Adding custom currencies (m43 + m44):{m45.Amount} {m45.Currency.Code}");
+            Console.WriteLine($"Adding custom currencies (m43 + m44):{m45.Amount} {m45.MCurrency.Code}");
 
             int[] allocation = {3, 10, 1, 4, 3};
 
@@ -328,18 +328,18 @@ namespace EagleMoney.NET.ConsoleUI
 
             for (int i = 0; i < allocatedByRatios.Length; i++)
             {
-                Console.WriteLine($"Allocated by ratio {i}: {allocatedByRatios[i].Amount} {allocatedByRatios[i].Currency.Code}");
+                Console.WriteLine($"Allocated by ratio {i}: {allocatedByRatios[i].Amount} {allocatedByRatios[i].MCurrency.Code}");
             }
 
             var m46 = Money.USD(10M);
             var m47 = m46.Percentage(20);
-            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
+            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.MCurrency.Code}");
             
             m47 = m46.Percentage(21.5M);
-            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
+            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.MCurrency.Code}");
             
             var m48 = new Money(3.445446M, MidpointRounding.AwayFromZero, Currency.USD);
-            Console.WriteLine($"m48 - MidpointRounding.AwayFromZero: {m48.Amount} {m48.Currency.Code}");
+            Console.WriteLine($"m48 - MidpointRounding.AwayFromZero: {m48.Amount} {m48.MCurrency.Code}");
 
             var m49 = new Money(124.5M, new Currency("AFN"));
 
@@ -359,14 +359,14 @@ namespace EagleMoney.NET.ConsoleUI
 
             var m54 = new Money(124.5M, new Currency("EUR"));
 
-            foreach (var x in m54.Currency.Countries)
+            foreach (var x in m54.MCurrency.Countries)
             {
                 Console.WriteLine(x);
             }
 
             var m55 = new Money(12.3M, Currency.AFN);
 
-            Console.WriteLine($"{m55.Amount} {m55.Currency}");
+            Console.WriteLine($"{m55.Amount} {m55.MCurrency}");
             
             Console.WriteLine("Currency Symbol: {0}",
                 NumberFormatInfo.GetInstance(new CultureInfo("en-GB")).CurrencySymbol);
@@ -400,12 +400,12 @@ namespace EagleMoney.NET.ConsoleUI
             // }
 
             string symbol;
-            bool symbolExists = CurrencyTools.TryGetCurrencySymbol("USD", out symbol);
+            bool symbolExists = new CurrencyProvider().TryGetCurrencySymbol("USD", out symbol);
 
             Console.WriteLine(symbol);
 
             string symbol2;
-            if(CurrencyTools.TryGetCurrencySymbol("BGN", out symbol2))
+            if(new CurrencyProvider().TryGetCurrencySymbol("BGN", out symbol2))
             {
                 Console.WriteLine("symbol2 is {0}", symbol2);
             }
@@ -431,7 +431,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var ae in allocatedEven)
             {
-                Console.WriteLine($"{ae.Amount} { ae.Currency.Sign} {ae.Currency.Code}");
+                Console.WriteLine($"{ae.Amount} { ae.MCurrency.Sign} {ae.MCurrency.Code}");
             }
 
             foreach (var ab in allocatedEven)
@@ -461,7 +461,7 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine(m65);
             
             var m66 = Money.USD(432100000009.24m);
-            Console.WriteLine($"{m66.Amount} {m66.Currency.Sign}");
+            Console.WriteLine($"{m66.Amount} {m66.MCurrency.Sign}");
 
             Console.WriteLine($"{(m66 + 0.01m).Amount}");
 
@@ -479,6 +479,10 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine(m70);
             Console.WriteLine(m70.ToString("C"));
+
+            IMoney m71 = new Money(12.456m, Currency.AED);
+
+            Console.WriteLine(m71);
         }
     }
 }

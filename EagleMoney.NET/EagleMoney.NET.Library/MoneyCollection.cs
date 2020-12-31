@@ -5,7 +5,7 @@ namespace EagleMoney.NET.Library
 {
     public class MoneyCollection : Collection<Money>
     {
-        private readonly Currency _currency;
+        private readonly ICurrency _currency;
 
         public MoneyCollection(string currencyCode)
         {
@@ -31,7 +31,7 @@ namespace EagleMoney.NET.Library
         
         private void Validate(Money item)
         {
-            if (item.Currency != _currency)
+            if (!item.MCurrency.Equals(_currency))
             {
                 throw new InvalidOperationException(
                     $"Money with currency different than the default: {_currency.Code} can't be added to MoneyCollection");
