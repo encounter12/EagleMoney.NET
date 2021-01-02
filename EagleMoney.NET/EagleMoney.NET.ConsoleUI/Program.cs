@@ -14,7 +14,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine($"m1.ToString(): {m1}");
             Console.WriteLine($"m1.Amount: {m1.Amount}");
-            Console.WriteLine($"m1.Currency: {m1.MCurrency}");
+            Console.WriteLine($"m1.Currency: {m1.Currency}");
 
             var m2 = new Money(120M, Currency.USD);
 
@@ -30,14 +30,14 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine($"m1 == m1: {m1 == m1}");
             Console.WriteLine($"m1 != m2: {m1 != m2}");
 
-            Money m3 = null;
-            Money m4 = null;
+            Money? m3 = null;
+            Money? m4 = null;
 
             //Console.WriteLine($"m3.Equals(m4): {m3.Equals(m4)}");
             Console.WriteLine($"m3 == m4: {m3 == m4}");
             Console.WriteLine($"(object)null == (object)null: {(object) null == (object) null}");
 
-            Money m5 = null;
+            Money? m5 = null;
             Money m6 = new Money(65M, Currency.BGN);
 
             //Console.WriteLine($"m5.Equals(m5): {m5.Equals(m5)}");
@@ -287,7 +287,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var item in allocated)
             {
-                Console.WriteLine($"allocated element: {item.Amount} {item.MCurrency.Code}");
+                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
             }
 
             Console.WriteLine("----------------------");
@@ -298,7 +298,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var item in allocated2)
             {
-                Console.WriteLine($"allocated element: {item.Amount} {item.MCurrency.Code}");
+                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
             }
             
             Console.WriteLine("----------------------");
@@ -309,7 +309,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var item in allocated3)
             {
-                Console.WriteLine($"allocated element: {item.Amount} {item.MCurrency.Code}");
+                Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
             }
 
             var m43 = new Money(12.45M, new Currency("Bitcoin", "120", "‡", 2));
@@ -320,7 +320,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             var m45 = m43 + m44;
 
-            Console.WriteLine($"Adding custom currencies (m43 + m44):{m45.Amount} {m45.MCurrency.Code}");
+            Console.WriteLine($"Adding custom currencies (m43 + m44):{m45.Amount} {m45.Currency.Code}");
 
             int[] allocation = {3, 10, 1, 4, 3};
 
@@ -328,18 +328,18 @@ namespace EagleMoney.NET.ConsoleUI
 
             for (int i = 0; i < allocatedByRatios.Length; i++)
             {
-                Console.WriteLine($"Allocated by ratio {i}: {allocatedByRatios[i].Amount} {allocatedByRatios[i].MCurrency.Code}");
+                Console.WriteLine($"Allocated by ratio {i}: {allocatedByRatios[i].Amount} {allocatedByRatios[i].Currency.Code}");
             }
 
             var m46 = Money.USD(10M);
             var m47 = m46.Percentage(20);
-            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.MCurrency.Code}");
+            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
             
             m47 = m46.Percentage(21.5M);
-            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.MCurrency.Code}");
+            Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
             
             var m48 = new Money(3.445446M, MidpointRounding.AwayFromZero, Currency.USD);
-            Console.WriteLine($"m48 - MidpointRounding.AwayFromZero: {m48.Amount} {m48.MCurrency.Code}");
+            Console.WriteLine($"m48 - MidpointRounding.AwayFromZero: {m48.Amount} {m48.Currency.Code}");
 
             var m49 = new Money(124.5M, new Currency("AFN"));
 
@@ -359,14 +359,14 @@ namespace EagleMoney.NET.ConsoleUI
 
             var m54 = new Money(124.5M, new Currency("EUR"));
 
-            foreach (var x in m54.MCurrency.Countries)
+            foreach (var x in m54.Currency.Countries)
             {
                 Console.WriteLine(x);
             }
 
             var m55 = new Money(12.3M, Currency.AFN);
 
-            Console.WriteLine($"{m55.Amount} {m55.MCurrency}");
+            Console.WriteLine($"{m55.Amount} {m55.Currency}");
             
             Console.WriteLine("Currency Symbol: {0}",
                 NumberFormatInfo.GetInstance(new CultureInfo("en-GB")).CurrencySymbol);
@@ -431,7 +431,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var ae in allocatedEven)
             {
-                Console.WriteLine($"{ae.Amount} { ae.MCurrency.Sign} {ae.MCurrency.Code}");
+                Console.WriteLine($"{ae.Amount} { ae.Currency.Sign} {ae.Currency.Code}");
             }
 
             foreach (var ab in allocatedEven)
@@ -461,7 +461,7 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine(m65);
             
             var m66 = Money.USD(432100000009.24m);
-            Console.WriteLine($"{m66.Amount} {m66.MCurrency.Sign}");
+            Console.WriteLine($"{m66.Amount} {m66.Currency.Sign}");
 
             Console.WriteLine($"{(m66 + 0.01m).Amount}");
 
@@ -483,6 +483,48 @@ namespace EagleMoney.NET.ConsoleUI
             IMoney m71 = new Money(12.456m, Currency.AED);
 
             Console.WriteLine(m71);
+
+            var m72 = new Money(14.32m, new Currency("GAC", new CustomCurrencyProvider()));
+
+            Console.WriteLine(m72);
+        }
+    }
+
+    public struct CustomCurrencyProvider : ICurrencyProvider
+    {
+        public bool TryGetCurrencySymbol(string isoCurrencyCode, out string symbol)
+        {
+            symbol = "^";
+            return true;
+        }
+
+        public List<string> CurrencyCodes
+        {
+            get
+            {
+                return GetCurrencies()
+                    .Select(c => c.Code)
+                    .OrderBy(c => c)
+                    .ToList();
+            }
+        }
+        public List<CurrencyDTO> GetCurrencies()
+        {
+            return new List<CurrencyDTO>
+            {
+                new CurrencyDTO
+                {
+                    Code = "GAC",
+                    Number = "321",
+                    Sign = "^",
+                    DefaultFractionDigits = 2,
+                    Countries = new HashSet<string>
+                    {
+                        "Bulgaria",
+                        "Tanzania"
+                    }
+                }
+            };
         }
     }
 }

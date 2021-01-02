@@ -6,15 +6,14 @@ using System.Xml.Linq;
 
 namespace EagleMoney.NET.Library
 {
-    // Credit: spender - 3 Digit currency code to currency symbol (https://stackoverflow.com/a/12374378/1961386)
-    public class CurrencyProvider : ICurrencyProvider
+    public struct CurrencyProvider : ICurrencyProvider
     {
         private IDictionary<string, string> _map;
         
         private List<CurrencyDTO> _currencies;
         
         public bool TryGetCurrencySymbol(
-            string isoCurrencyCode, 
+            string isoCurrencyCode,
             out string symbol)
         {
             if (_map != null && _map.Any())
@@ -72,18 +71,20 @@ namespace EagleMoney.NET.Library
                 })
                 .ToList();
 
-            _currencies.ForEach(x =>
+            var currencies = this._currencies;
+
+            foreach (var curr in _currencies)
             {
-                string symbol;
-                if (TryGetCurrencySymbol(x.Code, out symbol))
+                if (TryGetCurrencySymbol(curr.Code, out var symbol))
                 {
-                    x.Sign = symbol;
+                    curr.Sign = symbol;
                 }
-            });
-            
+            }
+
             return _currencies;
         }
         
+        // Credit: spender - 3 Digit currency code to currency symbol (https://stackoverflow.com/a/12374378/1961386)
         private IDictionary<string, string> GetCurrencySymbols()
         {
             IDictionary<string,string> currencyCodeSymbols = CultureInfo

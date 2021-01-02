@@ -6,7 +6,7 @@ using System.Text;
 
 namespace EagleMoney.NET.Library
 {
-    public class Currency : ICurrency, IEquatable<Currency>
+    public readonly struct Currency : ICurrency, IEquatable<Currency>
     {
         public Currency(string currencyCode) : this(currencyCode, new CurrencyProvider())
         {
@@ -95,22 +95,22 @@ namespace EagleMoney.NET.Library
         }
         
         public bool Equals(Currency other)
-            => Code == other?.Code && 
-               Number == other?.Number &&
-               Sign == other?.Sign && 
-               DefaultFractionDigits == (other?.DefaultFractionDigits ?? -1);
+            => Code == other.Code && 
+               Number == other.Number && 
+               Sign == other.Sign && 
+               DefaultFractionDigits == other.DefaultFractionDigits;
 
         public override bool Equals(object other)
         {
-            var otherCurrency = other as Currency;
-            return !object.ReferenceEquals(otherCurrency, null) && Equals(otherCurrency);
+            var otherCurrency = other as Currency?;
+            return otherCurrency.HasValue && Equals(otherCurrency.Value);
         }
 
         public override int GetHashCode()
             => HashCode.Combine(Code, Number, Sign, DefaultFractionDigits);
 
-        public static bool operator ==(Currency c1, Currency c2)
-            => object.ReferenceEquals(c1, null) ? object.ReferenceEquals(c2, null) : c1.Equals(c2);
+        public static bool operator ==(Currency? c1, Currency? c2)
+            => c1.HasValue && c2.HasValue ? c1.Equals(c2) : !c1.HasValue && !c2.HasValue;
 
         public static bool operator !=(Currency? c1, Currency? c2)
             =>!(c1 == c2);

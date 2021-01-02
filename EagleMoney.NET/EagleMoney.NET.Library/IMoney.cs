@@ -4,7 +4,7 @@ namespace EagleMoney.NET.Library
     {
         decimal Amount { get; }
         
-        ICurrency MCurrency { get; init; }
+        Currency Currency { get; init; }
 
         Money[] AllocateEven(int n);
 

@@ -31,7 +31,7 @@ namespace EagleMoney.NET.Library
         
         private void Validate(Money item)
         {
-            if (!item.MCurrency.Equals(_currency))
+            if (!item.Currency.Equals(_currency))
             {
                 throw new InvalidOperationException(
                     $"Money with currency different than the default: {_currency.Code} can't be added to MoneyCollection");

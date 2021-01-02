@@ -7,25 +7,31 @@ using System.Numerics;
 
 namespace EagleMoney.NET.Library
 { 
-    public class Money : IMoney, IEquatable<Money>, IComparable<Money>, IComparable
+    public readonly struct Money : IMoney, IEquatable<Money>, IComparable<Money>, IComparable
     {
         private readonly BigInteger _amount;
         
         // Used constructor chaining, Credit:
-        // DI-Friendly Library (Mark Seemann), https://blog.ploeh.dk/2014/05/19/di-friendly-library/
+        // DI-Friendly Library (Mark Seemann):
+        // https://blog.ploeh.dk/2014/05/19/di-friendly-library/
         // Dependency Inject (DI) “friendly” library (Mark Seemann):
         // https://stackoverflow.com/questions/2045904/dependency-inject-di-friendly-library/2047657
         
-        public Money(decimal amount, string currencyCode) : this(amount, new Currency(currencyCode))
+        public Money(decimal amount, string currencyCode)
         {
             if (amount < 0M)
             {
                 throw new ArgumentOutOfRangeException(
                     nameof(amount), amount, "Amount should be equal or greater than zero");
             }
+            
+            var currency = new Currency(currencyCode);
+            int centFactor = Cents[currency.DefaultFractionDigits];
+            _amount = (BigInteger) Math.Round(amount * centFactor);
+            Currency = currency;
         }
         
-        public Money(decimal amount, ICurrency currency)
+        public Money(decimal amount, Currency currency)
         {
             if (amount < 0M)
             {
@@ -35,7 +41,7 @@ namespace EagleMoney.NET.Library
 
             int centFactor = Cents[currency.DefaultFractionDigits];
             _amount = (BigInteger) Math.Round(amount * centFactor);
-            MCurrency = currency;
+            Currency = currency;
         }
 
         public Money(decimal amount, MidpointRounding mode, string currencyCode)
@@ -49,10 +55,10 @@ namespace EagleMoney.NET.Library
             var currency = new Currency(currencyCode);
             int centFactor = Cents[currency.DefaultFractionDigits];
             _amount = (BigInteger) Math.Round(amount * centFactor, mode);
-            MCurrency = currency;
+            Currency = currency;
         }
 
-        private Money(BigInteger amount, ICurrency currency)
+        private Money(BigInteger amount, Currency currency)
         {
             if (amount < 0)
             {
@@ -61,23 +67,23 @@ namespace EagleMoney.NET.Library
             }
             
             _amount = amount;
-            MCurrency = currency;
+            Currency = currency;
         }
         
         private static int[] Cents => new[] {1, 10, 100, 1000};
 
-        private int CentFactor => Cents[MCurrency.DefaultFractionDigits];
+        private int CentFactor => Cents[Currency.DefaultFractionDigits];
 
         public decimal Amount => (decimal)_amount / CentFactor;
 
-        public ICurrency MCurrency { get; init; }
+        public Currency Currency { get; init; }
 
         //Credit: Martin Fowler and Matt Foemmel, Book: Patterns of Enterprise Application Architecture, p.494
         public Money[] AllocateEven(int n)
         {
             BigInteger[] allocatedInternalAmounts = AllocateCentsEven(_amount, n);
 
-            var currency = MCurrency;
+            var currency = Currency;
             var allocated = Array.ConvertAll(
                 allocatedInternalAmounts, x => new Money(x, currency));
             
@@ -110,7 +116,7 @@ namespace EagleMoney.NET.Library
         {
             BigInteger[] allocatedInternalAmounts = AllocateCentsByRatios(_amount, ratios);
 
-            var currency = MCurrency;
+            var currency = Currency;
             var allocated = Array.ConvertAll(
                 allocatedInternalAmounts, x => new Money(x, currency));
             
@@ -140,21 +146,21 @@ namespace EagleMoney.NET.Library
         }
 
         public Money Percentage(decimal percent) 
-            => new ((Amount / 100) * percent, MCurrency);
+            => new ((Amount / 100) * percent, Currency);
         
         public override string ToString()
-            => $"{Amount} {MCurrency.Code}";
+            => $"{Amount} {Currency.Code}";
         
         public string ToString(string formattingLetter)
             => formattingLetter?.ToUpper() == "C" ?
-                Amount.FormatCurrency(MCurrency.Code) : $"{Amount} {MCurrency.Code}";
+                Amount.FormatCurrency(Currency.Code) : $"{Amount} {Currency.Code}";
         
         public string ToString(MoneyFormattingType formattingType)
         {
             var moneyString = formattingType switch
             {
-                MoneyFormattingType.MoneyValueCurrencyCode => $"{Amount} {MCurrency.Code}",
-                MoneyFormattingType.CurrencyCodeMoneyValue => $"{MCurrency.Code} {Amount}",
+                MoneyFormattingType.MoneyValueCurrencyCode => $"{Amount} {Currency.Code}",
+                MoneyFormattingType.CurrencyCodeMoneyValue => $"{Currency.Code} {Amount}",
                 _ => string.Empty
             };
 
@@ -178,37 +184,25 @@ namespace EagleMoney.NET.Library
         // }
 
         public bool Equals(Money other)
-        {
-            if (object.ReferenceEquals(this, null) && object.ReferenceEquals(other, null))
-            {
-                return true;
-            }
-
-            if (!object.ReferenceEquals(this, null) && !object.ReferenceEquals(other, null))
-            {
-                return MCurrency.Equals(other.MCurrency) && Amount.Equals(other.Amount);
-            }
-
-            return false;
-        }
+            => Currency.Equals(other.Currency) && Amount == other.Amount;
         
         public override bool Equals(object other)
         {
-            var otherMoney = other as Money;
-            return !object.ReferenceEquals(otherMoney, null) && Equals(otherMoney);
+            var otherMoney = other as Money?;
+            return otherMoney.HasValue && Equals(otherMoney.Value);
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(Amount, MCurrency);
+            => HashCode.Combine(Amount, Currency);
 
         public int CompareTo(Money other)
         {
-            if (!MCurrency.Equals(other?.MCurrency))
+            if (!Currency.Equals(other.Currency))
             {
                 throw new InvalidOperationException("Cannot compare money of different currencies");
             }
 
-            return Equals(other) ? 0 : Amount.CompareTo(other?.Amount);
+            return Equals(other) ? 0 : Amount.CompareTo(other.Amount);
         }
 
         public int CompareTo(object other)
@@ -221,23 +215,22 @@ namespace EagleMoney.NET.Library
             return CompareTo((Money) other);
         }
 
-        public static bool operator ==(Money m1, Money m2)
-            =>  !object.ReferenceEquals(m1, null) && !object.ReferenceEquals(m2, null) ? 
-                m1.Equals(m2) : object.ReferenceEquals(m1, null) && object.ReferenceEquals(m2, null);
+        public static bool operator ==(Money? m1, Money? m2)
+            => m1.HasValue && m2.HasValue ? m1.Equals(m2) : !m1.HasValue && !m2.HasValue;
 
-        public static bool operator !=(Money m1, Money m2)
-            => !(m1 == m2);
+        public static bool operator !=(Money? m1, Money? m2)
+            => m1.HasValue && m2.HasValue ? !m1.Equals(m2) : m1.HasValue ^ m2.HasValue;
         
-        public static bool operator ==(Money m1, decimal m2Value)
+        public static bool operator ==(Money? m1, decimal m2Value)
             => m1?.Amount.Equals(m2Value) ?? false;
         
-        public static bool operator !=(Money m1, decimal m2Value)
+        public static bool operator !=(Money? m1, decimal m2Value)
             => !m1?.Amount.Equals(m2Value) ?? false;
         
-        public static bool operator ==(decimal m1Value, Money m2)
+        public static bool operator ==(decimal m1Value, Money? m2)
             => m2?.Amount.Equals(m1Value) ?? false;
         
-        public static bool operator !=(decimal m1Value, Money m2)
+        public static bool operator !=(decimal m1Value, Money? m2)
             => !m2?.Amount.Equals(m1Value) ?? false;
 
         public static bool operator <(Money m1, Money m2)
@@ -265,111 +258,111 @@ namespace EagleMoney.NET.Library
             => m1 == m2 || m1 > m2;
         
         public static bool operator <=(Money m1, decimal m2Value)
-            => m1?.Amount == m2Value || m1?.Amount < m2Value;
+            => m1.Amount == m2Value || m1.Amount < m2Value;
         
         public static bool operator >=(Money m1, decimal m2Value)
-            => m1?.Amount == m2Value || m1?.Amount > m2Value;
+            => m1.Amount == m2Value || m1.Amount > m2Value;
         
         public static bool operator <=(decimal m1Value, Money m2)
-            => m1Value == m2?.Amount || m1Value < m2?.Amount;
+            => m1Value == m2.Amount || m1Value < m2.Amount;
         
         public static bool operator >=(decimal m1Value, Money m2)
-            => m1Value == m2?.Amount || m1Value > m2?.Amount;
+            => m1Value == m2.Amount || m1Value > m2.Amount;
 
         public static Money operator +(Money m1, Money m2)
         {
-            if (!m1.MCurrency.Equals(m2.MCurrency))
+            if (!m1.Currency.Equals(m2.Currency))
             {
                 throw new InvalidOperationException("Cannot add money having different currencies");
             }
 
-            return new Money(m1.Amount + m2.Amount, m1.MCurrency);
+            return new Money(m1.Amount + m2.Amount, m1.Currency);
         }
 
         public static Money operator +(Money m1, decimal m2Value) 
-            => new(m1.Amount + m2Value, m1.MCurrency);
+            => new(m1.Amount + m2Value, m1.Currency);
 
         public static Money operator +(decimal m1Value, Money m2) 
-            => new(m1Value + m2.Amount, m2.MCurrency);
+            => new(m1Value + m2.Amount, m2.Currency);
 
         public static Money operator -(Money m1, Money m2)
         {
-            if (!m1.MCurrency.Equals(m2.MCurrency))
+            if (!m1.Currency.Equals(m2.Currency))
             {
                 throw new InvalidOperationException("Cannot subtract money having different currencies");
             }
 
-            return new Money(m1.Amount - m2.Amount, m1.MCurrency);
+            return new Money(m1.Amount - m2.Amount, m1.Currency);
         }
 
         public static Money operator -(Money m1, decimal m2Value)
-            => new(m1.Amount - m2Value, m1.MCurrency);
+            => new(m1.Amount - m2Value, m1.Currency);
 
         public static Money operator -(decimal m1Value, Money m2)
-            => new(m1Value - m2.Amount, m2.MCurrency);
+            => new(m1Value - m2.Amount, m2.Currency);
 
         public static Money operator *(Money m1, Money m2)
         {
-            if (!m1.MCurrency.Equals(m2.MCurrency))
+            if (!m1.Currency.Equals(m2.Currency))
             {
                 throw new InvalidOperationException("Cannot multiply money having different currencies");
             }
 
-            return new Money(m1.Amount * m2.Amount, m1.MCurrency);
+            return new Money(m1.Amount * m2.Amount, m1.Currency);
         }
 
         public static Money operator *(Money m1, decimal m2Value)
-            => new(m1.Amount * m2Value, m1.MCurrency);
+            => new(m1.Amount * m2Value, m1.Currency);
 
         public static Money operator *(decimal m1Value, Money m2)
-            => new(m1Value * m2.Amount, m2.MCurrency);
+            => new(m1Value * m2.Amount, m2.Currency);
 
         public static Money operator /(Money m1, Money m2)
         {
-            if (!m1.MCurrency.Equals(m2.MCurrency))
+            if (!m1.Currency.Equals(m2.Currency))
             {
                 throw new InvalidOperationException("Cannot divide money having different currencies");
             }
 
-            return new Money(m1.Amount / m2.Amount, m1.MCurrency);
+            return new Money(m1.Amount / m2.Amount, m1.Currency);
         }
 
         public static Money operator /(Money m1, decimal m2Value)
-            => new(m1.Amount / m2Value, m1.MCurrency);
+            => new(m1.Amount / m2Value, m1.Currency);
 
         public static Money operator /(decimal m1Value, Money m2)
-            => new(m1Value / m2.Amount, m2.MCurrency);
+            => new(m1Value / m2.Amount, m2.Currency);
 
         public static Money operator %(Money m, int divisor)
-            => new(m.Amount % divisor, m.MCurrency);
+            => new(m.Amount % divisor, m.Currency);
         
         public static Money operator +(Money m)
-            => new(m.Amount, m.MCurrency);
+            => new(m.Amount, m.Currency);
         
         public static Money operator -(Money m)
-            => new(-m.Amount, m.MCurrency);
+            => new(-m.Amount, m.Currency);
 
         public static Money operator ++(Money m)
-            => new(m.Amount + 1M, m.MCurrency);
+            => new(m.Amount + 1M, m.Currency);
 
         public static Money operator --(Money m)
-            => new(m.Amount - 1M, m.MCurrency);
+            => new(m.Amount - 1M, m.Currency);
 
         public static explicit operator decimal(Money m) => m.Amount;
         
-        public static Money AFN(decimal amount) => new (amount, Currency.AFN);
-        public static Money BGN(decimal amount) => new (amount, Currency.BGN);
-        public static Money CAD(decimal amount) => new(amount, Currency.CAD);
-        public static Money CHF(decimal amount) => new(amount, Currency.CHF);
-        public static Money EUR(decimal amount) => new (amount, Currency.EUR);
-        public static Money GBP(decimal amount) => new (amount, Currency.GBP);
-        public static Money MKD(decimal amount) => new (amount, Currency.MKD);
-        public static Money SAR(decimal amount) => new (amount, Currency.SAR);
-        public static Money USD(decimal amount) => new (amount, Currency.USD);
+        public static Money AFN(decimal amount) => new (amount, Library.Currency.AFN);
+        public static Money BGN(decimal amount) => new (amount, Library.Currency.BGN);
+        public static Money CAD(decimal amount) => new(amount, Library.Currency.CAD);
+        public static Money CHF(decimal amount) => new(amount, Library.Currency.CHF);
+        public static Money EUR(decimal amount) => new (amount, Library.Currency.EUR);
+        public static Money GBP(decimal amount) => new (amount, Library.Currency.GBP);
+        public static Money MKD(decimal amount) => new (amount, Library.Currency.MKD);
+        public static Money SAR(decimal amount) => new (amount, Library.Currency.SAR);
+        public static Money USD(decimal amount) => new (amount, Library.Currency.USD);
         
-        public static Money AOA(decimal amount, MidpointRounding mode) => new(amount, mode, Currency.AOA);
-        public static Money BGN(decimal amount, MidpointRounding mode) => new(amount, mode, Currency.BGN);
-        public static Money CHF(decimal amount, MidpointRounding mode) => new(amount, mode, Currency.CHF);
+        public static Money AOA(decimal amount, MidpointRounding mode) => new(amount, mode, Library.Currency.AOA);
+        public static Money BGN(decimal amount, MidpointRounding mode) => new(amount, mode, Library.Currency.BGN);
+        public static Money CHF(decimal amount, MidpointRounding mode) => new(amount, mode, Library.Currency.CHF);
         
     }
 }
