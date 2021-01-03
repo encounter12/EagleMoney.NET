@@ -8,7 +8,7 @@ namespace EagleMoney.NET.Library
 {
     public struct CurrencyProvider : ICurrencyProvider
     {
-        private IDictionary<string, string> _map;
+        private IDictionary<string, string> _currencyCodeSymbols;
         
         private List<CurrencyDTO> _currencies;
         
@@ -16,32 +16,41 @@ namespace EagleMoney.NET.Library
             string isoCurrencyCode,
             out string symbol)
         {
-            if (_map != null && _map.Any())
+            if (_currencyCodeSymbols != null && _currencyCodeSymbols.Any())
             {
-                return _map.TryGetValue(isoCurrencyCode, out symbol);
+                return _currencyCodeSymbols.TryGetValue(isoCurrencyCode, out symbol);
             }
 
-            _map = GetCurrencySymbols();
+            _currencyCodeSymbols = GetCurrencyCodesCurrencySymbols();
 
-            return _map.TryGetValue(isoCurrencyCode,out symbol);
+            return _currencyCodeSymbols.TryGetValue(isoCurrencyCode,out symbol);
         }
         
         public List<string> CurrencyCodes
         {
             get
             {
+                if (_currencies != null && _currencies.Any())
+                {
+                    return _currencies.Select(c => c.Code).ToList();
+                }
+
                 return GetCurrencies()
                     .Select(c => c.Code)
-                    .OrderBy(c => c)
                     .ToList();
             }
         }
         
-        public List<CurrencyDTO> GetCurrencies()
+        public IEnumerable<CurrencyDTO> GetCurrencies()
         {
             if (_currencies != null && _currencies.Any())
             {
                 return _currencies;
+            }
+
+            if (_currencyCodeSymbols == null || !_currencyCodeSymbols.Any())
+            {
+                _currencyCodeSymbols = GetCurrencyCodesCurrencySymbols();
             }
             
             var fileName = "list_one.xml";
@@ -49,11 +58,11 @@ namespace EagleMoney.NET.Library
             var iso4217FilePath = Path.Combine(currentDirectory, "ISO-4217", fileName);
             
             XElement iso4217 = XElement.Load(iso4217FilePath);
-            
-            _currencies = iso4217.Descendants("CcyNtry")
+
+            var currenciesIso4217 = iso4217.Descendants("CcyNtry")
                 .Select(x => new
                 {
-                    CountryName =  x.Element("CtryNm")?.Value,
+                    CountryName = x.Element("CtryNm")?.Value,
                     CurrencyName = x.Element("CcyNm")?.Value,
                     CurrencyCode = x.Element("Ccy")?.Value,
                     CurrencyNumber = x.Element("CcyNbr")?.Value,
@@ -68,24 +77,31 @@ namespace EagleMoney.NET.Library
                     Sign = "",
                     DefaultFractionDigits = int.Parse(x.First().CurrencyMinorUnits),
                     Countries = x.Select(y => y.CountryName).ToHashSet()
-                })
+                });
+            
+            _currencies = 
+                currenciesIso4217
+                .GroupJoin(
+                    _currencyCodeSymbols,
+                    currencyDTO => currencyDTO.Code, 
+                    map => map.Key, 
+                    (currDTO, currCodeSymbols) => new CurrencyDTO
+                    {
+                        Code = currDTO.Code,
+                        Number = currDTO.Number,
+                        Sign = currCodeSymbols.SingleOrDefault().Value,
+                        DefaultFractionDigits = currDTO.DefaultFractionDigits,
+                        Countries = currDTO.Countries
+                        
+                    })
+                .OrderBy(c => c.Code)
                 .ToList();
-
-            var currencies = this._currencies;
-
-            foreach (var curr in _currencies)
-            {
-                if (TryGetCurrencySymbol(curr.Code, out var symbol))
-                {
-                    curr.Sign = symbol;
-                }
-            }
 
             return _currencies;
         }
         
         // Credit: spender - 3 Digit currency code to currency symbol (https://stackoverflow.com/a/12374378/1961386)
-        private IDictionary<string, string> GetCurrencySymbols()
+        private IDictionary<string, string> GetCurrencyCodesCurrencySymbols()
         {
             IDictionary<string,string> currencyCodeSymbols = CultureInfo
                 .GetCultures(CultureTypes.AllCultures)
@@ -106,18 +122,5 @@ namespace EagleMoney.NET.Library
 
             return currencyCodeSymbols;
         }
-    }
-    
-    public class CurrencyDTO
-    {
-        public string Code { get; set; }
-        
-        public string Number { get; set; }
-        
-        public string Sign { get; set; }
-        
-        public int DefaultFractionDigits { get; set; }
-        
-        public HashSet<string> Countries { get; set; }
     }
 }

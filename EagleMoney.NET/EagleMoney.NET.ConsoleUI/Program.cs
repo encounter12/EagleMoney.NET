@@ -487,28 +487,14 @@ namespace EagleMoney.NET.ConsoleUI
             var m72 = new Money(14.32m, new Currency("GAC", new CustomCurrencyProvider()));
 
             Console.WriteLine(m72);
+            
+            Console.WriteLine(m72.ToString("C"));
         }
     }
 
     public struct CustomCurrencyProvider : ICurrencyProvider
     {
-        public bool TryGetCurrencySymbol(string isoCurrencyCode, out string symbol)
-        {
-            symbol = "^";
-            return true;
-        }
-
-        public List<string> CurrencyCodes
-        {
-            get
-            {
-                return GetCurrencies()
-                    .Select(c => c.Code)
-                    .OrderBy(c => c)
-                    .ToList();
-            }
-        }
-        public List<CurrencyDTO> GetCurrencies()
+        public IEnumerable<CurrencyDTO> GetCurrencies()
         {
             return new List<CurrencyDTO>
             {
