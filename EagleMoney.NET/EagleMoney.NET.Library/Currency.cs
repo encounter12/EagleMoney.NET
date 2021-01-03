@@ -26,28 +26,62 @@ namespace EagleMoney.NET.Library
                     $"No currency {currencyCode} exists in the list. Use the overloaded constructor to define custom currency.");
             }
 
+            Name = selectedCurrency.Name;
             Number = selectedCurrency.Number;
             Sign = selectedCurrency.Sign;
             DefaultFractionDigits = selectedCurrency.DefaultFractionDigits;
             Countries = selectedCurrency.Countries;
         }
-
-        public Currency(string code, string number, string sign, int defaultFractionDigits)
+        
+        public Currency(string code, int defaultFractionDigits)
         {
             Code = code;
+            Name = "";
+            Number = "-1";
+            Sign = "";
+            DefaultFractionDigits = defaultFractionDigits;
+            Countries = new HashSet<string>();
+        }
+        
+        public Currency(string code, string sign, int defaultFractionDigits)
+        {
+            Code = code;
+            Name = "";
+            Number = "";
+            Sign = sign;
+            DefaultFractionDigits = defaultFractionDigits;
+            Countries = new HashSet<string>();
+        }
+        
+        public Currency(string code, string name, string sign, int defaultFractionDigits)
+        {
+            Code = code;
+            Name = name;
+            Number = "";
+            Sign = sign;
+            DefaultFractionDigits = defaultFractionDigits;
+            Countries = new HashSet<string>();
+        }
+
+        public Currency(string code, string name, string number, string sign, int defaultFractionDigits)
+        {
+            Code = code;
+            Name = name;
             Number = number;
             Sign = sign;
             DefaultFractionDigits = defaultFractionDigits;
             Countries = new HashSet<string>();
         }
         
-        public Currency(string code, string number, string sign, int defaultFractionDigits, HashSet<string> countries) 
-            : this(code, number, sign, defaultFractionDigits)
+        public Currency(string code, string name, string number, string sign, int defaultFractionDigits, HashSet<string> countries) 
+            : this(code, name, number, sign, defaultFractionDigits)
         {
             Countries = countries;
         }
 
         public string Code { get; init;  }
+        
+        public string Name { get; init; }
 
         public string Number { get; init;  }
 

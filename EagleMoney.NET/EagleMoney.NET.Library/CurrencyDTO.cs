@@ -6,6 +6,8 @@ namespace EagleMoney.NET.Library
     {
         public string Code { get; set; }
         
+        public string Name { get; set; }
+        
         public string Number { get; set; }
         
         public string Sign { get; set; }

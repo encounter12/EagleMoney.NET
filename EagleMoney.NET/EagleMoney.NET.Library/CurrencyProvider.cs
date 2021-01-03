@@ -52,7 +52,7 @@ namespace EagleMoney.NET.Library
             {
                 _currencyCodeSymbols = GetCurrencyCodesCurrencySymbols();
             }
-            
+
             var fileName = "list_one.xml";
             var currentDirectory = Directory.GetCurrentDirectory();
             var iso4217FilePath = Path.Combine(currentDirectory, "ISO-4217", fileName);
@@ -73,6 +73,7 @@ namespace EagleMoney.NET.Library
                 .Select(x => new CurrencyDTO
                 {
                     Code = x.Key,
+                    Name = x.First().CurrencyName,
                     Number = x.First().CurrencyNumber,
                     Sign = "",
                     DefaultFractionDigits = int.Parse(x.First().CurrencyMinorUnits),
@@ -88,6 +89,7 @@ namespace EagleMoney.NET.Library
                     (currDTO, currCodeSymbols) => new CurrencyDTO
                     {
                         Code = currDTO.Code,
+                        Name = currDTO.Name,
                         Number = currDTO.Number,
                         Sign = currCodeSymbols.SingleOrDefault().Value,
                         DefaultFractionDigits = currDTO.DefaultFractionDigits,

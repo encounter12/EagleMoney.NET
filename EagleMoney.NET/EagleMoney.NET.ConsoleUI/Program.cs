@@ -400,7 +400,11 @@ namespace EagleMoney.NET.ConsoleUI
             // }
 
             string symbol;
-            bool symbolExists = new CurrencyProvider().TryGetCurrencySymbol("USD", out symbol);
+            var currencyProvider = new CurrencyProvider();
+            
+            bool symbolExists = currencyProvider.TryGetCurrencySymbol("USD", out symbol);
+            
+            bool symbolExists2 = currencyProvider.TryGetCurrencySymbol("USD", out symbol);
 
             Console.WriteLine(symbol);
 
