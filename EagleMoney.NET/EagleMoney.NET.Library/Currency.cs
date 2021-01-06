@@ -1,30 +1,12 @@
 // ReSharper disable InconsistentNaming
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace EagleMoney.NET.Library
 {
     public readonly struct Currency : IEquatable<Currency>
     {
-        public Currency(CountryCode countryCode) 
-            : this(countryCode, new CurrencyFactory(new CurrencyProvider(), new CountryProvider()))
-        {
-        }
-        
-        public Currency(CountryCode countryCode, CurrencyFactory currencyFactory)
-        {
-            var currency = currencyFactory.CreateCurrency(countryCode);
-
-            Code = currency.Code;
-            Name = currency.Name;
-            Number = currency.Number;
-            Sign = currency.Sign;
-            DefaultFractionDigits = currency.DefaultFractionDigits;
-            Countries = currency.Countries;
-        }
-        
         public Currency(string currencyCode) : 
             this(currencyCode, new CurrencyFactory( new CurrencyProvider(), new CountryProvider()))
         {
@@ -32,81 +14,101 @@ namespace EagleMoney.NET.Library
         
         public Currency(string currencyCode, CurrencyFactory currencyFactory)
         {
-            var currency = currencyFactory.CreateCurrency(currencyCode);
+            CurrencyDetailedInfo currencyDetailed = currencyFactory.CreateCurrency(currencyCode);
 
-            Code = currency.Code;
-            Name = currency.Name;
-            Number = currency.Number;
-            Sign = currency.Sign;
-            DefaultFractionDigits = currency.DefaultFractionDigits;
-            Countries = currency.Countries;
+            Code = currencyDetailed.Code;
+            DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
+            Sign = currencyDetailed.Sign;
+            Name = currencyDetailed.Name;
+            Number = currencyDetailed.Number;
+            Countries = currencyDetailed.Countries;
+        }
+        
+        public Currency(CountryCode countryCode) 
+            : this(countryCode, new CurrencyFactory(new CurrencyProvider(), new CountryProvider()))
+        {
+        }
+        
+        public Currency(CountryCode countryCode, CurrencyFactory currencyFactory)
+        {
+            CurrencyDetailedInfo currencyDetailed = currencyFactory.CreateCurrency(countryCode);
+
+            Code = currencyDetailed.Code;
+            DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
+            Sign = currencyDetailed.Sign;
+            Name = currencyDetailed.Name;
+            Number = currencyDetailed.Number;
+            Countries = currencyDetailed.Countries;
+        }
+        
+        public Currency(CountryCodeAlpha3 codeAlpha3) 
+            : this(codeAlpha3, new CurrencyFactory(new CurrencyProvider(), new CountryProvider()))
+        {
+        }
+        
+        public Currency(CountryCodeAlpha3 codeAlpha3, CurrencyFactory currencyFactory)
+        {
+            CurrencyDetailedInfo currencyDetailed = currencyFactory.CreateCurrency(codeAlpha3);
+
+            Code = currencyDetailed.Code;
+            DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
+            Sign = currencyDetailed.Sign;
+            Name = currencyDetailed.Name;
+            Number = currencyDetailed.Number;
+            Countries = currencyDetailed.Countries;
         }
         
         public Currency(string code, int defaultFractionDigits)
         {
             Code = code;
-            Name = "";
-            Number = "-1";
-            Sign = "";
             DefaultFractionDigits = defaultFractionDigits;
-            Countries = new HashSet<Country>();
-        }
-        
-        public Currency(string code, string sign, int defaultFractionDigits)
-        {
-            Code = code;
+            Sign = "";
             Name = "";
             Number = "";
-            Sign = sign;
-            DefaultFractionDigits = defaultFractionDigits;
             Countries = new HashSet<Country>();
         }
         
-        public Currency(string code, string name, string sign, int defaultFractionDigits)
+        public Currency(string code, int defaultFractionDigits, string sign)
         {
             Code = code;
+            DefaultFractionDigits = defaultFractionDigits;
+            Sign = sign;
+            Name = "";
+            Number = "";
+            Countries = new HashSet<Country>();
+        }
+        
+        public Currency(string code, int defaultFractionDigits, string sign, string name)
+        {
+            Code = code;
+            DefaultFractionDigits = defaultFractionDigits;
+            Sign = sign;
             Name = name;
             Number = "";
-            Sign = sign;
-            DefaultFractionDigits = defaultFractionDigits;
             Countries = new HashSet<Country>();
         }
 
-        public Currency(string code, string name, string number, string sign, int defaultFractionDigits)
+        public Currency(string code, int defaultFractionDigits, string sign, string name, string number)
         {
             Code = code;
+            DefaultFractionDigits = defaultFractionDigits;
+            Sign = sign;
             Name = name;
             Number = number;
-            Sign = sign;
-            DefaultFractionDigits = defaultFractionDigits;
             Countries = new HashSet<Country>();
         }
         
-        public Currency(string code, string name, string number, string sign, int defaultFractionDigits, HashSet<Country> countries) 
-            : this(code, name, number, sign, defaultFractionDigits)
+        public Currency(
+            string code, int defaultFractionDigits, string sign, string name, string number, HashSet<Country> countries)
         {
+            Code = code;
+            DefaultFractionDigits = defaultFractionDigits;
+            Sign = sign;
+            Name = name;
+            Number = number;
             Countries = countries;
         }
-
-        private HashSet<Country> GetCountries(CurrencyDTO currencyDto, ICountryProvider countryProvider)
-        {
-            return currencyDto.Countries.GroupJoin(
-                countryProvider.GetCountries(),
-                currCountry => currCountry.ToUpperInvariant(),
-                country => country.Name.ToUpperInvariant(),
-                (currCountry, country) =>
-                {
-                    var enumerable = country.ToList();
-                    return new Country
-                    {
-                        Name = currCountry,
-                        CodeAlpha2 = enumerable.SingleOrDefault().CodeAlpha2 ?? "",
-                        CodeAlpha3 = enumerable.SingleOrDefault().CodeAlpha3 ?? "",
-                        NumericCode = enumerable.SingleOrDefault().NumericCode ?? ""
-                    };
-                }).ToHashSet();
-        }
-
+        
         public string Code { get; init;  }
         
         public string Name { get; init; }

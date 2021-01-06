@@ -10,7 +10,7 @@ namespace EagleMoney.NET.Library
     {
         private IDictionary<string, string> _currencyCodeSymbols;
         
-        private List<CurrencyDTO> _currencies;
+        private List<CurrencyCountriesBasicInfo> _currencies;
         
         public bool TryGetCurrencySymbol(
             string isoCurrencyCode,
@@ -41,7 +41,7 @@ namespace EagleMoney.NET.Library
             }
         }
         
-        public IEnumerable<CurrencyDTO> GetCurrencies()
+        public IEnumerable<CurrencyCountriesBasicInfo> GetCurrencies()
         {
             if (_currencies != null && _currencies.Any())
             {
@@ -87,7 +87,7 @@ namespace EagleMoney.NET.Library
                     currencyDto => currencyDto.Code, 
                     map => map.Key, 
                     (currDto, currCodeSymbols) => 
-                        new CurrencyDTO(
+                        new CurrencyCountriesBasicInfo(
                             currDto.Code,
                             currDto.Name,
                             currDto.Number, 

@@ -4,6 +4,6 @@ namespace EagleMoney.NET.Library
 {
     public interface ICurrencyProvider
     {
-        IEnumerable<CurrencyDTO> GetCurrencies();
+        IEnumerable<CurrencyCountriesBasicInfo> GetCurrencies();
     }
 }

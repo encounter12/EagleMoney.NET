@@ -312,11 +312,11 @@ namespace EagleMoney.NET.ConsoleUI
                 Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
             }
 
-            var m43 = new Money(12.45M, new Currency("Bitcoin", "120", "‡", 2));
+            var m43 = new Money(12.45M, new Currency("Bitcoin", 2, "‡", "Bitcoin"));
 
             Console.WriteLine($"m43 (custom currency): {m43}");
             
-            var m44 = new Money(15M, new Currency("Bitcoin", "120", "‡", 2));
+            var m44 = new Money(15M, new Currency("Bitcoin", 2, "‡", "Bitcoin"));
 
             var m45 = m43 + m44;
 
@@ -505,20 +505,27 @@ namespace EagleMoney.NET.ConsoleUI
                 Console.WriteLine($"{ca.Name} {ca.CodeAlpha2} {ca.CodeAlpha3}");
             }
 
-            var m74 = new Money(14.2m, CountryCode.USA);
+            var m74 = new Money(14.2m, CountryCode.US);
 
             Console.WriteLine(m74);
             Console.WriteLine(m74.ToString("C"));
+
+            var m75 = new Money(156.5m, CountryCodeAlpha3.USA);
+
+            foreach (var country in m75.Currency.Countries)
+            {
+                Console.WriteLine($"currencyCountry: {country.Name}");
+            }
         }
     }
     
     public struct CustomCurrencyProvider : ICurrencyProvider
     {
-        public IEnumerable<CurrencyDTO> GetCurrencies()
+        public IEnumerable<CurrencyCountriesBasicInfo> GetCurrencies()
         {
-            return new List<CurrencyDTO>
+            return new List<CurrencyCountriesBasicInfo>
             {
-                new CurrencyDTO("GAC", "","321", "^", 2, new HashSet<string>
+                new CurrencyCountriesBasicInfo("GAC", "","321", "^", 2, new HashSet<string>
                 {
                     "Bulgaria",
                     "Tanzania"

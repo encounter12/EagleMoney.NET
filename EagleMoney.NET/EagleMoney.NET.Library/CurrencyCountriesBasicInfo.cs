@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace EagleMoney.NET.Library
 {
-    public class CurrencyDTO
+    public class CurrencyCountriesBasicInfo
     {
         public string Code { get; }
         
@@ -16,7 +16,7 @@ namespace EagleMoney.NET.Library
         
         public HashSet<string> Countries { get; }
 
-        public CurrencyDTO(string code, string name, string number, string sign, int defaultFractionDigits, HashSet<string> countries)
+        public CurrencyCountriesBasicInfo(string code, string name, string number, string sign, int defaultFractionDigits, HashSet<string> countries)
         {
             Code = code;
             Name = name;
@@ -26,7 +26,7 @@ namespace EagleMoney.NET.Library
             Countries = countries;
         }
         
-        public CurrencyDTO(string code, int defaultFractionDigits)
+        public CurrencyCountriesBasicInfo(string code, int defaultFractionDigits)
         {
             Code = code;
             Name = "";

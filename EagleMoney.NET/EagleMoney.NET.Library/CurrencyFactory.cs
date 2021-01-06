@@ -15,58 +15,78 @@ namespace EagleMoney.NET.Library
             _countryProvider = countryProvider;
         }
 
-        public Currency CreateCurrency(string currencyCode)
+        public CurrencyDetailedInfo CreateCurrency(string currencyCode)
         {
-            CurrencyDTO currencyDto = _currencyProvider
+            CurrencyCountriesBasicInfo currencyBasicInfo = _currencyProvider
                 .GetCurrencies()
                 .FirstOrDefault(x => x.Code == currencyCode);
 
-            if (currencyDto == null)
+            if (currencyBasicInfo == null)
             {
                 throw new InvalidOperationException(
                     $"No currency {currencyCode} exists in the list. Use the overloaded constructor to define custom currency.");
             }
 
-            var currency = new Currency
+            var currencyDetailedInfo = new CurrencyDetailedInfo
             {
-                Code = currencyDto.Code,
-                Name = currencyDto.Name,
-                Number = currencyDto.Number,
-                Sign = currencyDto.Sign,
-                DefaultFractionDigits = currencyDto.DefaultFractionDigits,
-                Countries = GetCountries(currencyDto, _countryProvider)
+                Code = currencyBasicInfo.Code,
+                Name = currencyBasicInfo.Name,
+                Number = currencyBasicInfo.Number,
+                Sign = currencyBasicInfo.Sign,
+                DefaultFractionDigits = currencyBasicInfo.DefaultFractionDigits,
+                Countries = GetCountries(currencyBasicInfo, _countryProvider)
             };
 
-            return currency;
+            return currencyDetailedInfo;
         }
 
-        public Currency CreateCurrency(CountryCode countryCode)
+        public CurrencyDetailedInfo CreateCurrency(CountryCode countryCode)
         {
             var countryName = _countryProvider.GetCountries()
-                .Single(x => x.CodeAlpha3 == countryCode.ToString())
+                .Single(x => x.CodeAlpha2 == countryCode.ToString())
                 .Name
                 .ToUpperInvariant();
 
-            var currencyDto = _currencyProvider.GetCurrencies()
+            CurrencyDetailedInfo currencyDetailed = GetCurrencyDetailedInfo(countryName);
+
+            return currencyDetailed;
+        }
+        
+        public CurrencyDetailedInfo CreateCurrency(CountryCodeAlpha3 countryCodeAlpha3)
+        {
+            var countryName = _countryProvider.GetCountries()
+                .Single(x => x.CodeAlpha3 == countryCodeAlpha3.ToString())
+                .Name
+                .ToUpperInvariant();
+
+            CurrencyDetailedInfo currencyDetailed = GetCurrencyDetailedInfo(countryName);
+
+            return currencyDetailed;
+        }
+
+        private CurrencyDetailedInfo GetCurrencyDetailedInfo(string countryName)
+        {
+            var currencyBasicInfo = _currencyProvider.GetCurrencies()
                 .First(x =>
                     x.Countries.Any(c => c.ToUpperInvariant() == countryName));
             
-            var currency = new Currency
+            var currencyDetailed = new CurrencyDetailedInfo
             {
-                Code = currencyDto.Code,
-                Name = currencyDto.Name,
-                Number = currencyDto.Number,
-                Sign = currencyDto.Sign,
-                DefaultFractionDigits = currencyDto.DefaultFractionDigits,
-                Countries = GetCountries(currencyDto, _countryProvider)
+                Code = currencyBasicInfo.Code,
+                Name = currencyBasicInfo.Name,
+                Number = currencyBasicInfo.Number,
+                Sign = currencyBasicInfo.Sign,
+                DefaultFractionDigits = currencyBasicInfo.DefaultFractionDigits,
+                Countries = GetCountries(currencyBasicInfo, _countryProvider)
             };
 
-            return currency;
+            return currencyDetailed;
         }
         
-        private HashSet<Country> GetCountries(CurrencyDTO currencyDto, ICountryProvider countryProvider)
+        private HashSet<Country> GetCountries(
+            CurrencyCountriesBasicInfo currencyBasicInfo, ICountryProvider countryProvider)
         {
-            return currencyDto.Countries.GroupJoin(
+            return currencyBasicInfo.Countries.GroupJoin(
                 countryProvider.GetCountries(),
                 currCountry => currCountry.ToUpperInvariant(),
                 country => country.Name.ToUpperInvariant(),
