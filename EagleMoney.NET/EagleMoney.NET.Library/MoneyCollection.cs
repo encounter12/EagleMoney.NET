@@ -5,7 +5,7 @@ namespace EagleMoney.NET.Library
 {
     public class MoneyCollection : Collection<Money>
     {
-        private readonly ICurrency _currency;
+        private readonly Currency _currency;
 
         public MoneyCollection(string currencyCode)
         {

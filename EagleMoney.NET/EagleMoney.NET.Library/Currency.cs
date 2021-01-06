@@ -6,31 +6,40 @@ using System.Text;
 
 namespace EagleMoney.NET.Library
 {
-    public readonly struct Currency : ICurrency, IEquatable<Currency>
+    public readonly struct Currency : IEquatable<Currency>
     {
-        public Currency(string currencyCode) : this(currencyCode, new CurrencyProvider())
+        public Currency(CountryCode countryCode) 
+            : this(countryCode, new CurrencyFactory(new CurrencyProvider(), new CountryProvider()))
         {
         }
         
-        public Currency(string currencyCode, ICurrencyProvider currencyProvider)
+        public Currency(CountryCode countryCode, CurrencyFactory currencyFactory)
         {
-            Code = currencyCode;
-            
-            var selectedCurrency = currencyProvider
-                .GetCurrencies()
-                .FirstOrDefault(x => x.Code == currencyCode);
+            var currency = currencyFactory.CreateCurrency(countryCode);
 
-            if (selectedCurrency == null)
-            {
-                throw new InvalidOperationException(
-                    $"No currency {currencyCode} exists in the list. Use the overloaded constructor to define custom currency.");
-            }
+            Code = currency.Code;
+            Name = currency.Name;
+            Number = currency.Number;
+            Sign = currency.Sign;
+            DefaultFractionDigits = currency.DefaultFractionDigits;
+            Countries = currency.Countries;
+        }
+        
+        public Currency(string currencyCode) : 
+            this(currencyCode, new CurrencyFactory( new CurrencyProvider(), new CountryProvider()))
+        {
+        }
+        
+        public Currency(string currencyCode, CurrencyFactory currencyFactory)
+        {
+            var currency = currencyFactory.CreateCurrency(currencyCode);
 
-            Name = selectedCurrency.Name;
-            Number = selectedCurrency.Number;
-            Sign = selectedCurrency.Sign;
-            DefaultFractionDigits = selectedCurrency.DefaultFractionDigits;
-            Countries = selectedCurrency.Countries;
+            Code = currency.Code;
+            Name = currency.Name;
+            Number = currency.Number;
+            Sign = currency.Sign;
+            DefaultFractionDigits = currency.DefaultFractionDigits;
+            Countries = currency.Countries;
         }
         
         public Currency(string code, int defaultFractionDigits)
@@ -40,7 +49,7 @@ namespace EagleMoney.NET.Library
             Number = "-1";
             Sign = "";
             DefaultFractionDigits = defaultFractionDigits;
-            Countries = new HashSet<string>();
+            Countries = new HashSet<Country>();
         }
         
         public Currency(string code, string sign, int defaultFractionDigits)
@@ -50,7 +59,7 @@ namespace EagleMoney.NET.Library
             Number = "";
             Sign = sign;
             DefaultFractionDigits = defaultFractionDigits;
-            Countries = new HashSet<string>();
+            Countries = new HashSet<Country>();
         }
         
         public Currency(string code, string name, string sign, int defaultFractionDigits)
@@ -60,7 +69,7 @@ namespace EagleMoney.NET.Library
             Number = "";
             Sign = sign;
             DefaultFractionDigits = defaultFractionDigits;
-            Countries = new HashSet<string>();
+            Countries = new HashSet<Country>();
         }
 
         public Currency(string code, string name, string number, string sign, int defaultFractionDigits)
@@ -70,13 +79,32 @@ namespace EagleMoney.NET.Library
             Number = number;
             Sign = sign;
             DefaultFractionDigits = defaultFractionDigits;
-            Countries = new HashSet<string>();
+            Countries = new HashSet<Country>();
         }
         
-        public Currency(string code, string name, string number, string sign, int defaultFractionDigits, HashSet<string> countries) 
+        public Currency(string code, string name, string number, string sign, int defaultFractionDigits, HashSet<Country> countries) 
             : this(code, name, number, sign, defaultFractionDigits)
         {
             Countries = countries;
+        }
+
+        private HashSet<Country> GetCountries(CurrencyDTO currencyDto, ICountryProvider countryProvider)
+        {
+            return currencyDto.Countries.GroupJoin(
+                countryProvider.GetCountries(),
+                currCountry => currCountry.ToUpperInvariant(),
+                country => country.Name.ToUpperInvariant(),
+                (currCountry, country) =>
+                {
+                    var enumerable = country.ToList();
+                    return new Country
+                    {
+                        Name = currCountry,
+                        CodeAlpha2 = enumerable.SingleOrDefault().CodeAlpha2 ?? "",
+                        CodeAlpha3 = enumerable.SingleOrDefault().CodeAlpha3 ?? "",
+                        NumericCode = enumerable.SingleOrDefault().NumericCode ?? ""
+                    };
+                }).ToHashSet();
         }
 
         public string Code { get; init;  }
@@ -89,7 +117,7 @@ namespace EagleMoney.NET.Library
         
         public int DefaultFractionDigits { get; init; }
         
-        public HashSet<string> Countries { get; init; }
+        public HashSet<Country> Countries { get; init; }
 
         public override string ToString()
         {

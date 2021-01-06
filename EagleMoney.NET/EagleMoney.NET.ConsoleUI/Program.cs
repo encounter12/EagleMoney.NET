@@ -487,32 +487,58 @@ namespace EagleMoney.NET.ConsoleUI
             IMoney m71 = new Money(12.456m, Currency.AED);
 
             Console.WriteLine(m71);
-
-            var m72 = new Money(14.32m, new Currency("GAC", new CustomCurrencyProvider()));
+            
+            var m72 = new Money(
+                14.32m,
+                new Currency(
+                    "GAC", 
+                    new CurrencyFactory(new CustomCurrencyProvider(), new CustomCountriesProvider())));
 
             Console.WriteLine(m72);
             
             Console.WriteLine(m72.ToString("C"));
+
+            var m73 = Money.USD(15.43M);
+
+            foreach (var ca in m73.Currency.Countries)
+            {
+                Console.WriteLine($"{ca.Name} {ca.CodeAlpha2} {ca.CodeAlpha3}");
+            }
+
+            var m74 = new Money(14.2m, CountryCode.USA);
+
+            Console.WriteLine(m74);
+            Console.WriteLine(m74.ToString("C"));
         }
     }
-
+    
     public struct CustomCurrencyProvider : ICurrencyProvider
     {
         public IEnumerable<CurrencyDTO> GetCurrencies()
         {
             return new List<CurrencyDTO>
             {
-                new CurrencyDTO
+                new CurrencyDTO("GAC", "","321", "^", 2, new HashSet<string>
                 {
-                    Code = "GAC",
-                    Number = "321",
-                    Sign = "^",
-                    DefaultFractionDigits = 2,
-                    Countries = new HashSet<string>
-                    {
-                        "Bulgaria",
-                        "Tanzania"
-                    }
+                    "Bulgaria",
+                    "Tanzania"
+                })
+            };
+        }
+    }
+    
+    public struct CustomCountriesProvider : ICountryProvider
+    {
+        public IEnumerable<Country> GetCountries()
+        {
+            return new List<Country>
+            {
+                new Country
+                {
+                    Name = "Bulgaria",
+                    CodeAlpha2 = "DA",
+                    CodeAlpha3 = "DAS",
+                    NumericCode = "005"
                 }
             };
         }

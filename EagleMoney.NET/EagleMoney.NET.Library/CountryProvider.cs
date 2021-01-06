@@ -14,6 +14,13 @@ namespace EagleMoney.NET.Library
                     CodeAlpha2 = "AF",
                     CodeAlpha3 = "AFG",
                     NumericCode = "004"
+                },
+                new Country
+                {
+                    Name = "United States of America (the)",
+                    CodeAlpha2 = "US",
+                    CodeAlpha3 = "USA",
+                    NumericCode = "840"
                 }
             };
             

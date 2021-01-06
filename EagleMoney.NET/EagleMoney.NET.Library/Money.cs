@@ -43,6 +43,20 @@ namespace EagleMoney.NET.Library
             _amount = (BigInteger) Math.Round(amount * centFactor);
             Currency = currency;
         }
+        
+        public Money(decimal amount, CountryCode countryCode)
+        {
+            if (amount < 0M)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(amount), amount, "Amount should be equal or greater than zero");
+            }
+            
+            var currency = new Currency(countryCode);
+            int centFactor = Cents[currency.DefaultFractionDigits];
+            _amount = (BigInteger) Math.Round(amount * centFactor);
+            Currency = currency;
+        }
 
         public Money(decimal amount, MidpointRounding mode, string currencyCode)
         {

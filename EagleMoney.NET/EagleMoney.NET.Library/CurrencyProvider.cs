@@ -70,7 +70,7 @@ namespace EagleMoney.NET.Library
                 })
                 .Where(x => x.CurrencyMinorUnits != null && x.CurrencyMinorUnits != "N.A.")
                 .GroupBy(x => x.CurrencyCode)
-                .Select(x => new CurrencyDTO
+                .Select(x => new
                 {
                     Code = x.Key,
                     Name = x.First().CurrencyName,
@@ -84,18 +84,17 @@ namespace EagleMoney.NET.Library
                 currenciesIso4217
                 .GroupJoin(
                     _currencyCodeSymbols,
-                    currencyDTO => currencyDTO.Code, 
+                    currencyDto => currencyDto.Code, 
                     map => map.Key, 
-                    (currDTO, currCodeSymbols) => new CurrencyDTO
-                    {
-                        Code = currDTO.Code,
-                        Name = currDTO.Name,
-                        Number = currDTO.Number,
-                        Sign = currCodeSymbols.SingleOrDefault().Value,
-                        DefaultFractionDigits = currDTO.DefaultFractionDigits,
-                        Countries = currDTO.Countries
-                        
-                    })
+                    (currDto, currCodeSymbols) => 
+                        new CurrencyDTO(
+                            currDto.Code,
+                            currDto.Name,
+                            currDto.Number, 
+                            currCodeSymbols.SingleOrDefault().Value, 
+                            currDto.DefaultFractionDigits, 
+                            currDto.Countries)
+                    )
                 .OrderBy(c => c.Code)
                 .ToList();
 
