@@ -516,6 +516,13 @@ namespace EagleMoney.NET.ConsoleUI
             {
                 Console.WriteLine($"currencyCountry: {country.Name}");
             }
+
+            var m76 = new Money(45.23m, Currency.BGN);
+
+            foreach (var country in m76.Currency.Countries)
+            {
+                Console.WriteLine($"{country.Name} {country.CodeAlpha2} {country.NumericCode} {country.FullName}");
+            }
         }
     }
     

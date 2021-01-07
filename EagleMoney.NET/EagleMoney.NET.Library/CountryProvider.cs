@@ -4,15 +4,16 @@ namespace EagleMoney.NET.Library
 {
     public struct CountryProvider : ICountryProvider
     {
-        // https://www.iso.org/obp/ui/#iso:pub:PUB500001:en
+        // ISO 3166 - Country codes
         // https://www.iso.org/obp/ui/#search/code/
+        // https://www.iso.org/obp/ui/#iso:pub:PUB500001:en
         public IEnumerable<Country> GetCountries()
         {
             var countries = new List<Country>
             {
                 new Country
                 {
-                  Name  = "Afghanistan",
+                  Name = "Afghanistan",
                   FullName = "the Islamic Republic of Afghanistan",
                   CodeAlpha2 = "AF",
                   CodeAlpha3 = "AFG",
@@ -20,7 +21,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Albania",
+                    Name = "Albania",
                     FullName = "the Republic of Albania",
                     CodeAlpha2 = "AL",
                     CodeAlpha3 = "ALB",
@@ -28,7 +29,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Algeria",
+                    Name = "Algeria",
                     FullName = "the People's Democratic Republic of Algeria",
                     CodeAlpha2 = "DZ",
                     CodeAlpha3 = "DZA",
@@ -36,7 +37,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "American Samoa",
+                    Name = "American Samoa",
                     FullName = "",
                     CodeAlpha2 = "AS",
                     CodeAlpha3 = "ASM",
@@ -44,7 +45,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Andorra",
+                    Name = "Andorra",
                     FullName = "the Principality of Andorra",
                     CodeAlpha2 = "AD",
                     CodeAlpha3 = "AND",
@@ -52,7 +53,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Angola",
+                    Name = "Angola",
                     FullName = "the Republic of Angola",
                     CodeAlpha2 = "AO",
                     CodeAlpha3 = "AGO",
@@ -60,7 +61,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Anguilla",
+                    Name = "Anguilla",
                     FullName = "",
                     CodeAlpha2 = "AI",
                     CodeAlpha3 = "AIA",
@@ -68,7 +69,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Antarctica",
+                    Name = "Antarctica",
                     FullName = "",
                     CodeAlpha2 = "AQ",
                     CodeAlpha3 = "ATA",
@@ -84,7 +85,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Argentina",
+                    Name = "Argentina",
                     FullName = "the Argentine Republic",
                     CodeAlpha2 = "AR",
                     CodeAlpha3 = "ARG",
@@ -92,7 +93,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Armenia",
+                    Name = "Armenia",
                     FullName = "the Republic of Armenia",
                     CodeAlpha2 = "AM",
                     CodeAlpha3 = "ARM",
@@ -100,7 +101,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Aruba",
+                    Name = "Aruba",
                     FullName = "",
                     CodeAlpha2 = "AW",
                     CodeAlpha3 = "ABW",
@@ -108,7 +109,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Australia",
+                    Name = "Australia",
                     FullName = "",
                     CodeAlpha2 = "AU",
                     CodeAlpha3 = "AUS",
@@ -116,7 +117,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Austria",
+                    Name = "Austria",
                     FullName = "the Republic of Austria",
                     CodeAlpha2 = "AT",
                     CodeAlpha3 = "AUT",
@@ -124,7 +125,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Azerbaijan",
+                    Name = "Azerbaijan",
                     FullName = "the Republic of Azerbaijan",
                     CodeAlpha2 = "AZ",
                     CodeAlpha3 = "AZE",
@@ -132,7 +133,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Bahamas (the)",
+                    Name = "Bahamas (the)",
                     FullName = "the Commonwealth of the Bahamas",
                     CodeAlpha2 = "BS",
                     CodeAlpha3 = "BHS",
@@ -140,7 +141,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Bahrain",
+                    Name = "Bahrain",
                     FullName = "the Kingdom of Bahrain",
                     CodeAlpha2 = "BH",
                     CodeAlpha3 = "BHR",
@@ -148,7 +149,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Bangladesh",
+                    Name = "Bangladesh",
                     FullName = "the People's Republic of Bangladesh",
                     CodeAlpha2 = "BD",
                     CodeAlpha3 = "BGD",
@@ -156,7 +157,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Barbados",
+                    Name = "Barbados",
                     FullName = "",
                     CodeAlpha2 = "BB",
                     CodeAlpha3 = "BRB",
@@ -164,7 +165,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Belarus",
+                    Name = "Belarus",
                     FullName = "the Republic of Belarus",
                     CodeAlpha2 = "BY",
                     CodeAlpha3 = "BLR",
@@ -172,7 +173,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Belgium",
+                    Name = "Belgium",
                     FullName = "the Kingdom of Belgium",
                     CodeAlpha2 = "BE",
                     CodeAlpha3 = "BEL",
@@ -180,7 +181,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Belize",
+                    Name = "Belize",
                     FullName = "",
                     CodeAlpha2 = "BZ",
                     CodeAlpha3 = "BLZ",
@@ -188,7 +189,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Benin",
+                    Name = "Benin",
                     FullName = "the Republic of Benin",
                     CodeAlpha2 = "BJ",
                     CodeAlpha3 = "BEN",
@@ -196,17 +197,203 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Bermuda",
+                    Name = "Bermuda",
+                    FullName = "",
                     CodeAlpha2 = "BM",
                     CodeAlpha3 = "BMU",
                     NumericCode = "060"
                 },
                 new Country
                 {
-                    Name  = "Åland Islands",
+                    Name = "Åland Islands",
+                    FullName = "",
                     CodeAlpha2 = "AX",
                     CodeAlpha3 = "ALA",
                     NumericCode = "248"
+                },
+                new Country
+                {
+                    Name = "Bhutan",
+                    FullName = "the Kingdom of Bhutan",
+                    CodeAlpha2 = "BT",
+                    CodeAlpha3 = "BTN",
+                    NumericCode = "064"
+                },
+                new Country
+                {
+                    Name = "Bolivia (Plurinational State of)",
+                    FullName = "the Plurinational State of Bolivia",
+                    CodeAlpha2 = "BO",
+                    CodeAlpha3 = "BOL",
+                    NumericCode = "068"
+                },
+                new Country
+                {
+                    Name = "Bonaire, Sint Eustatius and Saba",
+                    FullName = "",
+                    CodeAlpha2 = "BQ",
+                    CodeAlpha3 = "BES",
+                    NumericCode = "535"
+                },
+                new Country
+                {
+                    Name = "Bosnia and Herzegovina",
+                    FullName = "",
+                    CodeAlpha2 = "BA",
+                    CodeAlpha3 = "BIH",
+                    NumericCode = "070"
+                },
+                new Country
+                {
+                    Name = "Botswana",
+                    FullName = "the Republic of Botswana",
+                    CodeAlpha2 = "BW",
+                    CodeAlpha3 = "BWA",
+                    NumericCode = "072"
+                },
+                new Country
+                {
+                    Name = "Bouvet Island",
+                    FullName = "",
+                    CodeAlpha2 = "BV",
+                    CodeAlpha3 = "BVT",
+                    NumericCode = "074"
+                },
+                new Country
+                {
+                    Name = "Brazil",
+                    FullName = "the Federative Republic of Brazil",
+                    CodeAlpha2 = "BR",
+                    CodeAlpha3 = "BRA",
+                    NumericCode = "076"
+                },
+                new Country
+                {
+                    Name = "British Indian Ocean Territory (the)",
+                    FullName = "",
+                    CodeAlpha2 = "IO",
+                    CodeAlpha3 = "IOT",
+                    NumericCode = "086"
+                },
+                new Country
+                {
+                    Name = "Brunei Darussalam",
+                    FullName = "",
+                    CodeAlpha2 = "BN",
+                    CodeAlpha3 = "BRN",
+                    NumericCode = "096"
+                },
+                new Country
+                {
+                    Name = "Bulgaria",
+                    FullName = "the Republic of Bulgaria",
+                    CodeAlpha2 = "BG",
+                    CodeAlpha3 = "BGR",
+                    NumericCode = "100"
+                },
+                new Country
+                {
+                    Name = "Burkina Faso",
+                    FullName = "",
+                    CodeAlpha2 = "BF",
+                    CodeAlpha3 = "BFA",
+                    NumericCode = "854"
+                },
+                new Country
+                {
+                    Name = "Burundi",
+                    FullName = "the Republic of Burundi",
+                    CodeAlpha2 = "BI",
+                    CodeAlpha3 = "BDI",
+                    NumericCode = "108"
+                },
+                new Country
+                {
+                    Name = "Cabo Verde",
+                    FullName = "the Republic of Cabo Verde",
+                    CodeAlpha2 = "CV",
+                    CodeAlpha3 = "CPV",
+                    NumericCode = "132"
+                },
+                new Country
+                {
+                    Name = "Cambodia",
+                    FullName = "the Kingdom of Cambodia",
+                    CodeAlpha2 = "KH",
+                    CodeAlpha3 = "KHM",
+                    NumericCode = "116"
+                },
+                new Country
+                {
+                    Name = "Cameroon",
+                    FullName = "the Republic of Cameroon",
+                    CodeAlpha2 = "CM",
+                    CodeAlpha3 = "CMR",
+                    NumericCode = "120"
+                },
+                new Country
+                {
+                    Name = "Canada",
+                    FullName = "",
+                    CodeAlpha2 = "CA",
+                    CodeAlpha3 = "CAN",
+                    NumericCode = "124"
+                },
+                new Country
+                {
+                    Name = "Cayman Islands (the)",
+                    FullName = "",
+                    CodeAlpha2 = "KY",
+                    CodeAlpha3 = "CYM",
+                    NumericCode = "136"
+                },
+                new Country
+                {
+                    Name = "Central African Republic (the)",
+                    FullName = "the Central African Republic",
+                    CodeAlpha2 = "CF",
+                    CodeAlpha3 = "CAF",
+                    NumericCode = "140"
+                },
+                new Country
+                {
+                    Name = "Chad",
+                    FullName = "the Republic of Chad",
+                    CodeAlpha2 = "TD",
+                    CodeAlpha3 = "TCD",
+                    NumericCode = "148"
+                },
+                new Country
+                {
+                    Name = "Chad",
+                    FullName = "the Republic of Chad",
+                    CodeAlpha2 = "TD",
+                    CodeAlpha3 = "TCD",
+                    NumericCode = "148"
+                },
+                new Country
+                {
+                    Name = "Chile",
+                    FullName = "the Republic of Chile",
+                    CodeAlpha2 = "CL",
+                    CodeAlpha3 = "CHL",
+                    NumericCode = "152"
+                },
+                new Country
+                {
+                    Name = "China",
+                    FullName = "the People's Republic of China",
+                    CodeAlpha2 = "CN",
+                    CodeAlpha3 = "CHN",
+                    NumericCode = "156"
+                },
+                new Country
+                {
+                    Name = "Christmas Island",
+                    FullName = "",
+                    CodeAlpha2 = "CX",
+                    CodeAlpha3 = "CXR",
+                    NumericCode = "162"
                 },
                 new Country
                 {
@@ -215,7 +402,7 @@ namespace EagleMoney.NET.Library
                     CodeAlpha2 = "US",
                     CodeAlpha3 = "USA",
                     NumericCode = "840"
-                },
+                }
             };
             
             return countries;
