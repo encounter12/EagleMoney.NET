@@ -435,7 +435,7 @@ namespace EagleMoney.NET.ConsoleUI
 
             foreach (var ae in allocatedEven)
             {
-                Console.WriteLine($"{ae.Amount} { ae.Currency.Sign} {ae.Currency.Code}");
+                Console.WriteLine($"{ae.Amount} { ae.Currency.Symbol} {ae.Currency.Code}");
             }
 
             foreach (var ab in allocatedEven)
@@ -465,7 +465,7 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine(m65);
             
             var m66 = Money.USD(432100000009.24m);
-            Console.WriteLine($"{m66.Amount} {m66.Currency.Sign}");
+            Console.WriteLine($"{m66.Amount} {m66.Currency.Symbol}");
 
             Console.WriteLine($"{(m66 + 0.01m).Amount}");
 

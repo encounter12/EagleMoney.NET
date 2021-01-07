@@ -18,7 +18,7 @@ namespace EagleMoney.NET.Library
 
             Code = currencyDetailed.Code;
             DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
-            Sign = currencyDetailed.Sign;
+            Symbol = currencyDetailed.Sign;
             Name = currencyDetailed.Name;
             Number = currencyDetailed.Number;
             Countries = currencyDetailed.Countries;
@@ -35,7 +35,7 @@ namespace EagleMoney.NET.Library
 
             Code = currencyDetailed.Code;
             DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
-            Sign = currencyDetailed.Sign;
+            Symbol = currencyDetailed.Sign;
             Name = currencyDetailed.Name;
             Number = currencyDetailed.Number;
             Countries = currencyDetailed.Countries;
@@ -52,7 +52,7 @@ namespace EagleMoney.NET.Library
 
             Code = currencyDetailed.Code;
             DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
-            Sign = currencyDetailed.Sign;
+            Symbol = currencyDetailed.Sign;
             Name = currencyDetailed.Name;
             Number = currencyDetailed.Number;
             Countries = currencyDetailed.Countries;
@@ -62,48 +62,48 @@ namespace EagleMoney.NET.Library
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
-            Sign = "";
+            Symbol = "";
             Name = "";
             Number = "";
             Countries = new HashSet<Country>();
         }
         
-        public Currency(string code, int defaultFractionDigits, string sign)
+        public Currency(string code, int defaultFractionDigits, string symbol)
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
-            Sign = sign;
+            Symbol = symbol;
             Name = "";
             Number = "";
             Countries = new HashSet<Country>();
         }
         
-        public Currency(string code, int defaultFractionDigits, string sign, string name)
+        public Currency(string code, int defaultFractionDigits, string symbol, string name)
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
-            Sign = sign;
+            Symbol = symbol;
             Name = name;
             Number = "";
             Countries = new HashSet<Country>();
         }
 
-        public Currency(string code, int defaultFractionDigits, string sign, string name, string number)
+        public Currency(string code, int defaultFractionDigits, string symbol, string name, string number)
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
-            Sign = sign;
+            Symbol = symbol;
             Name = name;
             Number = number;
             Countries = new HashSet<Country>();
         }
         
         public Currency(
-            string code, int defaultFractionDigits, string sign, string name, string number, HashSet<Country> countries)
+            string code, int defaultFractionDigits, string symbol, string name, string number, HashSet<Country> countries)
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
-            Sign = sign;
+            Symbol = symbol;
             Name = name;
             Number = number;
             Countries = countries;
@@ -115,7 +115,7 @@ namespace EagleMoney.NET.Library
 
         public string Number { get; init;  }
 
-        public string Sign { get; init; }
+        public string Symbol { get; init; }
         
         public int DefaultFractionDigits { get; init; }
         
@@ -147,9 +147,9 @@ namespace EagleMoney.NET.Library
             
             builder.Append(", ");
             
-            builder.Append(nameof(Sign));
+            builder.Append(nameof(Symbol));
             builder.Append(" = ");
-            builder.Append(Sign);
+            builder.Append(Symbol);
             
             builder.Append(", ");
             
@@ -161,7 +161,7 @@ namespace EagleMoney.NET.Library
         public bool Equals(Currency other)
             => Code == other.Code && 
                Number == other.Number && 
-               Sign == other.Sign && 
+               Symbol == other.Symbol && 
                DefaultFractionDigits == other.DefaultFractionDigits;
 
         public override bool Equals(object other)
@@ -171,7 +171,7 @@ namespace EagleMoney.NET.Library
         }
 
         public override int GetHashCode()
-            => HashCode.Combine(Code, Number, Sign, DefaultFractionDigits);
+            => HashCode.Combine(Code, Number, Symbol, DefaultFractionDigits);
 
         public static bool operator ==(Currency? c1, Currency? c2)
             => c1.HasValue && c2.HasValue ? c1.Equals(c2) : !c1.HasValue && !c2.HasValue;
