@@ -1,21 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EagleMoney.NET.Library.Countries;
+using EagleMoney.NET.Library.Currencies;
 
-namespace EagleMoney.NET.Library
+namespace EagleMoney.NET.Library.Fiat
 {
-    public class CurrencyFactory
+    public class FiatCurrencyFactory
     {
         private readonly ICurrencyProvider _currencyProvider;
         private readonly ICountryProvider _countryProvider;
         
-        public CurrencyFactory(ICurrencyProvider currencyProvider, ICountryProvider countryProvider)
+        public FiatCurrencyFactory(ICurrencyProvider currencyProvider, ICountryProvider countryProvider)
         {
             _currencyProvider = currencyProvider;
             _countryProvider = countryProvider;
         }
 
-        public CurrencyDetailedInfo CreateCurrency(string currencyCode)
+        public FiatCurrency CreateCurrency(string currencyCode)
         {
             CurrencyCountriesBasicInfo currencyBasicInfo = _currencyProvider
                 .GetCurrencies()
@@ -27,60 +29,60 @@ namespace EagleMoney.NET.Library
                     $"No currency {currencyCode} exists in the list. Use the overloaded constructor to define custom currency.");
             }
 
-            var currencyDetailedInfo = new CurrencyDetailedInfo
+            var fiatCurrency = new FiatCurrency
             {
                 Code = currencyBasicInfo.Code,
                 Name = currencyBasicInfo.Name,
                 Number = currencyBasicInfo.Number,
-                Sign = currencyBasicInfo.Sign,
+                Symbol = currencyBasicInfo.Sign,
                 DefaultFractionDigits = currencyBasicInfo.DefaultFractionDigits,
                 Countries = GetCountries(currencyBasicInfo, _countryProvider)
             };
 
-            return currencyDetailedInfo;
+            return fiatCurrency;
         }
 
-        public CurrencyDetailedInfo CreateCurrency(CountryCode countryCode)
+        public FiatCurrency CreateCurrency(CountryCode countryCode)
         {
             var countryName = _countryProvider.GetCountries()
                 .Single(x => x.CodeAlpha2 == countryCode.ToString())
-                .Name
+                .ShortNameLowerCase
                 .ToUpperInvariant();
 
-            CurrencyDetailedInfo currencyDetailed = GetCurrencyDetailedInfo(countryName);
+            FiatCurrency fiatCurrency = GetCurrencyDetailedInfo(countryName);
 
-            return currencyDetailed;
+            return fiatCurrency;
         }
         
-        public CurrencyDetailedInfo CreateCurrency(CountryCodeAlpha3 countryCodeAlpha3)
+        public FiatCurrency CreateCurrency(CountryCodeAlpha3 countryCodeAlpha3)
         {
             var countryName = _countryProvider.GetCountries()
                 .Single(x => x.CodeAlpha3 == countryCodeAlpha3.ToString())
-                .Name
+                .ShortNameLowerCase
                 .ToUpperInvariant();
 
-            CurrencyDetailedInfo currencyDetailed = GetCurrencyDetailedInfo(countryName);
+            FiatCurrency fiatCurrency = GetCurrencyDetailedInfo(countryName);
 
-            return currencyDetailed;
+            return fiatCurrency;
         }
 
-        private CurrencyDetailedInfo GetCurrencyDetailedInfo(string countryName)
+        private FiatCurrency GetCurrencyDetailedInfo(string countryName)
         {
             var currencyBasicInfo = _currencyProvider.GetCurrencies()
                 .First(x =>
                     x.Countries.Any(c => c.ToUpperInvariant() == countryName));
             
-            var currencyDetailed = new CurrencyDetailedInfo
+            var fiatCurrency = new FiatCurrency
             {
                 Code = currencyBasicInfo.Code,
                 Name = currencyBasicInfo.Name,
                 Number = currencyBasicInfo.Number,
-                Sign = currencyBasicInfo.Sign,
+                Symbol = currencyBasicInfo.Sign,
                 DefaultFractionDigits = currencyBasicInfo.DefaultFractionDigits,
                 Countries = GetCountries(currencyBasicInfo, _countryProvider)
             };
 
-            return currencyDetailed;
+            return fiatCurrency;
         }
         
         private HashSet<Country> GetCountries(
@@ -89,13 +91,13 @@ namespace EagleMoney.NET.Library
             return currencyBasicInfo.Countries.GroupJoin(
                 countryProvider.GetCountries(),
                 currCountry => currCountry.ToUpperInvariant(),
-                country => country.Name.ToUpperInvariant(),
+                country => country.ShortNameLowerCase.ToUpperInvariant(),
                 (currCountry, country) =>
                 {
                     var enumerable = country.ToList();
                     return new Country
                     {
-                        Name = currCountry,
+                        ShortNameLowerCase = currCountry,
                         CodeAlpha2 = enumerable.SingleOrDefault().CodeAlpha2 ?? "",
                         CodeAlpha3 = enumerable.SingleOrDefault().CodeAlpha3 ?? "",
                         NumericCode = enumerable.SingleOrDefault().NumericCode ?? ""

@@ -1,27 +1,30 @@
 using System.Collections.Generic;
 
-namespace EagleMoney.NET.Library
+namespace EagleMoney.NET.Library.Countries
 {
     public struct CountryProvider : ICountryProvider
     {
         // ISO 3166 - Country codes
         // https://www.iso.org/obp/ui/#search/code/
         // https://www.iso.org/obp/ui/#iso:pub:PUB500001:en
+        // ISO 3166-1: https://en.wikipedia.org/wiki/ISO_3166-1
         public IEnumerable<Country> GetCountries()
         {
             var countries = new List<Country>
             {
                 new Country
                 {
-                  Name = "Afghanistan",
-                  FullName = "the Islamic Republic of Afghanistan",
-                  CodeAlpha2 = "AF",
-                  CodeAlpha3 = "AFG",
-                  NumericCode = "004"
+                    ShortName = "AFGHANISTAN",
+                    ShortNameLowerCase = "Afghanistan",
+                    FullName = "the Islamic Republic of Afghanistan",
+                    CodeAlpha2 = "AF",
+                    CodeAlpha3 = "AFG",
+                    NumericCode = "004"
                 },
                 new Country
                 {
-                    Name = "Albania",
+                    ShortName = "ALBANIA",
+                    ShortNameLowerCase = "Albania",
                     FullName = "the Republic of Albania",
                     CodeAlpha2 = "AL",
                     CodeAlpha3 = "ALB",
@@ -29,7 +32,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Algeria",
+                    ShortName = "ALGERIA",
+                    ShortNameLowerCase = "Algeria",
                     FullName = "the People's Democratic Republic of Algeria",
                     CodeAlpha2 = "DZ",
                     CodeAlpha3 = "DZA",
@@ -37,7 +41,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "American Samoa",
+                    ShortName = "AMERICAN SAMOA",
+                    ShortNameLowerCase = "American Samoa",
                     FullName = "",
                     CodeAlpha2 = "AS",
                     CodeAlpha3 = "ASM",
@@ -45,7 +50,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Andorra",
+                    ShortName = "ANDORRA",
+                    ShortNameLowerCase = "Andorra",
                     FullName = "the Principality of Andorra",
                     CodeAlpha2 = "AD",
                     CodeAlpha3 = "AND",
@@ -53,7 +59,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Angola",
+                    ShortName = "ANGOLA",
+                    ShortNameLowerCase = "Angola",
                     FullName = "the Republic of Angola",
                     CodeAlpha2 = "AO",
                     CodeAlpha3 = "AGO",
@@ -61,7 +68,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Anguilla",
+                    ShortName = "ANGUILLA",
+                    ShortNameLowerCase = "Anguilla",
                     FullName = "",
                     CodeAlpha2 = "AI",
                     CodeAlpha3 = "AIA",
@@ -69,7 +77,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Antarctica",
+                    ShortName = "ANTARCTICA",
+                    ShortNameLowerCase = "Antarctica",
                     FullName = "",
                     CodeAlpha2 = "AQ",
                     CodeAlpha3 = "ATA",
@@ -77,7 +86,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "Antigua and Barbuda",
+                    ShortName = "ANTIGUA AND BARBUDA",
+                    ShortNameLowerCase  = "Antigua and Barbuda",
                     FullName = "",
                     CodeAlpha2 = "AG",
                     CodeAlpha3 = "ATG",
@@ -85,7 +95,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Argentina",
+                    ShortName = "ARGENTINA",
+                    ShortNameLowerCase = "Argentina",
                     FullName = "the Argentine Republic",
                     CodeAlpha2 = "AR",
                     CodeAlpha3 = "ARG",
@@ -93,7 +104,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Armenia",
+                    ShortName = "ARMENIA",
+                    ShortNameLowerCase = "Armenia",
                     FullName = "the Republic of Armenia",
                     CodeAlpha2 = "AM",
                     CodeAlpha3 = "ARM",
@@ -101,7 +113,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Aruba",
+                    ShortName = "ARUBA",
+                    ShortNameLowerCase = "Aruba",
                     FullName = "",
                     CodeAlpha2 = "AW",
                     CodeAlpha3 = "ABW",
@@ -109,7 +122,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Australia",
+                    ShortName = "AUSTRALIA",
+                    ShortNameLowerCase = "Australia",
                     FullName = "",
                     CodeAlpha2 = "AU",
                     CodeAlpha3 = "AUS",
@@ -117,7 +131,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Austria",
+                    ShortName = "AUSTRIA",
+                    ShortNameLowerCase = "Austria",
                     FullName = "the Republic of Austria",
                     CodeAlpha2 = "AT",
                     CodeAlpha3 = "AUT",
@@ -125,7 +140,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Azerbaijan",
+                    ShortName = "AZERBAIJAN",
+                    ShortNameLowerCase = "Azerbaijan",
                     FullName = "the Republic of Azerbaijan",
                     CodeAlpha2 = "AZ",
                     CodeAlpha3 = "AZE",
@@ -133,7 +149,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bahamas (the)",
+                    ShortName = "BAHAMAS",
+                    ShortNameLowerCase = "Bahamas (the)",
                     FullName = "the Commonwealth of the Bahamas",
                     CodeAlpha2 = "BS",
                     CodeAlpha3 = "BHS",
@@ -141,7 +158,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bahrain",
+                    ShortName = "BAHRAIN",
+                    ShortNameLowerCase = "Bahrain",
                     FullName = "the Kingdom of Bahrain",
                     CodeAlpha2 = "BH",
                     CodeAlpha3 = "BHR",
@@ -149,7 +167,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bangladesh",
+                    ShortName = "BANGLADESH",
+                    ShortNameLowerCase = "Bangladesh",
                     FullName = "the People's Republic of Bangladesh",
                     CodeAlpha2 = "BD",
                     CodeAlpha3 = "BGD",
@@ -157,7 +176,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Barbados",
+                    ShortName = "BARBADOS",
+                    ShortNameLowerCase = "Barbados",
                     FullName = "",
                     CodeAlpha2 = "BB",
                     CodeAlpha3 = "BRB",
@@ -165,7 +185,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Belarus",
+                    ShortName = "BELARUS",
+                    ShortNameLowerCase = "Belarus",
                     FullName = "the Republic of Belarus",
                     CodeAlpha2 = "BY",
                     CodeAlpha3 = "BLR",
@@ -173,7 +194,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Belgium",
+                    ShortName = "BELGIUM",
+                    ShortNameLowerCase = "Belgium",
                     FullName = "the Kingdom of Belgium",
                     CodeAlpha2 = "BE",
                     CodeAlpha3 = "BEL",
@@ -181,7 +203,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Belize",
+                    ShortName = "BELIZE",
+                    ShortNameLowerCase = "Belize",
                     FullName = "",
                     CodeAlpha2 = "BZ",
                     CodeAlpha3 = "BLZ",
@@ -189,7 +212,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Benin",
+                    ShortName = "BENIN",
+                    ShortNameLowerCase = "Benin",
                     FullName = "the Republic of Benin",
                     CodeAlpha2 = "BJ",
                     CodeAlpha3 = "BEN",
@@ -197,7 +221,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bermuda",
+                    ShortName = "BERMUDA",
+                    ShortNameLowerCase = "Bermuda",
                     FullName = "",
                     CodeAlpha2 = "BM",
                     CodeAlpha3 = "BMU",
@@ -205,7 +230,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Åland Islands",
+                    ShortName = "ÅLAND ISLANDS",
+                    ShortNameLowerCase = "Åland Islands",
                     FullName = "",
                     CodeAlpha2 = "AX",
                     CodeAlpha3 = "ALA",
@@ -213,7 +239,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bhutan",
+                    ShortName = "BHUTAN",
+                    ShortNameLowerCase = "Bhutan",
                     FullName = "the Kingdom of Bhutan",
                     CodeAlpha2 = "BT",
                     CodeAlpha3 = "BTN",
@@ -221,7 +248,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bolivia (Plurinational State of)",
+                    ShortName = "BOLIVIA (PLURINATIONAL STATE OF)",
+                    ShortNameLowerCase = "Bolivia (Plurinational State of)",
                     FullName = "the Plurinational State of Bolivia",
                     CodeAlpha2 = "BO",
                     CodeAlpha3 = "BOL",
@@ -229,7 +257,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bonaire, Sint Eustatius and Saba",
+                    ShortName = "BONAIRE, SINT EUSTATIUS AND SABA",
+                    ShortNameLowerCase = "Bonaire, Sint Eustatius and Saba",
                     FullName = "",
                     CodeAlpha2 = "BQ",
                     CodeAlpha3 = "BES",
@@ -237,7 +266,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bosnia and Herzegovina",
+                    ShortName = "BOSNIA AND HERZEGOVINA",
+                    ShortNameLowerCase = "Bosnia and Herzegovina",
                     FullName = "",
                     CodeAlpha2 = "BA",
                     CodeAlpha3 = "BIH",
@@ -245,7 +275,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Botswana",
+                    ShortName = "BOTSWANA",
+                    ShortNameLowerCase = "Botswana",
                     FullName = "the Republic of Botswana",
                     CodeAlpha2 = "BW",
                     CodeAlpha3 = "BWA",
@@ -253,7 +284,8 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bouvet Island",
+                    ShortName = "BOUVET ISLAND",
+                    ShortNameLowerCase = "Bouvet Island",
                     FullName = "",
                     CodeAlpha2 = "BV",
                     CodeAlpha3 = "BVT",
@@ -261,7 +293,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Brazil",
+                    ShortNameLowerCase = "Brazil",
                     FullName = "the Federative Republic of Brazil",
                     CodeAlpha2 = "BR",
                     CodeAlpha3 = "BRA",
@@ -269,7 +301,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "British Indian Ocean Territory (the)",
+                    ShortNameLowerCase = "British Indian Ocean Territory (the)",
                     FullName = "",
                     CodeAlpha2 = "IO",
                     CodeAlpha3 = "IOT",
@@ -277,7 +309,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Brunei Darussalam",
+                    ShortNameLowerCase = "Brunei Darussalam",
                     FullName = "",
                     CodeAlpha2 = "BN",
                     CodeAlpha3 = "BRN",
@@ -285,7 +317,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Bulgaria",
+                    ShortNameLowerCase = "Bulgaria",
                     FullName = "the Republic of Bulgaria",
                     CodeAlpha2 = "BG",
                     CodeAlpha3 = "BGR",
@@ -293,7 +325,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Burkina Faso",
+                    ShortNameLowerCase = "Burkina Faso",
                     FullName = "",
                     CodeAlpha2 = "BF",
                     CodeAlpha3 = "BFA",
@@ -301,7 +333,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Burundi",
+                    ShortNameLowerCase = "Burundi",
                     FullName = "the Republic of Burundi",
                     CodeAlpha2 = "BI",
                     CodeAlpha3 = "BDI",
@@ -309,7 +341,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Cabo Verde",
+                    ShortNameLowerCase = "Cabo Verde",
                     FullName = "the Republic of Cabo Verde",
                     CodeAlpha2 = "CV",
                     CodeAlpha3 = "CPV",
@@ -317,7 +349,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Cambodia",
+                    ShortNameLowerCase = "Cambodia",
                     FullName = "the Kingdom of Cambodia",
                     CodeAlpha2 = "KH",
                     CodeAlpha3 = "KHM",
@@ -325,7 +357,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Cameroon",
+                    ShortNameLowerCase = "Cameroon",
                     FullName = "the Republic of Cameroon",
                     CodeAlpha2 = "CM",
                     CodeAlpha3 = "CMR",
@@ -333,7 +365,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Canada",
+                    ShortNameLowerCase = "Canada",
                     FullName = "",
                     CodeAlpha2 = "CA",
                     CodeAlpha3 = "CAN",
@@ -341,7 +373,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Cayman Islands (the)",
+                    ShortNameLowerCase = "Cayman Islands (the)",
                     FullName = "",
                     CodeAlpha2 = "KY",
                     CodeAlpha3 = "CYM",
@@ -349,7 +381,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Central African Republic (the)",
+                    ShortNameLowerCase = "Central African Republic (the)",
                     FullName = "the Central African Republic",
                     CodeAlpha2 = "CF",
                     CodeAlpha3 = "CAF",
@@ -357,7 +389,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Chad",
+                    ShortNameLowerCase = "Chad",
                     FullName = "the Republic of Chad",
                     CodeAlpha2 = "TD",
                     CodeAlpha3 = "TCD",
@@ -365,7 +397,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Chad",
+                    ShortNameLowerCase = "Chad",
                     FullName = "the Republic of Chad",
                     CodeAlpha2 = "TD",
                     CodeAlpha3 = "TCD",
@@ -373,7 +405,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Chile",
+                    ShortNameLowerCase = "Chile",
                     FullName = "the Republic of Chile",
                     CodeAlpha2 = "CL",
                     CodeAlpha3 = "CHL",
@@ -381,7 +413,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "China",
+                    ShortNameLowerCase = "China",
                     FullName = "the People's Republic of China",
                     CodeAlpha2 = "CN",
                     CodeAlpha3 = "CHN",
@@ -389,7 +421,7 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name = "Christmas Island",
+                    ShortNameLowerCase = "Christmas Island",
                     FullName = "",
                     CodeAlpha2 = "CX",
                     CodeAlpha3 = "CXR",
@@ -397,7 +429,55 @@ namespace EagleMoney.NET.Library
                 },
                 new Country
                 {
-                    Name  = "United States of America (the)",
+                    ShortNameLowerCase = "Cocos (Keeling) Islands (the)",
+                    FullName = "",
+                    CodeAlpha2 = "CC",
+                    CodeAlpha3 = "CCK",
+                    NumericCode = "166"
+                },
+                new Country
+                {
+                    ShortNameLowerCase = "Colombia",
+                    FullName = "the Republic of Colombia",
+                    CodeAlpha2 = "CO",
+                    CodeAlpha3 = "COL",
+                    NumericCode = "170"
+                },
+                new Country
+                {
+                    ShortNameLowerCase = "Comoros (the)",
+                    FullName = "the Union of the Comoros",
+                    CodeAlpha2 = "KM",
+                    CodeAlpha3 = "COM",
+                    NumericCode = "174"
+                },
+                new Country
+                {
+                    ShortNameLowerCase = "Congo (the Democratic Republic of the)",
+                    FullName = "the Democratic Republic of the Congo",
+                    CodeAlpha2 = "CD",
+                    CodeAlpha3 = "COD",
+                    NumericCode = "180"
+                },
+                new Country
+                {
+                    ShortNameLowerCase  = "Congo (the)",
+                    FullName = "the Republic of the Congo",
+                    CodeAlpha2 = "CG",
+                    CodeAlpha3 = "COG",
+                    NumericCode = "178"
+                },
+                new Country
+                {
+                    ShortNameLowerCase = "Cook Islands (the)",
+                    FullName = "",
+                    CodeAlpha2 = "CK",
+                    CodeAlpha3 = "COK",
+                    NumericCode = "184"
+                },
+                new Country
+                {
+                    ShortNameLowerCase = "United States of America (the)",
                     FullName = "the United States of America",
                     CodeAlpha2 = "US",
                     CodeAlpha3 = "USA",

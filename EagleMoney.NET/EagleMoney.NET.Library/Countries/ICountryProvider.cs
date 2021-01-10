@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EagleMoney.NET.Library
+namespace EagleMoney.NET.Library.Countries
 {
     public interface ICountryProvider
     {

@@ -1,9 +1,10 @@
-namespace EagleMoney.NET.Library
+namespace EagleMoney.NET.Library.Countries
 {
     public readonly struct Country
     {
-        public string Name { get; init; }
+        public string ShortName { get; init; }
         
+        public string ShortNameLowerCase { get; init; }
         
         public string FullName { get; init; }
         

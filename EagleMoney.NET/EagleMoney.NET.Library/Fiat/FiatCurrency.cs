@@ -2,103 +2,91 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using EagleMoney.NET.Library.Countries;
+using EagleMoney.NET.Library.Currencies;
 
-namespace EagleMoney.NET.Library
+namespace EagleMoney.NET.Library.Fiat
 {
-    public readonly struct Currency : IEquatable<Currency>
+    public readonly struct FiatCurrency : ICurrency, IEquatable<FiatCurrency>
     {
-        public Currency(string currencyCode) : 
-            this(currencyCode, new CurrencyFactory( new CurrencyProvider(), new CountryProvider()))
+        public FiatCurrency(string currencyCode) : 
+            this(currencyCode, new FiatCurrencyFactory( new CurrencyProvider(), new CountryProvider()))
         {
         }
         
-        public Currency(string currencyCode, CurrencyFactory currencyFactory)
+        public FiatCurrency(string currencyCode, FiatCurrencyFactory fiatCurrencyFactory)
         {
-            CurrencyDetailedInfo currencyDetailed = currencyFactory.CreateCurrency(currencyCode);
-
-            Code = currencyDetailed.Code;
-            DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
-            Symbol = currencyDetailed.Sign;
-            Name = currencyDetailed.Name;
-            Number = currencyDetailed.Number;
-            Countries = currencyDetailed.Countries;
+            this = fiatCurrencyFactory.CreateCurrency(currencyCode);
+            MinorUnit = "";
         }
         
-        public Currency(CountryCode countryCode) 
-            : this(countryCode, new CurrencyFactory(new CurrencyProvider(), new CountryProvider()))
+        public FiatCurrency(CountryCode countryCode) 
+            : this(countryCode, new FiatCurrencyFactory(new CurrencyProvider(), new CountryProvider()))
         {
         }
         
-        public Currency(CountryCode countryCode, CurrencyFactory currencyFactory)
+        public FiatCurrency(CountryCode countryCode, FiatCurrencyFactory fiatCurrencyFactory)
         {
-            CurrencyDetailedInfo currencyDetailed = currencyFactory.CreateCurrency(countryCode);
-
-            Code = currencyDetailed.Code;
-            DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
-            Symbol = currencyDetailed.Sign;
-            Name = currencyDetailed.Name;
-            Number = currencyDetailed.Number;
-            Countries = currencyDetailed.Countries;
+            this = fiatCurrencyFactory.CreateCurrency(countryCode);
+            MinorUnit = "";
         }
         
-        public Currency(CountryCodeAlpha3 codeAlpha3) 
-            : this(codeAlpha3, new CurrencyFactory(new CurrencyProvider(), new CountryProvider()))
+        public FiatCurrency(CountryCodeAlpha3 codeAlpha3) 
+            : this(codeAlpha3, new FiatCurrencyFactory(new CurrencyProvider(), new CountryProvider()))
         {
         }
         
-        public Currency(CountryCodeAlpha3 codeAlpha3, CurrencyFactory currencyFactory)
+        public FiatCurrency(CountryCodeAlpha3 codeAlpha3, FiatCurrencyFactory fiatCurrencyFactory)
         {
-            CurrencyDetailedInfo currencyDetailed = currencyFactory.CreateCurrency(codeAlpha3);
-
-            Code = currencyDetailed.Code;
-            DefaultFractionDigits = currencyDetailed.DefaultFractionDigits;
-            Symbol = currencyDetailed.Sign;
-            Name = currencyDetailed.Name;
-            Number = currencyDetailed.Number;
-            Countries = currencyDetailed.Countries;
+            this = fiatCurrencyFactory.CreateCurrency(codeAlpha3);
+            MinorUnit = "";
         }
         
-        public Currency(string code, int defaultFractionDigits)
+        public FiatCurrency(string code, int defaultFractionDigits)
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
             Symbol = "";
             Name = "";
             Number = "";
+            MinorUnit = "";
             Countries = new HashSet<Country>();
         }
         
-        public Currency(string code, int defaultFractionDigits, string symbol)
+        public FiatCurrency(string code, int defaultFractionDigits, string symbol)
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
             Symbol = symbol;
             Name = "";
             Number = "";
+            MinorUnit = "";
             Countries = new HashSet<Country>();
         }
         
-        public Currency(string code, int defaultFractionDigits, string symbol, string name)
+        public FiatCurrency(string code, int defaultFractionDigits, string symbol, string name)
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
             Symbol = symbol;
             Name = name;
             Number = "";
+            MinorUnit = "";
             Countries = new HashSet<Country>();
         }
 
-        public Currency(string code, int defaultFractionDigits, string symbol, string name, string number)
+        public FiatCurrency(string code, int defaultFractionDigits, string symbol, string name, string number)
         {
             Code = code;
             DefaultFractionDigits = defaultFractionDigits;
             Symbol = symbol;
             Name = name;
             Number = number;
+            MinorUnit = "";
             Countries = new HashSet<Country>();
         }
         
-        public Currency(
+        public FiatCurrency(
             string code, int defaultFractionDigits, string symbol, string name, string number, HashSet<Country> countries)
         {
             Code = code;
@@ -106,6 +94,7 @@ namespace EagleMoney.NET.Library
             Symbol = symbol;
             Name = name;
             Number = number;
+            MinorUnit = "";
             Countries = countries;
         }
         
@@ -119,12 +108,14 @@ namespace EagleMoney.NET.Library
         
         public int DefaultFractionDigits { get; init; }
         
+        public string MinorUnit { get; init; }
+        
         public HashSet<Country> Countries { get; init; }
 
         public override string ToString()
         {
             var stringBuilder = new StringBuilder();
-            stringBuilder.Append(nameof(Currency));
+            stringBuilder.Append(nameof(FiatCurrency));
             stringBuilder.Append(" { ");
 
             PrintMembers(stringBuilder);
@@ -158,7 +149,7 @@ namespace EagleMoney.NET.Library
             builder.Append(DefaultFractionDigits);
         }
         
-        public bool Equals(Currency other)
+        public bool Equals(FiatCurrency other)
             => Code == other.Code && 
                Number == other.Number && 
                Symbol == other.Symbol && 
@@ -166,17 +157,17 @@ namespace EagleMoney.NET.Library
 
         public override bool Equals(object other)
         {
-            var otherCurrency = other as Currency?;
+            var otherCurrency = other as FiatCurrency?;
             return otherCurrency.HasValue && Equals(otherCurrency.Value);
         }
 
         public override int GetHashCode()
             => HashCode.Combine(Code, Number, Symbol, DefaultFractionDigits);
 
-        public static bool operator ==(Currency? c1, Currency? c2)
+        public static bool operator ==(FiatCurrency? c1, FiatCurrency? c2)
             => c1.HasValue && c2.HasValue ? c1.Equals(c2) : !c1.HasValue && !c2.HasValue;
 
-        public static bool operator !=(Currency? c1, Currency? c2)
+        public static bool operator !=(FiatCurrency? c1, FiatCurrency? c2)
             =>!(c1 == c2); 
         
         public const string AED = "AED";

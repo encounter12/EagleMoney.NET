@@ -1,13 +1,12 @@
-﻿// ReSharper disable InconsistentNaming
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using EagleMoney.NET.Library.Currencies;
 
-namespace EagleMoney.NET.Library
-{ 
-    public readonly struct Money : IMoney, IEquatable<Money>, IComparable<Money>, IComparable
+namespace EagleMoney.NET.Library.Crypto
+{
+    public class CryptoMoney : IMoney, IEquatable<CryptoMoney>, IComparable<CryptoMoney>, IComparable
     {
         private readonly BigInteger _amount;
         
@@ -17,7 +16,7 @@ namespace EagleMoney.NET.Library
         // Dependency Inject (DI) “friendly” library (Mark Seemann):
         // https://stackoverflow.com/questions/2045904/dependency-inject-di-friendly-library/2047657
         
-        public Money(decimal amount, string currencyCode)
+        public CryptoMoney(decimal amount, string currencyCode)
         {
             if (amount < 0M)
             {
@@ -25,13 +24,13 @@ namespace EagleMoney.NET.Library
                     nameof(amount), amount, "Amount should be equal or greater than zero");
             }
             
-            var currency = new Currency(currencyCode);
-            int centFactor = Cents[currency.DefaultFractionDigits];
+            var currency = new CryptoCurrency(currencyCode);
+            var centFactor = (int) Math.Pow(10, currency.DefaultFractionDigits);
             _amount = (BigInteger) Math.Round(amount * centFactor);
             Currency = currency;
         }
         
-        public Money(decimal amount, Currency currency)
+        public CryptoMoney(decimal amount, ICurrency currency)
         {
             if (amount < 0M)
             {
@@ -39,40 +38,12 @@ namespace EagleMoney.NET.Library
                     nameof(amount), amount, "Amount should be equal or greater than zero");
             }
 
-            int centFactor = Cents[currency.DefaultFractionDigits];
-            _amount = (BigInteger) Math.Round(amount * centFactor);
-            Currency = currency;
-        }
-        
-        public Money(decimal amount, CountryCode countryCode)
-        {
-            if (amount < 0M)
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(amount), amount, "Amount should be equal or greater than zero");
-            }
-            
-            var currency = new Currency(countryCode);
-            int centFactor = Cents[currency.DefaultFractionDigits];
-            _amount = (BigInteger) Math.Round(amount * centFactor);
-            Currency = currency;
-        }
-        
-        public Money(decimal amount, CountryCodeAlpha3 codeAlpha3)
-        {
-            if (amount < 0M)
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(amount), amount, "Amount should be equal or greater than zero");
-            }
-            
-            var currency = new Currency(codeAlpha3);
-            int centFactor = Cents[currency.DefaultFractionDigits];
+            var centFactor = (int) Math.Pow(10, currency.DefaultFractionDigits);
             _amount = (BigInteger) Math.Round(amount * centFactor);
             Currency = currency;
         }
 
-        public Money(decimal amount, MidpointRounding mode, string currencyCode)
+        public CryptoMoney(decimal amount, MidpointRounding mode, string currencyCode)
         {
             if (amount < 0M)
             {
@@ -80,13 +51,13 @@ namespace EagleMoney.NET.Library
                     nameof(amount), amount, "Amount should be equal or greater than zero");
             }
 
-            var currency = new Currency(currencyCode);
-            int centFactor = Cents[currency.DefaultFractionDigits];
+            var currency = new CryptoCurrency(currencyCode);
+            var centFactor = (int) Math.Pow(10, currency.DefaultFractionDigits);
             _amount = (BigInteger) Math.Round(amount * centFactor, mode);
             Currency = currency;
         }
 
-        private Money(BigInteger amount, Currency currency)
+        private CryptoMoney(BigInteger amount, ICurrency currency)
         {
             if (amount < 0)
             {
@@ -97,23 +68,21 @@ namespace EagleMoney.NET.Library
             _amount = amount;
             Currency = currency;
         }
-        
-        private static int[] Cents => new[] {1, 10, 100, 1000};
 
-        private int CentFactor => Cents[Currency.DefaultFractionDigits];
+        private int CentFactor => (int)Math.Pow(10, Currency.DefaultFractionDigits);
 
         public decimal Amount => (decimal)_amount / CentFactor;
 
-        public Currency Currency { get; init; }
+        public ICurrency Currency { get; init; }
 
         //Credit: Martin Fowler and Matt Foemmel, Book: Patterns of Enterprise Application Architecture, p.494
-        public Money[] AllocateEven(int n)
+        public IMoney[] AllocateEven(int n)
         {
             BigInteger[] allocatedInternalAmounts = AllocateCentsEven(_amount, n);
 
             var currency = Currency;
             var allocated = Array.ConvertAll(
-                allocatedInternalAmounts, x => new Money(x, currency));
+                allocatedInternalAmounts, x => new CryptoMoney(x, currency));
             
             return allocated;
         }
@@ -140,13 +109,13 @@ namespace EagleMoney.NET.Library
         }
 
         //Credit: Martin Fowler and Matt Foemmel, Book: Patterns of Enterprise Application Architecture, p.494
-        public Money[] AllocateByRatios(int[] ratios)
+        public IMoney[] AllocateByRatios(int[] ratios)
         {
             BigInteger[] allocatedInternalAmounts = AllocateCentsByRatios(_amount, ratios);
 
             var currency = Currency;
             var allocated = Array.ConvertAll(
-                allocatedInternalAmounts, x => new Money(x, currency));
+                allocatedInternalAmounts, x => new CryptoMoney(x, currency));
             
             return allocated;
         }
@@ -173,8 +142,8 @@ namespace EagleMoney.NET.Library
             return results;
         }
 
-        public Money Percentage(decimal percent) 
-            => new ((Amount / 100) * percent, Currency);
+        public IMoney Percentage(decimal percent) 
+            => new CryptoMoney((Amount / 100) * percent, Currency);
         
         public override string ToString()
             => $"{Amount} {Currency.Code}";
@@ -195,10 +164,10 @@ namespace EagleMoney.NET.Library
             return moneyString;
         }
 
-        public static Money Parse(string moneyStr, string currencyCode)
+        public static IMoney Parse(string moneyStr, string currencyCode)
         {
             var amount = decimal.Parse(moneyStr);
-            return new Money(amount, currencyCode);
+            return new CryptoMoney(amount, currencyCode);
         }
         
         // TODO: Complete method
@@ -211,23 +180,23 @@ namespace EagleMoney.NET.Library
         //     return new Money();
         // }
 
-        public bool Equals(Money other)
-            => Currency.Equals(other.Currency) && Amount == other.Amount;
+        public bool Equals(CryptoMoney other)
+            => Currency.Equals(other?.Currency) && Amount == other?.Amount;
         
         public override bool Equals(object other)
         {
-            var otherMoney = other as Money?;
-            return otherMoney.HasValue && Equals(otherMoney.Value);
+            var otherMoney = other as CryptoMoney;
+            return otherMoney != null && Equals(otherMoney);
         }
 
         public override int GetHashCode()
             => HashCode.Combine(Amount, Currency);
 
-        public int CompareTo(Money other)
+        public int CompareTo(CryptoMoney other)
         {
             if (!Currency.Equals(other.Currency))
             {
-                throw new InvalidOperationException("Cannot compare money of different currencies");
+                throw new InvalidOperationException("Cannot compare fiat money of different currencies");
             }
 
             return Equals(other) ? 0 : Amount.CompareTo(other.Amount);
@@ -235,162 +204,152 @@ namespace EagleMoney.NET.Library
 
         public int CompareTo(object other)
         {
-            if (!(other is Money))
+            if (!(other is CryptoMoney))
             {
-                throw new InvalidOperationException("CompareTo() argument is not Money");
+                throw new InvalidOperationException("CompareTo() argument is not CryptoMoney");
             }
 
-            return CompareTo((Money) other);
+            return CompareTo((CryptoMoney) other);
         }
 
-        public static bool operator ==(Money? m1, Money? m2)
-            => m1.HasValue && m2.HasValue ? m1.Equals(m2) : !m1.HasValue && !m2.HasValue;
+        public static bool operator ==(CryptoMoney m1, CryptoMoney m2)
+            => !ReferenceEquals(m1, null) && !ReferenceEquals(m2, null) ?
+                    m1.Equals(m2) : ReferenceEquals(m1, null) && ReferenceEquals(m2, null);
 
-        public static bool operator !=(Money? m1, Money? m2)
-            => m1.HasValue && m2.HasValue ? !m1.Equals(m2) : m1.HasValue ^ m2.HasValue;
+        public static bool operator !=(CryptoMoney m1, CryptoMoney m2)
+            => !ReferenceEquals(m1, null) && !ReferenceEquals(m2, null) ? 
+                    !m1.Equals(m2) : !ReferenceEquals(m1, null) ^ !ReferenceEquals(m2, null);
         
-        public static bool operator ==(Money? m1, decimal m2Value)
+        public static bool operator ==(CryptoMoney m1, decimal m2Value)
             => m1?.Amount.Equals(m2Value) ?? false;
         
-        public static bool operator !=(Money? m1, decimal m2Value)
+        public static bool operator !=(CryptoMoney m1, decimal m2Value)
             => !m1?.Amount.Equals(m2Value) ?? false;
         
-        public static bool operator ==(decimal m1Value, Money? m2)
+        public static bool operator ==(decimal m1Value, CryptoMoney m2)
             => m2?.Amount.Equals(m1Value) ?? false;
         
-        public static bool operator !=(decimal m1Value, Money? m2)
+        public static bool operator !=(decimal m1Value, CryptoMoney m2)
             => !m2?.Amount.Equals(m1Value) ?? false;
 
-        public static bool operator <(Money m1, Money m2)
+        public static bool operator <(CryptoMoney m1, CryptoMoney m2)
             => m1.CompareTo(m2) < 0;
 
-        public static bool operator >(Money m1, Money m2)
+        public static bool operator >(CryptoMoney m1, CryptoMoney m2)
             => m1.CompareTo(m2) > 0;
         
-        public static bool operator <(Money m1, decimal m2Value)
+        public static bool operator <(CryptoMoney m1, decimal m2Value)
             => m1.Amount.CompareTo(m2Value) < 0;
         
-        public static bool operator >(Money m1, decimal m2Value)
+        public static bool operator >(CryptoMoney m1, decimal m2Value)
             => m1.Amount.CompareTo(m2Value) > 0;
         
-        public static bool operator <(decimal m1Value, Money m2)
+        public static bool operator <(decimal m1Value, CryptoMoney m2)
             => m1Value.CompareTo(m2.Amount) < 0;
         
-        public static bool operator >(decimal m1Value, Money m2)
+        public static bool operator >(decimal m1Value, CryptoMoney m2)
             => m1Value.CompareTo(m2.Amount) > 0;
 
-        public static bool operator <=(Money m1, Money m2)
+        public static bool operator <=(CryptoMoney m1, CryptoMoney m2)
             => m1 == m2 || m1 < m2;
 
-        public static bool operator >=(Money m1, Money m2)
+        public static bool operator >=(CryptoMoney m1, CryptoMoney m2)
             => m1 == m2 || m1 > m2;
         
-        public static bool operator <=(Money m1, decimal m2Value)
+        public static bool operator <=(CryptoMoney m1, decimal m2Value)
             => m1.Amount == m2Value || m1.Amount < m2Value;
         
-        public static bool operator >=(Money m1, decimal m2Value)
+        public static bool operator >=(CryptoMoney m1, decimal m2Value)
             => m1.Amount == m2Value || m1.Amount > m2Value;
         
-        public static bool operator <=(decimal m1Value, Money m2)
+        public static bool operator <=(decimal m1Value, CryptoMoney m2)
             => m1Value == m2.Amount || m1Value < m2.Amount;
         
-        public static bool operator >=(decimal m1Value, Money m2)
+        public static bool operator >=(decimal m1Value, CryptoMoney m2)
             => m1Value == m2.Amount || m1Value > m2.Amount;
 
-        public static Money operator +(Money m1, Money m2)
+        public static CryptoMoney operator +(CryptoMoney m1, CryptoMoney m2)
         {
             if (!m1.Currency.Equals(m2.Currency))
             {
                 throw new InvalidOperationException("Cannot add money having different currencies");
             }
 
-            return new Money(m1.Amount + m2.Amount, m1.Currency);
+            return new CryptoMoney(m1.Amount + m2.Amount, m1.Currency);
         }
 
-        public static Money operator +(Money m1, decimal m2Value) 
+        public static CryptoMoney operator +(CryptoMoney m1, decimal m2Value) 
             => new(m1.Amount + m2Value, m1.Currency);
 
-        public static Money operator +(decimal m1Value, Money m2) 
+        public static CryptoMoney operator +(decimal m1Value, CryptoMoney m2) 
             => new(m1Value + m2.Amount, m2.Currency);
 
-        public static Money operator -(Money m1, Money m2)
+        public static CryptoMoney operator -(CryptoMoney m1, CryptoMoney m2)
         {
             if (!m1.Currency.Equals(m2.Currency))
             {
                 throw new InvalidOperationException("Cannot subtract money having different currencies");
             }
 
-            return new Money(m1.Amount - m2.Amount, m1.Currency);
+            return new CryptoMoney(m1.Amount - m2.Amount, m1.Currency);
         }
 
-        public static Money operator -(Money m1, decimal m2Value)
+        public static CryptoMoney operator -(CryptoMoney m1, decimal m2Value)
             => new(m1.Amount - m2Value, m1.Currency);
 
-        public static Money operator -(decimal m1Value, Money m2)
+        public static CryptoMoney operator -(decimal m1Value, CryptoMoney m2)
             => new(m1Value - m2.Amount, m2.Currency);
 
-        public static Money operator *(Money m1, Money m2)
+        public static CryptoMoney operator *(CryptoMoney m1, CryptoMoney m2)
         {
             if (!m1.Currency.Equals(m2.Currency))
             {
                 throw new InvalidOperationException("Cannot multiply money having different currencies");
             }
 
-            return new Money(m1.Amount * m2.Amount, m1.Currency);
+            return new CryptoMoney(m1.Amount * m2.Amount, m1.Currency);
         }
 
-        public static Money operator *(Money m1, decimal m2Value)
+        public static CryptoMoney operator *(CryptoMoney m1, decimal m2Value)
             => new(m1.Amount * m2Value, m1.Currency);
 
-        public static Money operator *(decimal m1Value, Money m2)
+        public static CryptoMoney operator *(decimal m1Value, CryptoMoney m2)
             => new(m1Value * m2.Amount, m2.Currency);
 
-        public static Money operator /(Money m1, Money m2)
+        public static CryptoMoney operator /(CryptoMoney m1, CryptoMoney m2)
         {
             if (!m1.Currency.Equals(m2.Currency))
             {
                 throw new InvalidOperationException("Cannot divide money having different currencies");
             }
 
-            return new Money(m1.Amount / m2.Amount, m1.Currency);
+            return new CryptoMoney(m1.Amount / m2.Amount, m1.Currency);
         }
 
-        public static Money operator /(Money m1, decimal m2Value)
+        public static CryptoMoney operator /(CryptoMoney m1, decimal m2Value)
             => new(m1.Amount / m2Value, m1.Currency);
 
-        public static Money operator /(decimal m1Value, Money m2)
+        public static CryptoMoney operator /(decimal m1Value, CryptoMoney m2)
             => new(m1Value / m2.Amount, m2.Currency);
 
-        public static Money operator %(Money m, int divisor)
+        public static CryptoMoney operator %(CryptoMoney m, int divisor)
             => new(m.Amount % divisor, m.Currency);
         
-        public static Money operator +(Money m)
+        public static CryptoMoney operator +(CryptoMoney m)
             => new(m.Amount, m.Currency);
         
-        public static Money operator -(Money m)
+        public static CryptoMoney operator -(CryptoMoney m)
             => new(-m.Amount, m.Currency);
 
-        public static Money operator ++(Money m)
+        public static CryptoMoney operator ++(CryptoMoney m)
             => new(m.Amount + 1M, m.Currency);
 
-        public static Money operator --(Money m)
+        public static CryptoMoney operator --(CryptoMoney m)
             => new(m.Amount - 1M, m.Currency);
 
-        public static explicit operator decimal(Money m) => m.Amount;
+        public static explicit operator decimal(CryptoMoney m) => m.Amount;
         
-        public static Money AFN(decimal amount) => new (amount, Library.Currency.AFN);
-        public static Money BGN(decimal amount) => new (amount, Library.Currency.BGN);
-        public static Money CAD(decimal amount) => new(amount, Library.Currency.CAD);
-        public static Money CHF(decimal amount) => new(amount, Library.Currency.CHF);
-        public static Money EUR(decimal amount) => new (amount, Library.Currency.EUR);
-        public static Money GBP(decimal amount) => new (amount, Library.Currency.GBP);
-        public static Money MKD(decimal amount) => new (amount, Library.Currency.MKD);
-        public static Money SAR(decimal amount) => new (amount, Library.Currency.SAR);
-        public static Money USD(decimal amount) => new (amount, Library.Currency.USD);
-        
-        public static Money AOA(decimal amount, MidpointRounding mode) => new(amount, mode, Library.Currency.AOA);
-        public static Money BGN(decimal amount, MidpointRounding mode) => new(amount, mode, Library.Currency.BGN);
-        public static Money CHF(decimal amount, MidpointRounding mode) => new(amount, mode, Library.Currency.CHF);
-        
+        public static CryptoMoney BTC(decimal amount) => new (amount, "BTC");
+        // public static CryptoMoney BGN(decimal amount) => new (amount, Library.FiatCurrency.BGN);
     }
 }

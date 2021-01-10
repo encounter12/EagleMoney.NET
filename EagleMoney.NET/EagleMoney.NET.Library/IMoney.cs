@@ -1,16 +1,18 @@
+using EagleMoney.NET.Library.Currencies;
+
 namespace EagleMoney.NET.Library
 {
     public interface IMoney
     {
         decimal Amount { get; }
         
-        Currency Currency { get; init; }
+        ICurrency Currency { get; init; }
 
-        Money[] AllocateEven(int n);
+        IMoney[] AllocateEven(int n);
 
-        Money[] AllocateByRatios(int[] ratios);
+        IMoney[] AllocateByRatios(int[] ratios);
 
-        Money Percentage(decimal percent);
+        IMoney Percentage(decimal percent);
 
         string ToString();
 

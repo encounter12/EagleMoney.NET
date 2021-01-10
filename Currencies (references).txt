@@ -1,0 +1,783 @@
+ISO 4217
+https://en.wikipedia.org/wiki/ISO_4217
+
+ISO 4217
+https://simple.wikipedia.org/wiki/ISO_4217
+
+ISO 4217 CURRENCY CODES
+https://www.iso.org/iso-4217-currency-codes.html
+
+List of circulating currencies
+https://en.wikipedia.org/wiki/List_of_circulating_currencies
+
+Currency symbol
+https://en.wikipedia.org/wiki/Currency_symbol
+
+List of Currency Symbols
+https://www.xe.com/symbols.php
+
+Currency Symbols of the World Listed
+https://blog.revolut.com/currency-symbols-of-the-world/
+
+List of currency symbols: Europe
+https://transferwise.com/gb/blog/world-currency-symbols
+
+World currency symbols
+https://www.currencyremitapp.com/world-currency-symbols/
+
+Full list of currency / money formatting based on locale [duplicate]
+https://ux.stackexchange.com/questions/71685/full-list-of-currency-money-formatting-based-on-locale?noredirect=1&lq=1
+
+Where to place currency symbol when localizing and what to do with odd symbols
+https://ux.stackexchange.com/questions/22574/where-to-place-currency-symbol-when-localizing-and-what-to-do-with-odd-symbols
+
+Do minor currency units have a ISO standard?
+https://stackoverflow.com/questions/5023754/do-minor-currency-units-have-a-iso-standard
+
+World Currency Formats and ISO 4217 Information
+https://www.thefinancials.com/Default.aspx?SubSectionID=curformat
+
+Do minor currency units have a ISO standard?
+https://stackoverflow.com/questions/5023754/do-minor-currency-units-have-a-iso-standard
+
+Minor Units Format
+https://developers.paymentsos.com/docs/minor-currency-units.html
+
+CLDR - Unicode Common Locale Data Repository
+http://cldr.unicode.org/
+
+
+-------------------
+
+ISO 3166
+COUNTRY CODES
+https://www.iso.org/iso-3166-country-codes.html
+
+Country Codes Collection
+https://www.iso.org/obp/ui/#iso:pub:PUB500001:en
+
+GLOSSARY FOR ISO 3166
+https://www.iso.org/glossary-for-iso-3166.html
+
+ISO 3166-1
+https://en.wikipedia.org/wiki/ISO_3166-1
+
+ISO 3166-1 alpha-3
+https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+
+Methodology
+Standard country or area codes for statistical use (M49)
+https://unstats.un.org/unsd/methodology/m49/
+
+Source of ISO data in xml format? [closed]
+https://stackoverflow.com/questions/1450744/source-of-iso-data-in-xml-format
+
+Converting country codes in .NET
+https://stackoverflow.com/questions/4884692/converting-country-codes-in-net
+
+Seeking full list of ISO ALPHA-2 and ISO ALPHA-3 country codes?
+https://gis.stackexchange.com/questions/1047/seeking-full-list-of-iso-alpha-2-and-iso-alpha-3-country-codes
+
+Methodology
+Standard country or area codes for statistical use (M49)
+https://unstats.un.org/unsd/methodology/m49/overview
+
+ISO-3166 Country and Dependent Territories Lists with UN Regional Codes
+https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes
+https://github.com/lukes/ISO-3166-Countries-with-Regional-Codes/blob/master/all/all.xml
+
+Nager.Country
+https://github.com/nager/Nager.Country
+
+
+
+-------------------
+
+Class Currency
+https://docs.oracle.com/javase/8/docs/api/java/util/Currency.html
+
+Class Currency
+https://docs.oracle.com/javase/7/docs/api/java/util/Currency.html
+
+Currency Symbols (Unicode block)
+https://en.wikipedia.org/wiki/Currency_Symbols_(Unicode_block)
+
+Currency sign (typography)
+https://en.wikipedia.org/wiki/Currency_sign_(typography)
+
+
+List of circulating currencies
+https://en.wikipedia.org/wiki/List_of_circulating_currencies
+
+List of currencies
+https://en.wikipedia.org/wiki/List_of_currencies
+
+Private currency
+https://en.wikipedia.org/wiki/Private_currency
+
+Complementary currency
+https://en.wikipedia.org/wiki/Complementary_currency
+
+Local currency
+https://en.wikipedia.org/wiki/Local_currency
+
+Legal tender
+https://en.wikipedia.org/wiki/Legal_tender
+
+Monetization
+https://en.wikipedia.org/wiki/Monetization
+
+Cashless society
+https://en.wikipedia.org/wiki/Cashless_society
+
+
+Medium of exchange
+https://en.wikipedia.org/wiki/Medium_of_exchange
+
+Money
+https://en.wikipedia.org/wiki/Money
+
+Portal:Money
+https://en.wikipedia.org/wiki/Portal:Money
+
+Currency
+https://en.wikipedia.org/wiki/Currency
+
+Coin
+https://en.wikipedia.org/wiki/Coin
+
+Banknote
+https://en.wikipedia.org/wiki/Banknote
+
+Token money
+https://en.wikipedia.org/wiki/Token_money
+
+Ledger
+https://en.wikipedia.org/wiki/Ledger
+
+----------------------------------
+
+Digital currency
+https://en.wikipedia.org/wiki/Digital_currency
+
+Virtual currency
+https://en.wikipedia.org/wiki/Virtual_currency
+
+Central bank digital currency
+https://en.wikipedia.org/wiki/Central_bank_digital_currency
+
+Cryptography
+https://en.wikipedia.org/wiki/Cryptography
+
+Strong cryptography
+https://en.wikipedia.org/wiki/Strong_cryptography
+
+Zero-knowledge proof
+https://en.wikipedia.org/wiki/Zero-knowledge_proof
+
+Elliptic-curve cryptography
+https://en.wikipedia.org/wiki/Elliptic-curve_cryptography
+
+Elliptic Curve Digital Signature Algorithm
+https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm
+
+Cryptographic protocol
+https://en.wikipedia.org/wiki/Cryptographic_protocol
+
+Distributed algorithm
+https://en.wikipedia.org/wiki/Distributed_algorithm
+
+Blockchain
+https://en.wikipedia.org/wiki/Blockchain
+
+
+Cryptocurrency
+https://en.wikipedia.org/wiki/Cryptocurrency
+
+Криптовалута
+https://bg.wikipedia.org/wiki/%D0%9A%D1%80%D0%B8%D0%BF%D1%82%D0%BE%D0%B2%D0%B0%D0%BB%D1%83%D1%82%D0%B0
+
+Cryptocurrency wallet
+https://en.wikipedia.org/wiki/Cryptocurrency_wallet
+
+Cryptocurrency exchange
+https://en.wikipedia.org/wiki/Cryptocurrency_exchange
+
+Cryptocurrency Mining Algorithms and Popular Cryptocurrencies
+https://medium.com/@Mr.dhariwal/cryptocurrency-mining-algorithms-and-popular-cryptocurrencies-48176d3559d6
+
+Cryptocurrency for Dummies: Bitcoin and Beyond
+https://www.toptal.com/bitcoin/cryptocurrency-for-dummies-bitcoin-and-beyond
+
+List of cryptocurrencies
+https://en.wikipedia.org/wiki/List_of_cryptocurrencies
+
+The 10 Most Important Cryptocurrencies Other Than Bitcoin
+https://www.investopedia.com/tech/most-important-cryptocurrencies-other-than-bitcoin/
+
+Bitcoin
+https://en.wikipedia.org/wiki/Bitcoin
+https://bitcoin.org/en/
+
+Bitcoin network
+https://en.wikipedia.org/wiki/Bitcoin_network
+
+Mining pool
+https://en.wikipedia.org/wiki/Mining_pool
+
+Hash function
+https://en.wikipedia.org/wiki/Hash_function
+
+SHA-2
+https://en.wikipedia.org/wiki/SHA-2
+
+Satoshi Nakamoto
+https://en.wikipedia.org/wiki/Satoshi_Nakamoto
+
+Ethereum
+https://en.wikipedia.org/wiki/Ethereum
+https://ethereum.org/en/
+
+Tether (cryptocurrency)
+https://en.wikipedia.org/wiki/Tether_(cryptocurrency)
+https://tether.to/
+
+Litecoin
+https://en.wikipedia.org/wiki/Litecoin
+https://litecoin.org/
+https://litecoin.com/en/
+
+Ripple (payment protocol)
+https://en.wikipedia.org/wiki/Ripple_(payment_protocol)
+https://ripple.com/xrp/
+
+Cardano (ADA)
+https://en.wikipedia.org/wiki/Cardano_(cryptocurrency_platform)
+https://cardano.org/
+
+Polkadot (DOT)
+Polkadot (cryptocurrency)
+https://en.wikipedia.org/wiki/Polkadot_(cryptocurrency)
+https://polkadot.network/
+
+Bitcoin Cash
+https://en.wikipedia.org/wiki/Bitcoin_Cash
+https://www.bitcoincash.org/
+
+https://coinmarketcap.com/currencies/bitcoin-cash/
+https://www.coindesk.com/price/bitcoin-cash
+
+Stellar (payment network)
+https://en.wikipedia.org/wiki/Stellar_(payment_network)
+https://www.stellar.org/
+
+https://www.coindesk.com/price/stellar
+https://www.coinbase.com/price/stellar
+https://coinmarketcap.com/currencies/stellar/
+
+Binance
+https://en.wikipedia.org/wiki/Binance
+https://www.binance.com/en/bnb
+https://explorer.binance.org/
+
+
+----------------------
+
+Qtum
+https://qtum.org/en
+
+HyperCash
+https://h.cash/
+https://coinmarketcap.com/currencies/hypercash/
+
+EOS.IO
+https://en.wikipedia.org/wiki/EOS.IO
+https://block.one/
+https://eos.io/
+
+Dogecoin
+https://en.wikipedia.org/wiki/Dogecoin
+https://dogecoin.com/
+
+Dogecoin (DOGE)
+https://www.investopedia.com/terms/d/dogecoin.asp
+https://www.coindesk.com/price/dogecoin
+https://coinmarketcap.com/currencies/dogecoin/
+
+Monero
+https://en.wikipedia.org/wiki/Monero
+
+Dash (cryptocurrency)
+https://en.wikipedia.org/wiki/Dash_(cryptocurrency)
+
+Diem (digital currency)
+https://en.wikipedia.org/wiki/Diem_(digital_currency)
+
+
+--------------------
+
+Cryptocurrency block explorers:
+
+https://www.blockchain.com/explorer
+
+https://blockchain.coinmarketcap.com/
+
+https://btc.com/
+
+--------------------
+
+Wallets:
+
+Best Bitcoin Wallets
+https://www.investopedia.com/best-bitcoin-wallets-5070283
+
+Ethereum wallets:
+
+https://ethereum.org/en/wallets/
+https://ethereum.org/en/wallets/find-wallet/
+
+Hyperpay
+https://hyperpay.tech/
+
+HyperMate Hardware Wallet
+https://hyperpay.tech/hardware?lang=en
+
+Dharma
+https://www.dharma.io/
+
+--------------------
+
+Libra cryptocurrency project changes name to Diem to distance itself from Facebook
+https://www.theverge.com/2020/12/1/21755078/libra-diem-name-change-cryptocurrency-facebook
+
+Facebook is shifting its Libra cryptocurrency plans after intense regulatory pressure
+https://www.theverge.com/2020/3/3/21163658/facebook-libra-cryptocurrency-token-ditching-plans-calibra-wallet-delay
+
+The Coming Currency War: Digital Money vs. the Dollar
+https://www.wsj.com/articles/the-coming-currency-war-digital-money-vs-the-dollar-11569204540
+
+
+-----------------
+
+Cryptographic hash function
+https://en.wikipedia.org/wiki/Cryptographic_hash_function
+
+Comparison of cryptographic hash functions
+https://en.wikipedia.org/wiki/Comparison_of_cryptographic_hash_functions
+
+Consensus (computer science)
+https://en.wikipedia.org/wiki/Consensus_(computer_science)
+
+Uniform consensus
+https://en.wikipedia.org/wiki/Uniform_consensus
+
+Proof of work
+https://en.wikipedia.org/wiki/Proof_of_work
+
+Proof of stake
+https://en.wikipedia.org/wiki/Proof_of_stake
+
+Byzantine fault
+https://en.wikipedia.org/wiki/Byzantine_fault
+
+Quantum Byzantine agreement
+https://en.wikipedia.org/wiki/Quantum_Byzantine_agreement
+
+Ethash
+https://en.wikipedia.org/wiki/Ethash
+
+Equihash
+https://en.wikipedia.org/wiki/Equihash
+
+CryptoNote
+https://en.wikipedia.org/wiki/CryptoNote
+
+Cunningham chain
+https://en.wikipedia.org/wiki/Cunningham_chain
+
+Bi-twin chain
+https://en.wikipedia.org/wiki/Bi-twin_chain
+
+Hashcash
+https://en.wikipedia.org/wiki/Hashcash
+
+Trusted timestamping
+https://en.wikipedia.org/wiki/Trusted_timestamping
+
+Trusted third party
+https://en.wikipedia.org/wiki/Trusted_third_party
+
+Double-spending
+https://en.wikipedia.org/wiki/Double-spending
+
+---------------------------------------------------
+
+CoinMarketCap
+https://coinmarketcap.com/
+
+CoinMarketCap - All cryptocurrencies
+https://coinmarketcap.com/all/views/all/
+
+
+Top CryptoCurrencies (By Market Cap)
+https://www.advfn.com/cryptocurrency
+
+Cryptocurrency Algorithms
+https://www.advfn.com/cryptocurrency/algorithms
+
+NeoScrypt Cryptocurrencies
+https://www.advfn.com/cryptocurrency/algorithms/NeoScrypt
+
+X13 Cryptocurrencies
+https://www.advfn.com/cryptocurrency/algorithms/X13
+
+Cryptocurrency Platforms
+https://www.advfn.com/cryptocurrency/platforms
+
+Top Cryptocurrency Exchanges (By Volume)
+https://www.advfn.com/cryptocurrency/exchanges
+
+
+Coin Lists
+https://coinguides.org/category/listing/
+
+SHA-256 Hashing Algorithm – List of coins based on Bitcoin’s SHA256 algo
+https://coinguides.org/sha-256-algorithm-coins/
+
+HMQ1725 algorithm – List of HMQ1725 coins and mining software’s
+https://coinguides.org/hmq1725-algorithm-coins-miner/
+
+X11 Coins – List of Cryptocurrencies based on X 11 hashing algorithm
+https://coinguides.org/x11-algorithm-coins/
+
+CryptoNight Algorithm – List of coins on CryptoNight (Original / ASIC)
+https://coinguides.org/cryptonight-algorithm-coins/
+
+X16S PoW Algorithm – List of all X16S coins and miners (NVIDIA / AMD)
+https://coinguides.org/x16s-algorithm-coins/
+
+X16R Algorithm explained – List of X16R coins and miners (NVIDIA / AMD)
+https://coinguides.org/x16r-algorithm-coins/
+
+Blake256 Algorithm (Blake256r14) – List of all coins and ASIC miners
+https://coinguides.org/blake256-algorithm-coins-asic-miners/
+
+Blake2s Algorithm – Miners and list of all coins based on Blake (2s)
+https://coinguides.org/blake2s-algorithm-coins/
+
+Skein PoW algorithm – Skein ASIC miner and list of coins based on Skein
+https://coinguides.org/skein-algorithm-coins-miner/
+
+Qubit algorithm – Miners (ASIC) & list of coins with Qubit PoW algorithm
+https://coinguides.org/qubit-algorithm-coins-asic/
+
+Yescrypt Algorithm coins & Miners – Yescrypt R8, R16, R24, R32 (CPU algo)
+https://coinguides.org/yescrypt-algorithm-coins/
+
+How to check hash (checksum) / verify PGP signature of Ledger Live app
+https://coinguides.org/verify-checksum-signature-ledger-live/
+
+-----------------------------
+
+BEP2, BEP20, ERC20, OMNI & TRC20 networks – What’s the difference?
+https://coinguides.org/bep2-bep20-erc20-the-difference/
+
+What Lock Time means in Bitcoin transaction: LockTime: Block height, Date?
+https://coinguides.org/bitcoin-lock-time/
+
+A Step-By-Step Guide To Buy Altcoins
+https://coinguides.org/a-step-by-step-guide-to-buy-altcoins/
+
+Ledger Nano not detected on Electrum / connection failed error – Fix
+https://coinguides.org/ledger-nano-not-detected-electrum-fix/
+
+Satoshi Currency: Getting to Grips with Bitcoin Fractions
+https://coincentral.com/satoshi-currency-getting-to-grips-with-bitcoin-fractions/
+
+Why bitcoin needs a new symbol
+https://qz.com/1679354/the-satoshi-is-a-smaller-denomination-of-bitcoin/
+
+What Happens to Bitcoin After All 21 Million Are Mined?
+https://www.investopedia.com/tech/what-happens-bitcoin-after-21-million-mined/
+
+Guide to Bitcoin
+https://www.investopedia.com/terms/b/bitcoin.asp
+
+Bitcoin Mining Unit Manufacturer MicroBT Nibbles at Bitmain’s Market Share
+https://www.coindesk.com/bitcoin-mining-unit-manufacturer-microbt-nibbles-at-bitmains-market-share
+
+
+------------------------
+
+Gwei (Ethereum)
+https://www.investopedia.com/terms/g/gwei-ethereum.asp
+
+INTRO TO ETHEREUM
+https://ethereum.org/en/developers/docs/intro-to-ethereum/
+
+NODES AND CLIENTS
+https://ethereum.org/en/developers/docs/nodes-and-clients/
+
+TRANSACTIONS
+https://ethereum.org/en/developers/docs/transactions/
+
+BLOCKS
+https://ethereum.org/en/developers/docs/blocks/
+
+ETHEREUM ACCOUNTS
+https://ethereum.org/en/developers/docs/accounts/
+
+CONSENSUS MECHANISMS
+https://ethereum.org/en/developers/docs/consensus-mechanisms/
+
+PROOF-OF-WORK (POW)
+https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/
+
+PROOF-OF-STAKE (POS)
+https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/
+
+MINING
+https://ethereum.org/en/developers/docs/consensus-mechanisms/pow/mining/
+
+Upgrading Ethereum to radical new heights
+https://ethereum.org/en/eth2/
+
+A digital future on a global scale
+https://ethereum.org/en/eth2/vision/
+
+Ethereum 2.0 Specifications
+https://github.com/ethereum/eth2.0-specs
+
+The Beacon Chain
+https://ethereum.org/en/eth2/beacon-chain/
+
+Ethereum 2.0 Phase 0 -- The Beacon Chain
+https://github.com/ethereum/eth2.0-specs/blob/dev/specs/phase0/beacon-chain.md
+
+Shard chains
+https://ethereum.org/en/eth2/shard-chains/
+
+On sharding blockchains FAQs
+https://eth.wiki/sharding/Sharding-FAQs
+
+Docking mainnet with Eth2
+https://ethereum.org/en/eth2/docking/
+
+Stake your ETH to become an Ethereum validator
+https://ethereum.org/en/eth2/staking/
+
+
+-------------
+
+Casper the Friendly Finality Gadget
+Vitalik Buterin, Virgil Griffith
+https://arxiv.org/abs/1710.09437
+https://github.com/ethereum/research/blob/master/papers/casper-basics/casper_basics.pdf
+
+Casper the Friendly Finality Gadget
+https://www.semanticscholar.org/paper/Casper-the-Friendly-Finality-Gadget-Buterin-Griffith/fdbebd67c8a9671efabf4e53d6267789cd91d96c
+
+Incentives in Ethereum's Hybrid Casper Protocol
+Vitalik Buterin, Daniel Reijsbergen, Stefanos Leonardos, Georgios Piliouras
+https://arxiv.org/abs/1903.04205
+
+A balancing attack on Gasper, the current candidate for Eth2’s beacon chain
+https://ethresear.ch/t/a-balancing-attack-on-gasper-the-current-candidate-for-eth2s-beacon-chain/8079
+
+Ethereum research - CASPER
+https://ethresear.ch/c/casper/5/l/latest
+https://ethresear.ch/c/casper/5
+
+Ethereum research - Sharding
+https://ethresear.ch/c/sharding/6
+
+Combining GHOST and Casper
+Vitalik Buterin, Diego Hernandez, Thor Kamphefner, Khiem Pham, Zhi Qiao, Danny Ryan, Juhyeok Sin, Ying Wang, Yan X Zhang
+https://arxiv.org/abs/2003.03052
+
+Streamlet: Textbook Streamlined Blockchains
+Benjamin Y. Chan, Elaine Shi
+https://eprint.iacr.org/2020/088
+https://dl.acm.org/doi/10.1145/3419614.3423256
+
+Proof of Stake Made Simple with Casper
+Olivier Moindrot
+Published 2017
+https://www.semanticscholar.org/paper/Proof-of-Stake-Made-Simple-with-Casper-Moindrot/02feb6217d3a722773d9a971b2bbc80aa374ed95
+
+Formal Analysis of a Proof-of-Stake Blockchain
+https://www.semanticscholar.org/paper/Formal-Analysis-of-a-Proof-of-Stake-Blockchain-Thin-Dong/e1e06cbf83476e1bd79c0b0cf05a426809f2682b
+
+Formal Analysis of a Proof-of-Stake Blockchain
+Wai Yan Maung Maung Thin; Naipeng Dong; Guangdong Bai; Jin Song Dong
+https://ieeexplore.ieee.org/document/8595076
+https://baigd.github.io/
+
+Minimal Slashing Conditions
+Vitalik Buterin (Mar 2, 2017)
+https://medium.com/@VitalikButerin/minimal-slashing-conditions-20f0b500fc6c
+
+Ethereum 2.0 Specifications
+https://github.com/ethereum/eth2.0-specs
+
+Casper CBC
+https://github.com/ethereum/cbc-casper
+
+A CBC Casper Tutorial
+https://vitalik.ca/general/2018/12/05/cbc_casper.html
+
+Bitwise LMD GHOST
+https://ethresear.ch/t/bitwise-lmd-ghost/4749
+
+LMD-GHOST
+https://github.com/protolambda/lmd-ghost
+
+Bitwise LMD GHOST: An efficient CBC Casper fork choice rule
+https://medium.com/@aditya.asgaonkar/bitwise-lmd-ghost-an-efficient-cbc-casper-fork-choice-rule-6db924e57d1f
+
+Casper FFG: Consensus Protocol for the Realization of Proof-of-Stake
+https://medium.com/unitychain/intro-to-casper-ffg-9ed944d98b2d
+
+Ethereum research
+https://github.com/ethereum/research
+
+Ethereum 2.0 Devs Handbook and FAQs
+https://notes.ethereum.org/@serenity/handbook
+
+Eth2 - Sharding - Mindmap
+https://www.mindomo.com/zh/mindmap/eth2-sharding-4408ec348bee4501aa125c3e3cd251d3
+
+Ethereum Casper: A Comprehensive Guide
+https://www.skalex.io/ethereum-casper/
+
+What to Expect When ETH’s Expecting
+https://hackernoon.com/what-to-expect-when-eths-expecting-80cb4951afcd
+
+What is Ethereum Casper?
+https://academy.binance.com/en/articles/ethereum-casper-explained
+
+A QUICK GUIDE TO ETHEREUM CASPER
+https://www.blockchain-council.org/blockchain/a-quick-guide-to-ethereum-casper/
+
+Blockchain Consensus?
+https://tokens-economy.gitbook.io/consensus/blockchain-consensus
+
+https://tokens-economy.gitbook.io/consensus/blockchain-consensus-encyclopedia-infographic
+
+Casper the Friendly Finality Gadget (FFG)
+https://tokens-economy.gitbook.io/consensus/chain-based-proof-of-stake/proof-of-stake-casper-pos-casper
+
+Chain-based Proof of Stake
+https://tokens-economy.gitbook.io/consensus/chain-based-proof-of-stake
+
+
+
+-------------
+
+Latest of Ethereum
+by Vitalik Buterin · Oct 31, 2018
+https://slideslive.com/38911602/latest-of-ethereum
+
+https://www.youtube-nocookie.com/embed/lYPWdKrRE48
+https://www.youtube.com/watch?v=lYPWdKrRE48
+https://youtu.be/lYPWdKrRE48
+
+-------------
+
+Eth 2.0 tldr
+by Danny Ryan · Oct 9, 2019
+https://slideslive.com/38919931/eth-20-tldr
+
+https://www.youtube-nocookie.com/embed/dz84EJxtj98
+https://www.youtube.com/watch?v=dz84EJxtj98
+https://youtu.be/dz84EJxtj98
+
+--------------
+
+
+Proof-of-Stake Was Bigger Than Eth 2.0 in 2020
+https://www.coindesk.com/proof-of-stake-bigger-eth-2-0
+
+CoinDesk’s Year in Review 2020
+https://www.coindesk.com/year-in-review/2020
+
+The Problems That Ethereum 2.0 Proof-of-Stake Aims to Solve
+https://medium.com/better-programming/the-problems-that-ethereum-2-0-proof-of-stake-aims-to-solve-5361c155461a
+
+Stake your ETH to become an Ethereum validator
+https://ethereum.org/en/eth2/staking/
+
+What Is Proof of Stake?
+https://consensys.net/blog/blockchain-explained/what-is-proof-of-stake/
+
+Ethereum 2.0 Knowledge Base
+https://consensys.net/knowledge-base/ethereum-2/
+
+Proof of Stake (PoS)
+https://docs.ethhub.io/ethereum-roadmap/ethereum-2.0/proof-of-stake/
+
+Ethereum 2.0 Phases
+https://docs.ethhub.io/ethereum-roadmap/ethereum-2.0/eth-2.0-phases/
+
+Eth 2.0 Economics
+https://docs.ethhub.io/ethereum-roadmap/ethereum-2.0/eth-2.0-economics/
+
+Introducing Valid Points: The Risks and Rewards of Staking on Eth 2.0
+https://www.coindesk.com/valid-points-risks-rewards-staking-on-eth-2-0-validators
+
+Ethereum 2.0 Staking, Explained
+https://cointelegraph.com/explained/ethereum-20-staking-explained
+
+Proof-of-Stake Vs. Proof-of-Work: Which One Is ‘Fairer’?
+https://cointelegraph.com/news/proof-of-stake-vs-proof-of-work-which-one-is-fairer
+
+--------------------------------
+
+Hyperledger
+https://en.wikipedia.org/wiki/Hyperledger
+
+Hyperledger
+https://www.hyperledger.org/
+
+Hyperledger Fabric
+https://www.hyperledger.org/use/fabric
+
+Hyperledger Fabric
+https://github.com/hyperledger/fabric
+
+Hyperledger Fabric
+https://hyperledger-fabric.readthedocs.io/en/release-2.3/
+
+Introduction
+https://hyperledger-fabric.readthedocs.io/en/release-2.3/whatis.html
+
+Key Concepts
+https://hyperledger-fabric.readthedocs.io/en/latest/key_concepts.html
+
+Key Concepts - Introduction
+https://hyperledger-fabric.readthedocs.io/en/latest/blockchain.html
+
+Getting started
+https://hyperledger-fabric.readthedocs.io/en/latest/getting_started.html
+
+Hyperledger tutorials
+https://www.hyperledger.org/use/tutorials
+
+Hyperledger Fabric: the flexible blockchain framework that’s changing the business world
+https://www.ibm.com/blockchain/hyperledger
+
+Hyperledger Fabric Explainer
+https://www.youtube.com/watch?v=js3Zjxbo8TM
+
+Why Hyperledger
+4,031 views•Apr 29, 2020
+https://www.youtube.com/watch?v=CnClFzNf9uU
+
+Deploy a blockchain web-app with Hyperledger Fabric 1.4 - Concepts & Code
+19,855 views•Aug 20, 2019
+https://www.youtube.com/watch?v=7pcTE5M0fAs
+https://www.youtube-nocookie.com/embed/7pcTE5M0fAs
+
+Blockchain Expert Explains One Concept in 5 Levels of Difficulty | WIRED
+https://www.youtube.com/watch?v=hYip_Vuv8J0
+https://www.youtube-nocookie.com/embed/hYip_Vuv8J0

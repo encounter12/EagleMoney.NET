@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using EagleMoney.NET.Library;
+using EagleMoney.NET.Library.Countries;
+using EagleMoney.NET.Library.Crypto;
+using EagleMoney.NET.Library.Currencies;
+using EagleMoney.NET.Library.Fiat;
 
 namespace EagleMoney.NET.ConsoleUI
 {
@@ -10,13 +14,13 @@ namespace EagleMoney.NET.ConsoleUI
     {
         private static void Main()
         {
-            var m1 = new Money(120M, new Currency(Currency.USD));
+            var m1 = new FiatMoney(120M, new FiatCurrency(FiatCurrency.USD));
 
             Console.WriteLine($"m1.ToString(): {m1}");
             Console.WriteLine($"m1.Amount: {m1.Amount}");
             Console.WriteLine($"m1.Currency: {m1.Currency}");
 
-            var m2 = new Money(120M, Currency.USD);
+            var m2 = new FiatMoney(120M, FiatCurrency.USD);
 
             Console.WriteLine($"Are m1 and m2 equal: {m1.Equals(m2)}");
             Console.WriteLine($"Is m1 equal to null: {m1.Equals(null)}");
@@ -30,15 +34,15 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine($"m1 == m1: {m1 == m1}");
             Console.WriteLine($"m1 != m2: {m1 != m2}");
 
-            Money? m3 = null;
-            Money? m4 = null;
+            FiatMoney m3 = null;
+            FiatMoney m4 = null;
 
             //Console.WriteLine($"m3.Equals(m4): {m3.Equals(m4)}");
             Console.WriteLine($"m3 == m4: {m3 == m4}");
             Console.WriteLine($"(object)null == (object)null: {(object) null == (object) null}");
 
-            Money? m5 = null;
-            Money m6 = new Money(65M, Currency.BGN);
+            FiatMoney m5 = null;
+            FiatMoney m6 = new FiatMoney(65M, FiatCurrency.BGN);
 
             //Console.WriteLine($"m5.Equals(m5): {m5.Equals(m5)}");
 
@@ -46,49 +50,48 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine($"m5 == m6: {m5 == m6}");
             Console.WriteLine($"m5 != m6: {m5 != m6}");
 
-            if (m5 is Money otherMoney1)
+            if (m5 is FiatMoney otherMoney1)
             {
                 Console.WriteLine($"otherMoney: {otherMoney1}");
             }
 
-            Console.WriteLine($"m5 is Money anotherMoney1: {m5 is Money anotherMoney1}");
+            Console.WriteLine($"m5 is FiatMoney anotherMoney1: {m5 is FiatMoney anotherMoney1}");
 
-            if (m6 is Money otherMoney2)
+            if (m6 is FiatMoney otherMoney2)
             {
                 Console.WriteLine($"otherMoney2: {otherMoney2}");
             }
 
-            Console.WriteLine($"m6 is Money anotherMoney2: {m6 is Money anotherMoney2}");
+            Console.WriteLine($"m6 is FiatMoney anotherMoney2: {m6 is FiatMoney anotherMoney2}");
 
-            var m7 = new Money(42, Currency.EUR);
-            Money? m8 = new Money(42, Currency.EUR);
+            var m7 = new FiatMoney(42, FiatCurrency.EUR);
+            FiatMoney m8 = new FiatMoney(42, FiatCurrency.EUR);
             Console.WriteLine($"m7.Equals(m8): {m7.Equals(m8)}");
-
-            Money? m9 = null;
-            Money? m10 = new Money(143, Currency.EUR);
+            
+            FiatMoney m10 = new FiatMoney(143, FiatCurrency.EUR);
             //Console.WriteLine($"m9.Equals(m10): {m9.Equals(m10)}");
 
-            var m11 = new Money(470, Currency.EUR);
-            var m12 = new Money(140, Currency.EUR);
+            var m11 = new FiatMoney(470, FiatCurrency.EUR);
+            var m12 = new FiatMoney(140, FiatCurrency.EUR);
             Console.WriteLine($"m11 > m12: {m11 > m12}");
             Console.WriteLine($"m11 >= m12: {m11 >= m12}");
             Console.WriteLine($"m11 < m12: {m11 < m12}");
             Console.WriteLine($"m11 <= m12: {m11 <= m12}");
 
-            // Money m13 = null;
-            // var m14 = new Money(140, Currency.EUR);
+            // FiatMoney m13 = null;
+            // var m14 = new FiatMoney(140, FiatCurrency.EUR);
             // Console.WriteLine($"m13 > m14: {m13 > m14}");
             // Console.WriteLine($"m14 > m13: {m14 > m13}");
             // Console.WriteLine($"m13 > m13: {m13 > m13}");
             // Console.WriteLine($"m13 == m13: {m13 == m13}");
 
-            var m15 = new Money(30, Currency.EUR);
-            Money? m16 = new Money(70, Currency.EUR);
+            var m15 = new FiatMoney(30, FiatCurrency.EUR);
+            FiatMoney m16 = new FiatMoney(70, FiatCurrency.EUR);
             Console.WriteLine($"m15 > m16: {m15 > m16}");
             Console.WriteLine($"m15 < m16: {m15 < m16}");
 
-            var m17 = new Money(30.5M, Currency.EUR);
-            var m18 = new Money(70, Currency.EUR);
+            var m17 = new FiatMoney(30.5M, FiatCurrency.EUR);
+            var m18 = new FiatMoney(70, FiatCurrency.EUR);
             var m19 = m17 + m18;
             Console.WriteLine($"m19 = m17 + m18: {m19}");
 
@@ -98,13 +101,13 @@ namespace EagleMoney.NET.ConsoleUI
             var m20 = m19 + 10;
             Console.WriteLine($"m20 = m19 + 10: {m20}");
 
-            var m21 = new Money(20.5M, Currency.BGN);
-            var m22 = new Money(3M, Currency.BGN);
+            var m21 = new FiatMoney(20.5M, FiatCurrency.BGN);
+            var m22 = new FiatMoney(3M, FiatCurrency.BGN);
             var m23 = m21 * m22;
             Console.WriteLine($"m23 = m21 * m22: {m23}");
 
-            var m24 = new Money(48.9M, Currency.BGN);
-            var m25 = new Money(3M, Currency.BGN);
+            var m24 = new FiatMoney(48.9M, FiatCurrency.BGN);
+            var m25 = new FiatMoney(3M, FiatCurrency.BGN);
             var m26 = m24 / m25;
             Console.WriteLine($"m26 = m24 / m25: {m26}");
 
@@ -114,17 +117,17 @@ namespace EagleMoney.NET.ConsoleUI
             var m28 = 90 / m25;
             Console.WriteLine($"m28 = 90 / m25: {m28}");
 
-            var m29 = new Money(3M, Currency.BGN);
+            var m29 = new FiatMoney(3M, FiatCurrency.BGN);
             var m30 = 100 / m29;
             Console.WriteLine($"m30 = 100 / m29: {m30}");
 
             var m30MoneyValue = (decimal) m30;
             Console.WriteLine($"m30MoneyValue = (decimal) m30: {m30MoneyValue}");
 
-            // var m31 = new Money();
+            // var m31 = new FiatMoney();
             // Console.WriteLine($"m31.ToString(): {m31.ToString()}");
 
-            var m32 = new Money(5.5M, Currency.BGN);
+            var m32 = new FiatMoney(5.5M, FiatCurrency.BGN);
             var m33 = m32 % 2;
             Console.WriteLine($"m33 = m32 % 3: {m33}");
             Console.WriteLine($"5.5M % 2: {5.5M % 2}");
@@ -138,7 +141,7 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine($"m33 == 0: {m33 == 0}");
             Console.WriteLine($"0 == m33: {0 == m33}");
 
-            var n1 = new Money(1M, Currency.BGN);
+            var n1 = new FiatMoney(1M, FiatCurrency.BGN);
 
             Console.WriteLine($"n1 == 1: {n1 == 1}");
             Console.WriteLine($"1 == n1: {1 == n1}");
@@ -175,15 +178,15 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine($"Are m1 and m2 Hash Codes equal: {m1.GetHashCode() == m2.GetHashCode()}");
 
-            var searchedMoney = new Money(10M, Currency.BGN);
+            var searchedMoney = new FiatMoney(10M, FiatCurrency.BGN);
 
-            var moneyList = new List<Money>
+            var moneyList = new List<FiatMoney>
             {
-                new(10M, Currency.EUR),
-                new(10M, Currency.BGN),
-                new(15.5M, Currency.BGN),
-                new(120.50M, Currency.BGN),
-                new(10M, Currency.BGN)
+                new(10M, FiatCurrency.EUR),
+                new(10M, FiatCurrency.BGN),
+                new(15.5M, FiatCurrency.BGN),
+                new(120.50M, FiatCurrency.BGN),
+                new(10M, FiatCurrency.BGN)
             };
 
             var moneyExists = moneyList.Contains(searchedMoney);
@@ -196,17 +199,17 @@ namespace EagleMoney.NET.ConsoleUI
             var lastIndexOfSearchedMoney = moneyList.LastIndexOf(searchedMoney);
             Console.WriteLine($"moneyList.IndexOf(searchedMoney): {lastIndexOfSearchedMoney}");
 
-            var m34 = new Money(10M, Currency.BGN);
+            var m34 = new FiatMoney(10M, FiatCurrency.BGN);
 
-            // var dict4 = new Dictionary<Money, string>()
+            // var dict4 = new Dictionary<FiatMoney, string>()
             // {
             //     { m34, "John"},
             //     { m34, "John"}
             // };
 
-            //dict.Add(new Money(10M, CurrencyCode.Bgn), "Gosho");
+            //dict.Add(new FiatMoney(10M, CurrencyCode.Bgn), "Gosho");
 
-            var dict = new Dictionary<Money, string>
+            var dict = new Dictionary<FiatMoney, string>
             {
                 [m34] = "John",
                 [m34] = "John"
@@ -214,46 +217,46 @@ namespace EagleMoney.NET.ConsoleUI
 
             var containsMoneyKey = dict.ContainsKey(m34);
 
-            Console.WriteLine($"dict.ContainsKey(new Money(10, CurrencyCode.BGN)):{containsMoneyKey}");
+            Console.WriteLine($"dict.ContainsKey(new FiatMoney(10, CurrencyCode.BGN)):{containsMoneyKey}");
             Console.WriteLine($"dict.Count:{dict.Count}");
 
-            var dict2 = new Dictionary<Money, string>
+            var dict2 = new Dictionary<FiatMoney, string>
             {
-                {new Money(10M, Currency.BGN), "Mike"},
-                {new Money(15M, Currency.BGN), "John"},
-                {new Money(25.5M, Currency.BGN), "Lisa"}
+                {new FiatMoney(10M, FiatCurrency.BGN), "Mike"},
+                {new FiatMoney(15M, FiatCurrency.BGN), "John"},
+                {new FiatMoney(25.5M, FiatCurrency.BGN), "Lisa"}
             };
 
-            var containsMoneyKey2 = dict2.ContainsKey(new Money(15M, Currency.BGN));
-            Console.WriteLine($"dict2.ContainsKey(new Money(15M, CurrencyCode.BGN)):{containsMoneyKey2}");
+            var containsMoneyKey2 = dict2.ContainsKey(new FiatMoney(15M, FiatCurrency.BGN));
+            Console.WriteLine($"dict2.ContainsKey(new FiatMoney(15M, CurrencyCode.BGN)):{containsMoneyKey2}");
 
-            var containsMoneyKey3 = dict2.ContainsKey(new Money(41.5M, Currency.BGN));
-            Console.WriteLine($"dict2.ContainsKey(new Money(41.5M, CurrencyCode.BGN)):{containsMoneyKey3}");
+            var containsMoneyKey3 = dict2.ContainsKey(new FiatMoney(41.5M, FiatCurrency.BGN));
+            Console.WriteLine($"dict2.ContainsKey(new FiatMoney(41.5M, CurrencyCode.BGN)):{containsMoneyKey3}");
 
-            var containsMoneyKey4 = dict2.ContainsKey(new Money(10M, Currency.USD));
-            Console.WriteLine($"dict2.ContainsKey(new Money(10M, CurrencyCode.USD)):{containsMoneyKey4}");
+            var containsMoneyKey4 = dict2.ContainsKey(new FiatMoney(10M, FiatCurrency.USD));
+            Console.WriteLine($"dict2.ContainsKey(new FiatMoney(10M, CurrencyCode.USD)):{containsMoneyKey4}");
 
-            //var m35 = new Money(-4.5M, CurrencyCode.BGN);
+            //var m35 = new FiatMoney(-4.5M, CurrencyCode.BGN);
             
-            // var m36 = new Money(8.5M, CurrencyCode.BGN);
-            // var m37 = new Money(4.5M, CurrencyCode.USD);
+            // var m36 = new FiatMoney(8.5M, CurrencyCode.BGN);
+            // var m37 = new FiatMoney(4.5M, CurrencyCode.USD);
             //
             // Console.WriteLine($"m36 > m37: {m36 > m37}");
 
-            // var moneyCollection = new MoneyCollection(CurrencyCode.USD)
+            // var moneyCollection = new FiatMoneyCollection(CurrencyCode.USD)
             // {
-            //     new Money(15.5M, CurrencyCode.EUR),
-            //     new Money(40.5M, CurrencyCode.USD)
+            //     new FiatMoney(15.5M, CurrencyCode.EUR),
+            //     new FiatMoney(40.5M, CurrencyCode.USD)
             // };
 
-            var moneyCollection2 = new MoneyCollection(Currency.USD)
+            var moneyCollection2 = new FiatMoneyCollection(new FiatCurrency(FiatCurrency.USD))
             {
-                new(15.5M, Currency.USD), 
-                new(40.5M, Currency.USD), 
-                new(130.72M, Currency.USD)
+                new(15.5M, FiatCurrency.USD), 
+                new(40.5M, FiatCurrency.USD), 
+                new(130.72M, FiatCurrency.USD)
             };
 
-            // moneyCollection2.Add(new Money(130.72M, Currency.AED));
+            // moneyCollection2.Add(new FiatMoney(130.72M, FiatCurrency.AED));
 
 
             foreach (var money in moneyCollection2)
@@ -270,20 +273,19 @@ namespace EagleMoney.NET.ConsoleUI
                 Console.WriteLine(money.ToString());
             }
 
-            Console.WriteLine($"Money.USD(24.5M).ToString():{Money.USD(24.5M)}");
-            Console.WriteLine($"Money.EUR(24.5M).ToString():{Money.EUR(24.5M)}");
-            Console.WriteLine($"Money.BGN(24.5M).ToString():{Money.BGN(24.5M)}");
+            Console.WriteLine($"FiatMoney.USD(24.5M).ToString():{FiatMoney.USD(24.5M)}");
+            Console.WriteLine($"FiatMoney.EUR(24.5M).ToString():{FiatMoney.EUR(24.5M)}");
+            Console.WriteLine($"FiatMoney.BGN(24.5M).ToString():{FiatMoney.BGN(24.5M)}");
+            
+            var e = new FiatCurrency(FiatCurrency.USD);
+            Console.WriteLine($"new FiatCurrency(FiatCurrency.USD).ToString():{e}");
 
-            string c = Currency.USD;
-            var e = new Currency(Currency.USD);
-            Console.WriteLine($"new Currency(Currency.USD).ToString():{e}");
+            var d = new FiatCurrency("EUR");
+            Console.WriteLine($"new FiatCurrency(FiatCurrency.USD).ToString():{d}");
 
-            var d = new Currency("EUR");
-            Console.WriteLine($"new Currency(Currency.USD).ToString():{d}");
+            var m40 = new FiatMoney(0.3M, FiatCurrency.BGN);
 
-            var m40 = new Money(0.3M, Currency.BGN);
-
-            Money[] allocated = m40.AllocateEven(3);
+            IMoney[] allocated = m40.AllocateEven(3);
 
             foreach (var item in allocated)
             {
@@ -292,9 +294,9 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine("----------------------");
             
-            var m41 = new Money(0.5M, Currency.BGN);
+            var m41 = new FiatMoney(0.5M, FiatCurrency.BGN);
 
-            Money[] allocated2 = m41.AllocateEven(3);
+            IMoney[] allocated2 = m41.AllocateEven(3);
 
             foreach (var item in allocated2)
             {
@@ -303,20 +305,20 @@ namespace EagleMoney.NET.ConsoleUI
             
             Console.WriteLine("----------------------");
             
-            var m42 = new Money(0.05M, Currency.BGN);
+            var m42 = new FiatMoney(0.05M, FiatCurrency.BGN);
 
-            Money[] allocated3 = m42.AllocateEven(3);
+            IMoney[] allocated3 = m42.AllocateEven(3);
 
             foreach (var item in allocated3)
             {
                 Console.WriteLine($"allocated element: {item.Amount} {item.Currency.Code}");
             }
 
-            var m43 = new Money(12.45M, new Currency("Bitcoin", 2, "‡", "Bitcoin"));
+            var m43 = new FiatMoney(12.45M, new FiatCurrency("Bitcoin", 2, "‡", "Bitcoin"));
 
             Console.WriteLine($"m43 (custom currency): {m43}");
             
-            var m44 = new Money(15M, new Currency("Bitcoin", 2, "‡", "Bitcoin"));
+            var m44 = new FiatMoney(15M, new FiatCurrency("Bitcoin", 2, "‡", "Bitcoin"));
 
             var m45 = m43 + m44;
 
@@ -324,51 +326,51 @@ namespace EagleMoney.NET.ConsoleUI
 
             int[] allocation = {3, 10, 1, 4, 3};
 
-            Money[] allocatedByRatios = Money.USD(100M).AllocateByRatios(allocation);
+            IMoney[] allocatedByRatios = FiatMoney.USD(100M).AllocateByRatios(allocation);
 
             for (int i = 0; i < allocatedByRatios.Length; i++)
             {
                 Console.WriteLine($"Allocated by ratio {i}: {allocatedByRatios[i].Amount} {allocatedByRatios[i].Currency.Code}");
             }
 
-            var m46 = Money.USD(10M);
+            var m46 = FiatMoney.USD(10M);
             var m47 = m46.Percentage(20);
             Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
             
             m47 = m46.Percentage(21.5M);
             Console.WriteLine($"m46.Percentage(20): {m47.Amount} {m47.Currency.Code}");
             
-            var m48 = new Money(3.445446M, MidpointRounding.AwayFromZero, Currency.USD);
+            var m48 = new FiatMoney(3.445446M, MidpointRounding.AwayFromZero, FiatCurrency.USD);
             Console.WriteLine($"m48 - MidpointRounding.AwayFromZero: {m48.Amount} {m48.Currency.Code}");
 
-            var m49 = new Money(124.5M, new Currency("AFN"));
+            var m49 = new FiatMoney(124.5M, new FiatCurrency("AFN"));
 
             Console.WriteLine(m49);
             
-            var m51 = Money.BGN(380.52M, MidpointRounding.AwayFromZero);
+            var m51 = FiatMoney.BGN(380.52M, MidpointRounding.AwayFromZero);
 
             Console.WriteLine(m51);
 
-            var m52 = Money.USD(124.43M);
+            var m52 = FiatMoney.USD(124.43M);
 
             Console.WriteLine(m51 == m52);
 
-            // var m53 = Money.USD(79228162514264337593543950335M);
+            // var m53 = FiatMoney.USD(79228162514264337593543950335M);
             
-            // var m53 = Money.USD(Decimal.MaxValue / 99);
+            // var m53 = FiatMoney.USD(Decimal.MaxValue / 99);
 
-            var m54 = new Money(124.5M, new Currency("EUR"));
+            var m54 = new FiatMoney(124.5M, new FiatCurrency("EUR"));
 
-            foreach (var x in m54.Currency.Countries)
+            foreach (var x in ((FiatCurrency)m54.Currency).Countries)
             {
                 Console.WriteLine(x);
             }
 
-            var m55 = new Money(12.3M, Currency.AFN);
+            var m55 = new FiatMoney(12.3M, FiatCurrency.AFN);
 
             Console.WriteLine($"{m55.Amount} {m55.Currency}");
             
-            Console.WriteLine("Currency Symbol: {0}",
+            Console.WriteLine("FiatCurrency Symbol: {0}",
                 NumberFormatInfo.GetInstance(new CultureInfo("en-GB")).CurrencySymbol);
             
             // Gets a NumberFormatInfo associated with the en-US culture.
@@ -419,19 +421,19 @@ namespace EagleMoney.NET.ConsoleUI
             //     Console.WriteLine(curr);
             // }
 
-            var m56 = Money.CAD(120m);
+            var m56 = FiatMoney.CAD(120m);
 
             Console.WriteLine(m56);
 
-            var m57 = Money.SAR(15.25M);
+            var m57 = FiatMoney.SAR(15.25M);
 
-            var m58 = Money.AOA(15.34M, MidpointRounding.ToZero);
+            var m58 = FiatMoney.AOA(15.34M, MidpointRounding.ToZero);
 
             Console.WriteLine(m58);
 
             Console.WriteLine($"m58.ToString('C'): {m58.ToString("C")}");
 
-            Money[] allocatedEven = m58.AllocateEven(5);
+            IMoney[] allocatedEven = m58.AllocateEven(5);
 
             foreach (var ae in allocatedEven)
             {
@@ -443,86 +445,103 @@ namespace EagleMoney.NET.ConsoleUI
                 Console.WriteLine(ab.ToString("C"));
             }
 
-            var m59 = Money.USD(12.34m);
+            var m59 = FiatMoney.USD(12.34m);
             Console.WriteLine(m59.ToString("C"));
             
-            var m60 = Money.EUR(40.15M);
+            var m60 = FiatMoney.EUR(40.15M);
             Console.WriteLine(m60.ToString("C"));
             
-            var m61 = Money.GBP(72.13m);
+            var m61 = FiatMoney.GBP(72.13m);
             Console.WriteLine(m61.ToString("C"));
             
-            var m62 = Money.BGN(83.95m);
+            var m62 = FiatMoney.BGN(83.95m);
             Console.WriteLine(m62.ToString("C"));
             
-            var m63 = Money.CHF(100000.23m);
+            var m63 = FiatMoney.CHF(100000.23m);
             Console.WriteLine(m63.ToString("C"));
             
-            var m64 = Money.AFN(125.34m);
+            var m64 = FiatMoney.AFN(125.34m);
             Console.WriteLine(m64.ToString("C"));
             
-            var m65 = Money.USD(1234.56m);
+            var m65 = FiatMoney.USD(1234.56m);
             Console.WriteLine(m65);
             
-            var m66 = Money.USD(432100000009.24m);
+            var m66 = FiatMoney.USD(432100000009.24m);
             Console.WriteLine($"{m66.Amount} {m66.Currency.Symbol}");
 
             Console.WriteLine($"{(m66 + 0.01m).Amount}");
 
-            var m67 = new Money(12.45m, Currency.BGN);
+            var m67 = new FiatMoney(12.45m, FiatCurrency.BGN);
 
-            var m68 = Money.MKD(12.45m);
+            var m68 = FiatMoney.MKD(12.45m);
 
             Console.WriteLine(m68);
             Console.WriteLine(m68.ToString("C"));
             
-            var m69 = Money.BGN(12.45m);
+            var m69 = FiatMoney.BGN(12.45m);
             Console.WriteLine(m69.ToString("C"));
 
-            var m70 = Money.Parse("678.423", Currency.BGN);
+            var m70 = FiatMoney.Parse("678.423", FiatCurrency.BGN);
 
             Console.WriteLine(m70);
             Console.WriteLine(m70.ToString("C"));
 
-            IMoney m71 = new Money(12.456m, Currency.AED);
+            IMoney m71 = new FiatMoney(12.456m, FiatCurrency.AED);
 
             Console.WriteLine(m71);
             
-            var m72 = new Money(
+            var m72 = new FiatMoney(
                 14.32m,
-                new Currency(
+                new FiatCurrency(
                     "GAC", 
-                    new CurrencyFactory(new CustomCurrencyProvider(), new CustomCountriesProvider())));
+                    new FiatCurrencyFactory(new CustomCurrencyProvider(), new CustomCountriesProvider())));
 
             Console.WriteLine(m72);
             
             Console.WriteLine(m72.ToString("C"));
 
-            var m73 = Money.USD(15.43M);
+            var m73 = FiatMoney.USD(15.43M);
 
-            foreach (var ca in m73.Currency.Countries)
+            foreach (var ca in ((FiatCurrency)m73.Currency).Countries)
             {
-                Console.WriteLine($"{ca.Name} {ca.CodeAlpha2} {ca.CodeAlpha3}");
+                Console.WriteLine($"{ca.ShortNameLowerCase} {ca.CodeAlpha2} {ca.CodeAlpha3}");
             }
 
-            var m74 = new Money(14.2m, CountryCode.US);
+            var m74 = new FiatMoney(14.2m, CountryCode.US);
 
             Console.WriteLine(m74);
             Console.WriteLine(m74.ToString("C"));
 
-            var m75 = new Money(156.5m, CountryCodeAlpha3.USA);
+            var m75 = new FiatMoney(156.5m, CountryCodeAlpha3.USA);
 
-            foreach (var country in m75.Currency.Countries)
+            foreach (var country in ((FiatCurrency)m75.Currency).Countries)
             {
-                Console.WriteLine($"currencyCountry: {country.Name}");
+                Console.WriteLine($"currencyCountry: {country.ShortNameLowerCase}");
             }
 
-            var m76 = new Money(45.23m, Currency.BGN);
+            var m76 = new FiatMoney(45.23m, FiatCurrency.BGN);
 
-            foreach (var country in m76.Currency.Countries)
+            foreach (var country in ((FiatCurrency)m76.Currency).Countries)
             {
-                Console.WriteLine($"{country.Name} {country.CodeAlpha2} {country.NumericCode} {country.FullName}");
+                Console.WriteLine(
+                    $"{country.ShortNameLowerCase} {country.CodeAlpha2} {country.NumericCode} {country.FullName}");
             }
+
+            var m77 = new FiatMoney(12.5m, new CryptoCurrency(CryptoCurrency.BTC));
+
+            Console.WriteLine(m77);
+
+            var m78 = FiatMoney.USD(12.5M);
+
+            FiatMoney m79 = m78;
+            
+            Console.WriteLine(m78.Equals(m79));
+
+            Console.WriteLine(object.ReferenceEquals(m78, m79));
+            
+            Console.WriteLine(object.ReferenceEquals(m78.Currency, m79.Currency));
+            
+            Console.WriteLine(m78.Amount.Equals(m79.Amount));
         }
     }
     
@@ -532,11 +551,17 @@ namespace EagleMoney.NET.ConsoleUI
         {
             return new List<CurrencyCountriesBasicInfo>
             {
-                new CurrencyCountriesBasicInfo("GAC", "","321", "^", 2, new HashSet<string>
-                {
-                    "Bulgaria",
-                    "Tanzania"
-                })
+                new CurrencyCountriesBasicInfo(
+                    "GAC", 
+                    "",
+                    "321", 
+                    "^", 
+                    2, 
+                    new HashSet<string>
+                    {
+                        "Bulgaria",
+                        "Tanzania"
+                    })
             };
         }
     }
@@ -549,7 +574,7 @@ namespace EagleMoney.NET.ConsoleUI
             {
                 new Country
                 {
-                    Name = "Bulgaria",
+                    ShortNameLowerCase = "Bulgaria",
                     CodeAlpha2 = "DA",
                     CodeAlpha3 = "DAS",
                     NumericCode = "005"

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace EagleMoney.NET.Library
+namespace EagleMoney.NET.Library.Currencies
 {
     public struct CurrencyProvider : ICurrencyProvider
     {
@@ -12,6 +12,11 @@ namespace EagleMoney.NET.Library
         
         private List<CurrencyCountriesBasicInfo> _currencies;
         
+        // TODO: create list of objects in source code, use:
+        // ISO 4217 CURRENCY CODES: https://www.iso.org/iso-4217-currency-codes.html
+        // ISO 4217: https://en.wikipedia.org/wiki/ISO_4217
+        // List of circulating currencies: https://en.wikipedia.org/wiki/List_of_circulating_currencies
+
         public bool TryGetCurrencySymbol(
             string isoCurrencyCode,
             out string symbol)
