@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using EagleMoney.NET.Library.Countries;
+using EagleMoney.NET.Library.Countries.Enums;
 using EagleMoney.NET.Library.Currencies;
 
 namespace EagleMoney.NET.Library.Fiat

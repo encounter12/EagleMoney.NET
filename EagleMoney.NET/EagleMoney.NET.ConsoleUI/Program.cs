@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using EagleMoney.NET.Library;
 using EagleMoney.NET.Library.Countries;
+using EagleMoney.NET.Library.Countries.Enums;
 using EagleMoney.NET.Library.Crypto;
 using EagleMoney.NET.Library.Currencies;
 using EagleMoney.NET.Library.Fiat;

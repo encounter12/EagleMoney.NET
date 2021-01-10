@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using EagleMoney.NET.Library.Crypto.Enums;
 
 namespace EagleMoney.NET.Library.Crypto
 {

@@ -1,6 +1,6 @@
 // ReSharper disable InconsistentNaming
 // ReSharper disable IdentifierTypo
-namespace EagleMoney.NET.Library
+namespace EagleMoney.NET.Library.Crypto.Enums
 {
     public enum HashAlgorithm
     {

@@ -1,5 +1,5 @@
 // ReSharper disable InconsistentNaming
-namespace EagleMoney.NET.Library.Crypto
+namespace EagleMoney.NET.Library.Crypto.Enums
 {
     public enum CryptoCurrencyCode
     {

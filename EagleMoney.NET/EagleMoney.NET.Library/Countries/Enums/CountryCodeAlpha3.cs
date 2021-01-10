@@ -1,5 +1,5 @@
 // ReSharper disable InconsistentNaming
-namespace EagleMoney.NET.Library.Countries
+namespace EagleMoney.NET.Library.Countries.Enums
 {
     public enum CountryCodeAlpha3
     {

@@ -1,4 +1,4 @@
-namespace EagleMoney.NET.Library.Crypto
+namespace EagleMoney.NET.Library.Crypto.Enums
 {
     public enum ConsensusMechanism
     {
