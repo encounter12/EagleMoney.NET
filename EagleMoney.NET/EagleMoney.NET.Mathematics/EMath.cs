@@ -4,8 +4,10 @@ using System.Text;
 
 namespace EagleMoney.NET.Library.Mathematics
 {
-    public static class Ma
+    public static class EMath
     {
+        // For now the method only adds natural positive numbers
+        // TODO: add fractional numbers, add negative numbers, add positive and negative numbers
         public static string Add(string numberOne, string numberTwo)
         {
             if (string.IsNullOrWhiteSpace(numberOne))
@@ -18,74 +20,66 @@ namespace EagleMoney.NET.Library.Mathematics
                 throw new ArgumentException($"The second number: {numberTwo} is null or whitespace");
             }
 
-            numberOne = RemoveZeros(numberOne);
-            numberTwo = RemoveZeros(numberTwo);
+            numberOne = RemoveLeadingZeros(numberOne);
+            numberTwo = RemoveLeadingZeros(numberTwo);
 
             (numberOne, numberTwo) = AddLeadingZeros(numberOne, numberTwo);
 
             var sumSb = new StringBuilder();
             string memorizedDigit = "0";
+            string sum = "0";
 
             for (int i = numberOne.Length - 1; i >= 0 ; i--)
             {
                 string digitSum = AddDigits(numberOne[i].ToString(), numberTwo[i].ToString());
-
-                if (i == 0 && digitSum.Length > 1)
+                
+                switch (digitSum.Length)
                 {
-                    sumSb.Insert(0, digitSum);
-                    return sumSb.ToString();
-                }
-
-                if (digitSum.Length == 1)
-                {
-                    if (memorizedDigit != "0")
+                    case 1:
                     {
-                        digitSum = AddDigits(digitSum, memorizedDigit);
-                        memorizedDigit = "0";
+                        if (memorizedDigit != "0")
+                        {
+                            digitSum = AddDigits(digitSum, memorizedDigit);
+
+                            memorizedDigit = digitSum.Length > 1 ? digitSum[0].ToString() : "0";
+                        }
+                    
+                        sumSb.Insert(0, digitSum.Length > 1 ? digitSum[1] : digitSum[0]);
+                        break;
                     }
-                    
-                    sumSb.Insert(0, digitSum);
-                }
-                else if (digitSum.Length == 2)
-                {
-                    var memorizedDigitTemp = digitSum[0].ToString();
-                    
-                    if (memorizedDigit != "0")
+                    case 2:
                     {
-                        digitSum = AddDigits(digitSum[1].ToString(), memorizedDigit);
-                    }
+                        var memorizedDigitTemp = digitSum[0].ToString();
                     
-                    memorizedDigit = memorizedDigitTemp;
-                    sumSb.Insert(0, digitSum[1]);
-                }
-                else
-                {
-                    throw new InvalidOperationException();
+                        if (memorizedDigit != "0")
+                        {
+                            digitSum = AddDigits(digitSum[1].ToString(), memorizedDigit);
+                        }
+                    
+                        memorizedDigit = memorizedDigitTemp;
+                        sumSb.Insert(0, digitSum[1]);
+                        break;
+                    }
+                    default:
+                        throw new InvalidOperationException();
                 }
             }
 
+            if (memorizedDigit != "0")
+            {
+                sumSb.Insert(0, memorizedDigit);
+            }
+            
             return sumSb.ToString();
         }
 
-        private static string RemoveZeros(string numberStr)
+        private static string RemoveLeadingZeros(string numberStr)
         {
-            numberStr = numberStr.Trim('0');
+            numberStr = numberStr.TrimStart('0');
             numberStr = numberStr.Length > 0 ? numberStr : "0";
             return numberStr;
         }
         
-        private static bool IsValidNumber(string str)
-        {
-            foreach (char c in str)
-            {
-                if (!char.IsDigit(c) && c != '.')
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
         private static (string numberOne, string numberTwo) AddLeadingZeros(string numberOne, string numberTwo)
         {
             if (numberOne.Length < numberTwo.Length)
@@ -122,6 +116,26 @@ namespace EagleMoney.NET.Library.Mathematics
             {
                 throw new InvalidOperationException("Cannot find the digits addition result in the addition table");
             }
+        }
+        
+        public static bool IsValidNumber(string str)
+        {
+            int decimalSeparatorCount = 0;
+            
+            foreach (char c in str)
+            {
+                if (!char.IsDigit(c) && c != '.')
+                {
+                    return false;
+                }
+
+                if (c == '.')
+                {
+                    decimalSeparatorCount++;
+                }
+            }
+
+            return decimalSeparatorCount <= 1;
         }
 
         private static Dictionary<string, string> additionDictionary = new Dictionary<string, string>

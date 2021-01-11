@@ -3,19 +3,28 @@ using EagleMoney.NET.Library.Mathematics;
 
 namespace EagleMoney.NET.ConsoleMath
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine(Ma.Add("12", "12"));
+            Console.WriteLine(EMath.Add("12", "12"));
             
-            Console.WriteLine(Ma.Add("12", "0"));
+            Console.WriteLine(EMath.Add("12", "0"));
             
-            Console.WriteLine(Ma.Add("5", "3"));
+            Console.WriteLine(EMath.Add("5", "3"));
             
-            Console.WriteLine(Ma.Add("1245", "55"));
+            Console.WriteLine(EMath.Add("1245", "55"));
             
-            // Console.WriteLine(Ma.Add("5", "3a"));
+            Console.WriteLine(EMath.Add("1000", "500"));
+            
+            Console.WriteLine(EMath.Add("0001", "0999"));
+
+            Console.WriteLine(EMath.IsValidNumber("123"));
+            Console.WriteLine(EMath.IsValidNumber("123abc"));
+            Console.WriteLine(EMath.IsValidNumber("123.a"));
+            Console.WriteLine(EMath.IsValidNumber("123.45"));
+            
+            // Console.WriteLine(Ma.Add("5", "3a")) - should throw an error
         }
     }
 }

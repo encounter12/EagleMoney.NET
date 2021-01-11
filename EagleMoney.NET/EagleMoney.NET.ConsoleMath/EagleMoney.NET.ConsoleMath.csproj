@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EagleMoney.NET.Library\EagleMoney.NET.Library.csproj" />
+      <ProjectReference Include="..\EagleMoney.NET.Mathematics\EagleMoney.NET.Mathematics.csproj" />
     </ItemGroup>
 
 </Project>
