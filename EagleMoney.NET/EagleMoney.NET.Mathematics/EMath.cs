@@ -121,14 +121,130 @@ namespace EagleMoney.NET.Library.Mathematics
             }
         }
 
-        // public static string Subtract(string numberOne, string numberTwo)
-        // {
-        //     for (int i = numberOne.Length - 1; i >= 0 ; i--)
-        //     {
-        //         
-        //     }
-        // }
-        
+        public static string Subtract(string minuend, string subtrahend)
+        {
+            int comparison = CompareTo(minuend, subtrahend);
+
+            bool diffNegative = false;
+
+            if (comparison == -1)
+            {
+                diffNegative = true;
+                Swap(ref minuend, ref subtrahend);
+            }
+            
+            (string minuendWithZeros, string subtrahendWithZeros) = 
+                AddLeadingZeros(minuend, subtrahend);
+
+            var minuendWithZerosSb = new StringBuilder(minuendWithZeros);
+            var differenceSb = new StringBuilder();
+            
+            for (int i = minuendWithZerosSb.Length - 1; i >= 0; i--)
+            {
+                string digitDifference = FundamentalSubtract(
+                    minuendWithZerosSb[i].ToString(), subtrahendWithZeros[i].ToString());
+
+                if (digitDifference != null)
+                {
+                    differenceSb.Insert(0, digitDifference);
+                }
+                else
+                {
+                    int zeroCount = i - 1;
+                    
+                    while (minuendWithZerosSb[zeroCount] == '0')
+                    {
+                        zeroCount--;
+                    }
+                    
+                    string tempDiff = FundamentalSubtract(
+                        minuendWithZerosSb[zeroCount].ToString(), "1");
+
+                    minuendWithZerosSb[zeroCount] = tempDiff.ToCharArray()[0];
+
+                    for (int j = zeroCount + 1; j <= i - 1; j++)
+                    {
+                        minuendWithZerosSb[j] = '9';
+                    }
+
+                    string carry = "1";
+                    var tempDigitMinuend = carry + minuendWithZerosSb[i];
+
+                    string tempDigitDifference = FundamentalSubtract(
+                        tempDigitMinuend, subtrahendWithZeros[i].ToString());
+                    
+                    differenceSb.Insert(0, tempDigitDifference);
+                }
+            }
+
+            string result = differenceSb.ToString().TrimStart('0');
+
+            if (diffNegative)
+            {
+                return "-" + result;
+            }
+            
+            return result;
+        }
+
+        private static void Swap(ref string numberOne, ref string numberTwo)
+        {
+            string temp = null;
+            temp = numberOne;
+            numberOne = numberTwo;
+            numberTwo = temp;
+        }
+
+        public static int CompareTo(string firstNumber, string secondNumber)
+        {
+            if (firstNumber.Length > secondNumber.Length)
+            {
+                return 1;
+            }
+            else if (firstNumber.Length < secondNumber.Length)
+            {
+                return -1;
+            }
+            
+            int digitsEqualCount = 0;
+
+            for (int i = 0; i < firstNumber.Length; i++)
+            {
+                string difference = FundamentalSubtract(
+                    firstNumber[i].ToString(), secondNumber[i].ToString());
+
+                if (difference == null)
+                {
+                    return -1;
+                }
+                
+                if (difference == "0")
+                {
+                    digitsEqualCount++;
+                }
+            }
+
+            if (firstNumber.Length == digitsEqualCount)
+            {
+                return 0;
+            }
+
+            return 1;
+        }
+
+        public static string FundamentalSubtract(string minuend, string subtrahend)
+        {
+            for (int i = 0; i < AdditionTable.GetLength(0); i++)
+            {
+                if (AdditionTable[i, 2] == minuend && AdditionTable[i, 0] == subtrahend)
+                {
+                    return AdditionTable[i, 1];
+                }
+            }
+            
+            return null;
+        }
+
         public static bool IsValidNumber(string str)
         {
             int decimalSeparatorCount = 0;
@@ -279,5 +395,12 @@ namespace EagleMoney.NET.Library.Mathematics
             {"9", "8", "17"},
             {"9", "9", "18"}
         };
+        
+        private enum Comparison 
+        {
+            LessThan = -1,
+            Equal = 0,
+            GreaterThan = 1
+        }; 
     }
 }
