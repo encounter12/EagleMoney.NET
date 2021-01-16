@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using EagleMoney.NET.Library.Mathematics;
 
 namespace EagleMoney.NET.ConsoleMath
@@ -24,7 +25,15 @@ namespace EagleMoney.NET.ConsoleMath
             Console.WriteLine(EMath.IsValidNumber("123.a"));
             Console.WriteLine(EMath.IsValidNumber("123.45"));
             
-            // Console.WriteLine(Ma.Add("5", "3a")) - should throw an error
+            // Console.WriteLine(Ma.Add("5", "3a")); //should throw an error
+            
+            string sum = EMath.GetFundamentalAdditionSum("2", "3");
+            Console.WriteLine(sum);
+            
+            string sum2 = EMath.GetFundamentalAdditionSum("4", "8");
+            Console.WriteLine(sum2);
+            
+            // string sum3 = EMath.GetFundamentalAdditionSum("4", "10"); //should throw an error
         }
     }
 }
