@@ -528,13 +528,13 @@ namespace EagleMoney.NET.ConsoleUI
                     $"{country.ShortNameLowerCase} {country.CodeAlpha2} {country.NumericCode} {country.FullName}");
             }
 
-            var m77 = new FiatMoney(12.5m, new CryptoCurrency(CryptoCurrency.BTC));
+            var m77 = new CryptoMoney(12.5m, new CryptoCurrency(CryptoCurrency.BTC));
 
             Console.WriteLine(m77);
 
-            var m78 = FiatMoney.USD(12.5M);
+            var m78 = CryptoMoney.BTC(12.5M);
 
-            FiatMoney m79 = m78;
+            CryptoMoney m79 = m78;
             
             Console.WriteLine(m78.Equals(m79));
 
@@ -543,6 +543,10 @@ namespace EagleMoney.NET.ConsoleUI
             Console.WriteLine(object.ReferenceEquals(m78.Currency, m79.Currency));
             
             Console.WriteLine(m78.Amount.Equals(m79.Amount));
+            
+            var m80 = new CryptoMoney(12.5M, new CryptoCurrency(CryptoCurrency.BTC));
+
+            Console.WriteLine(m80.ToString());
         }
     }
     
