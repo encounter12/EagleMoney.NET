@@ -79,3 +79,13 @@ var m3 = m1 / m2;
 var m4 = CryptoMoney.BTC(5M);
 CryptoMoney m5 = m4  / 4.25M;
 ```
+
+<h3>ToString():</h3>
+
+```csharp
+// FiatMoney
+var m1 = FiatMoney.USD(120.5M);
+
+Console.WriteLine(m1.ToString()); // displays: 120 USD
+Console.WriteLine(m1.ToString("C")); // displays localized money string: $120.50
+```

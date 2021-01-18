@@ -547,6 +547,11 @@ namespace EagleMoney.NET.ConsoleUI
             var m80 = new CryptoMoney(12.5M, new CryptoCurrency(CryptoCurrency.BTC));
 
             Console.WriteLine(m80.ToString());
+            
+            var m81 = FiatMoney.USD(120.5M);
+
+            Console.WriteLine(m81.ToString()); // displays: 120 USD
+            Console.WriteLine(m81.ToString("C")); // displays localized money string: $120.5
         }
     }
     
