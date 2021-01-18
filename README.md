@@ -73,6 +73,19 @@ var m4 = CryptoMoney.BTC(5M);
 CryptoMoney m5 = m4  / 4.25M;
 ```
 
+<h3>Allocation<h3>
+
+<div>
+Allocates money value into n equal or almost equal parts (if amount cannot be equally split)
+</div>
+
+```csharp
+// n = 3
+var m1 = FiatMoney.USD(0.5M);
+IMoney[] allocated = m1.AllocateEven(3);
+Console.WriteLine(String.Join(", ", allocated.Select(a => a.Amount))); // Prints: 0.17, 0.17, 0.16
+```
+
 <h3>ToString():</h3>
 
 ```csharp

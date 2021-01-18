@@ -552,6 +552,10 @@ namespace EagleMoney.NET.ConsoleUI
 
             Console.WriteLine(m81.ToString()); // displays: 120 USD
             Console.WriteLine(m81.ToString("C")); // displays localized money string: $120.5
+
+            var m82 = FiatMoney.USD(0.5M);
+            IMoney[] allocated4 = m82.AllocateEven(3);
+            Console.WriteLine(String.Join(", ", allocated4.Select(a => a.Amount)));
         }
     }
     
