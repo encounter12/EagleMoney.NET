@@ -73,10 +73,10 @@ var m4 = CryptoMoney.BTC(5M);
 CryptoMoney m5 = m4  / 4.25M;
 ```
 
-<h3>Allocation<h3>
+<h3>Allocation</h3>
 
 <div>
-Allocates money value into n equal or almost equal parts (if amount cannot be equally split)
+    Allocates money value into n equal or almost equal parts (if amount cannot be equally split)
 </div>
 
 ```csharp
