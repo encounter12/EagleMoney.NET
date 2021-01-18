@@ -1,5 +1,5 @@
 # EagleMoney.NET
-A simple library implementing Money Value Object in .NET, For general information, see:
+A simple library implementing Money Value Object in .NET. For general information, see:
 
 <p>
     <a href="https://martinfowler.com/eaaCatalog/money.html" target="_blank">Martin Fowler (P of EAA Catalog): Money</a><br />
