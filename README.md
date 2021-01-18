@@ -2,7 +2,7 @@
 A simple library implementing Money Value Object in .NET, For general information, see:
 
 <p>
-    <a href="https://martinfowler.com/eaaCatalog/money.html" target="_blank">Martin Fowler (P of EAA Catalog): Money</a>
+    <a href="https://martinfowler.com/eaaCatalog/money.html" target="_blank">Martin Fowler (P of EAA Catalog): Money</a><br />
     <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects">Implement value objects (.NET microservices - Architecture e-book)</a>
 </p>
 
@@ -62,4 +62,18 @@ var m3 = m1 * m2;
 // CryptoMoney
 var m4 = CryptoMoney.BTC(5M);
 CryptoMoney m5 = m4  * 4.25M;
+```
+
+<h3>Division:</h3>
+
+```csharp
+// FiatMoney
+var m1 = FiatMoney.USD(120M);
+var m2 = FiatMoney.USD(45.50M);
+
+var m3 = m1 / m2;
+
+// CryptoMoney
+var m4 = CryptoMoney.BTC(5M);
+CryptoMoney m5 = m4  / 4.25M;
 ```
