@@ -1,13 +1,5 @@
 # EagleMoney.NET
-A simple library implementing Money Value Object in .NET. For general information, see:
-
-<p>
-    <a href="https://martinfowler.com/eaaCatalog/money.html" target="_blank">Martin Fowler (P of EAA Catalog): Money</a><br />
-    <a href="https://martinfowler.com/bliki/ValueObject.html">Martin Fowler: ValueObject</a><br />
-    <a href="https://martinfowler.com/bliki/EvansClassification.html">Martin Fowler - EvansClassification</a><br />
-    <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects">Implement value objects (.NET microservices - Architecture e-book)</a><br />
-    <a href="https://en.wikipedia.org/wiki/Value_object">Wikipedia: Value object</a>
-</p>
+A simple library implementing Money Value Object in .NET.
 
 <h3>Instantiation:</h3>
 
@@ -90,3 +82,14 @@ var m1 = FiatMoney.USD(120.5M);
 Console.WriteLine(m1.ToString()); // displays: 120 USD
 Console.WriteLine(m1.ToString("C")); // displays localized money string: $120.50
 ```
+
+References:
+
+<p>
+    <a href="https://martinfowler.com/eaaCatalog/money.html" target="_blank">Martin Fowler (P of EAA Catalog): Money</a><br />
+    <a href="https://martinfowler.com/bliki/ValueObject.html">Martin Fowler: ValueObject</a><br />
+    <a href="https://martinfowler.com/bliki/EvansClassification.html">Martin Fowler - EvansClassification</a><br />
+    <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects">Implement value objects (.NET microservices - Architecture e-book)</a><br />
+    <a href="https://en.wikipedia.org/wiki/Value_object">Wikipedia: Value object</a><br />
+    <a href="http://wiki.c2.com/?ValueObjectsShouldBeImmutable">Ward Cunningham Wiki: Value Objects Should Be Immutable</a>
+</p>
