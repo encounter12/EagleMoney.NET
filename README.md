@@ -4,7 +4,8 @@ A simple library implementing Money Value Object in .NET, For general informatio
 <p>
     <a href="https://martinfowler.com/eaaCatalog/money.html" target="_blank">Martin Fowler (P of EAA Catalog): Money</a><br />
     <a href="https://martinfowler.com/bliki/EvansClassification.html">Martin Fowler - EvansClassification</a><br />
-    <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects">Implement value objects (.NET microservices - Architecture e-book)</a>
+    <a href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/implement-value-objects">Implement value objects (.NET microservices - Architecture e-book)</a><br />
+    <a href="https://en.wikipedia.org/wiki/Value_object">Wikipedia: Value object</a>
 </p>
 
 <h3>Instantiation:</h3>
