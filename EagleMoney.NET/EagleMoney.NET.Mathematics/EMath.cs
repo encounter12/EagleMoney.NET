@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace EagleMoney.NET.Library.Mathematics
@@ -18,6 +17,15 @@ namespace EagleMoney.NET.Library.Mathematics
             if (string.IsNullOrWhiteSpace(numberTwo))
             {
                 throw new ArgumentException($"The second number: {numberTwo} is null or whitespace");
+            }
+
+            string sumSign = string.Empty;
+            
+            if (numberOne.StartsWith("-") && numberTwo.StartsWith("-"))
+            {
+                sumSign = "-";
+                numberOne = numberOne.Substring(1);
+                numberTwo = numberTwo.Substring(1);
             }
 
             numberOne = RemoveLeadingZeros(numberOne);
@@ -69,6 +77,8 @@ namespace EagleMoney.NET.Library.Mathematics
             {
                 sumSb.Insert(0, memorizedDigit);
             }
+
+            sumSb.Insert(0, sumSign);
             
             return sumSb.ToString();
         }
