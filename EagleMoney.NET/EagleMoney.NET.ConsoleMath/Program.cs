@@ -62,6 +62,13 @@ namespace EagleMoney.NET.ConsoleMath
             string diff6 = EMath.Subtract("1003", "4");
             Console.WriteLine(diff6);
             
+            string diff7 = EMath.Subtract("1", "30");
+            Console.WriteLine(diff7);
+            
+            Console.WriteLine(EMath.Add("5", "-3"));
+            
+            Console.WriteLine(EMath.Add("-5", "3"));
+            
             Console.WriteLine(EMath.Add("-1", "-3"));
         }
     }

@@ -27,6 +27,18 @@ namespace EagleMoney.NET.Library.Mathematics
                 numberOne = numberOne.Substring(1);
                 numberTwo = numberTwo.Substring(1);
             }
+            else if (!numberOne.StartsWith("-") && numberTwo.StartsWith("-"))
+            {
+                numberTwo = numberTwo.Substring(1);
+                string difference = Subtract(numberOne, numberTwo);
+                return difference;
+            }
+            else if (numberOne.StartsWith("-") && !numberTwo.StartsWith("-"))
+            {
+                numberOne = numberOne.Substring(1);
+                string difference = Subtract(numberTwo, numberOne);
+                return difference;
+            }
 
             numberOne = RemoveLeadingZeros(numberOne);
             numberTwo = RemoveLeadingZeros(numberTwo);
