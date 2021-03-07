@@ -69,7 +69,17 @@ namespace EagleMoney.NET.ConsoleMath
             
             Console.WriteLine(EMath.Add("-5", "3"));
             
+            Console.WriteLine(EMath.Subtract("-5", "3"));
+            
             Console.WriteLine(EMath.Add("-1", "-3"));
+            
+            Console.WriteLine(EMath.Subtract("-1", "-3"));
+            
+            Console.WriteLine(EMath.Subtract("-1", "3"));
+            
+            Console.WriteLine(EMath.Subtract("1", "-3"));
+            
+            Console.WriteLine(EMath.Subtract("1", "3"));
         }
     }
 }

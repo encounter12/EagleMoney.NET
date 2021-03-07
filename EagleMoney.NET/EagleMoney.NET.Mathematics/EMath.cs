@@ -145,6 +145,25 @@ namespace EagleMoney.NET.Library.Mathematics
 
         public static string Subtract(string minuend, string subtrahend)
         {
+            if (minuend.StartsWith("-") && !subtrahend.StartsWith("-"))
+            {
+                minuend = minuend.Substring(1);
+                string sum = Add(minuend, subtrahend);
+                return sum.Insert(0, "-");
+            }
+            else if (!minuend.StartsWith("-") && subtrahend.StartsWith("-"))
+            {
+                subtrahend = subtrahend.Substring(1);
+                string sum = Add(minuend, subtrahend);
+                return sum;
+            }
+            else if (minuend.StartsWith("-") && subtrahend.StartsWith("-"))
+            {
+                minuend = minuend.Substring(1);
+                subtrahend = subtrahend.Substring(1);
+                Swap(ref minuend, ref subtrahend);
+            }
+            
             int comparison = CompareTo(minuend, subtrahend);
 
             bool diffNegative = false;
