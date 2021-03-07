@@ -5,8 +5,8 @@ namespace EagleMoney.NET.Library.Mathematics
 {
     public static class EMath
     {
-        // For now the method only adds natural positive numbers
-        // TODO: add fractional numbers, add negative numbers, add positive and negative numbers
+        // For now the method only adds natural numbers
+        // TODO: add fractional numbers
         public static string Add(string numberOne, string numberTwo)
         {
             if (string.IsNullOrWhiteSpace(numberOne))
@@ -40,11 +40,101 @@ namespace EagleMoney.NET.Library.Mathematics
                 return difference;
             }
 
-            numberOne = RemoveLeadingZeros(numberOne);
-            numberTwo = RemoveLeadingZeros(numberTwo);
+            string digitSeparator = ".";
 
-            (numberOne, numberTwo) = AddLeadingZeros(numberOne, numberTwo);
+            if (numberOne.Contains(digitSeparator) || numberTwo.Contains(digitSeparator))
+            {
+                string fractionalNumberSum = AddFractionalNumbers(numberOne, numberTwo, digitSeparator);
+                return fractionalNumberSum;
+            }
 
+            string sum = AddPositiveNaturalNumbers(numberOne, numberTwo);
+
+            if (sumSign.Length > 0)
+            {
+                sum = sum.Insert(0, sumSign);
+            }
+            
+            return sum;
+        }
+
+        private static string AddFractionalNumbers(string numberOne, string numberTwo, string digitSeparator)
+        {
+            string numberOneFraction = string.Empty;
+            string numberTwoFraction = string.Empty;
+                
+            if (numberOne.Contains(digitSeparator))
+            {
+                numberOneFraction = GetFraction(numberOne);
+            }
+
+            if (numberTwo.Contains(digitSeparator))
+            {
+                numberTwoFraction = GetFraction(numberTwo);
+            }
+
+            var fractionSum = AddPositiveNaturalNumbers(numberOneFraction, numberTwoFraction, true);
+
+            string fractionCarry = string.Empty;
+
+            int largestFractionLength = numberOneFraction.Length > numberTwoFraction.Length
+                ? numberOneFraction.Length
+                : numberTwoFraction.Length;
+            
+            if (fractionSum.Length > largestFractionLength)
+            {
+                fractionCarry = "1";
+                fractionSum = fractionSum.Substring(1);
+            }
+
+            string numberOneWholePart = numberOne;
+
+            if (numberOne.Contains(digitSeparator))
+            {
+                numberOneWholePart = GetWholeNumber(numberOne, digitSeparator);
+            }
+                
+            string numberTwoWholePart = numberTwo;
+                
+            if (numberTwo.Contains(digitSeparator))
+            {
+                numberTwoWholePart = GetWholeNumber(numberTwo, digitSeparator);
+            }
+
+            if (!string.IsNullOrEmpty(fractionCarry))
+            {
+                numberOneWholePart = AddPositiveNaturalNumbers(numberOneWholePart, fractionCarry);
+            }
+
+            string wholeNumbersSum = AddPositiveNaturalNumbers(numberOneWholePart, numberTwoWholePart);
+
+            string fractionalNumberSum = $"{wholeNumbersSum}{digitSeparator}{fractionSum}";
+
+            return fractionalNumberSum;
+        }
+
+        private static string GetFraction(string number)
+        {
+            int dotIndex = number.IndexOf(".", StringComparison.Ordinal);
+            return number.Substring(dotIndex + 1);
+        }
+
+        private static string GetWholeNumber(string number, string separator)
+        {
+            return number.Substring(0, number.IndexOf(separator, StringComparison.Ordinal));
+        }
+
+        private static string AddPositiveNaturalNumbers(string numberOne, string numberTwo, bool areFractions = false)
+        {
+            if (areFractions)
+            {
+                (numberOne, numberTwo) = PadRightZeros(numberOne, numberTwo);
+            }
+            else
+            {
+                (numberOne, numberTwo) = PadLeftZeros(numberOne, numberTwo);
+            }
+            
             var sumSb = new StringBuilder();
             string memorizedDigit = "0";
             string sum = "0";
@@ -90,19 +180,10 @@ namespace EagleMoney.NET.Library.Mathematics
                 sumSb.Insert(0, memorizedDigit);
             }
 
-            sumSb.Insert(0, sumSign);
-            
             return sumSb.ToString();
         }
-
-        private static string RemoveLeadingZeros(string numberStr)
-        {
-            numberStr = numberStr.TrimStart('0');
-            numberStr = numberStr.Length > 0 ? numberStr : "0";
-            return numberStr;
-        }
         
-        private static (string numberOne, string numberTwo) AddLeadingZeros(string numberOne, string numberTwo)
+        private static (string numberOne, string numberTwo) PadLeftZeros(string numberOne, string numberTwo)
         {
             if (numberOne.Length < numberTwo.Length)
             {
@@ -113,6 +194,20 @@ namespace EagleMoney.NET.Library.Mathematics
                 numberTwo = numberTwo.PadLeft(numberOne.Length, '0');
             }
             
+            return (numberOne, numberTwo);
+        }
+
+        private static (string numberOne, string numberTwo) PadRightZeros(string numberOne, string numberTwo)
+        {
+            if (numberOne.Length > numberTwo.Length)
+            {
+                numberTwo = numberTwo.PadRight(numberOne.Length, '0');
+            }
+            else if (numberOne.Length < numberTwo.Length)
+            {
+                numberOne = numberOne.PadRight(numberTwo.Length, '0');
+            }
+
             return (numberOne, numberTwo);
         }
 
@@ -127,9 +222,6 @@ namespace EagleMoney.NET.Library.Mathematics
             {
                 throw new ArgumentException($"The second argument: {digitTwo} is not a digit");
             }
-            
-            string digitOneDigitTwo = digitOne + digitTwo;
-
 
             string sum = GetFundamentalAdditionSum(digitOne, digitTwo);
             
@@ -175,7 +267,7 @@ namespace EagleMoney.NET.Library.Mathematics
             }
             
             (string minuendWithZeros, string subtrahendWithZeros) = 
-                AddLeadingZeros(minuend, subtrahend);
+                PadLeftZeros(minuend, subtrahend);
 
             var minuendWithZerosSb = new StringBuilder(minuendWithZeros);
             var differenceSb = new StringBuilder();

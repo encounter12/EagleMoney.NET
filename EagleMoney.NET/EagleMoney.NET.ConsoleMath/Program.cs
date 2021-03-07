@@ -80,6 +80,10 @@ namespace EagleMoney.NET.ConsoleMath
             Console.WriteLine(EMath.Subtract("1", "-3"));
             
             Console.WriteLine(EMath.Subtract("1", "3"));
+            
+            Console.WriteLine(EMath.Add("5.2", "3.4"));
+            
+            Console.WriteLine(EMath.Add("2.81", "578.211"));
         }
     }
 }
