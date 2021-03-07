@@ -136,7 +136,7 @@ namespace EagleMoney.NET.Library.Mathematics
             }
             
             var sumSb = new StringBuilder();
-            string memorizedDigit = "0";
+            string carry = "0";
             string sum = "0";
 
             for (int i = numberOne.Length - 1; i >= 0 ; i--)
@@ -147,11 +147,11 @@ namespace EagleMoney.NET.Library.Mathematics
                 {
                     case 1:
                     {
-                        if (memorizedDigit != "0")
+                        if (carry != "0")
                         {
-                            digitSum = AddDigits(digitSum, memorizedDigit);
+                            digitSum = AddDigits(digitSum, carry);
 
-                            memorizedDigit = digitSum.Length > 1 ? digitSum[0].ToString() : "0";
+                            carry = digitSum.Length > 1 ? digitSum[0].ToString() : "0";
                         }
                     
                         sumSb.Insert(0, digitSum.Length > 1 ? digitSum[1] : digitSum[0]);
@@ -161,12 +161,12 @@ namespace EagleMoney.NET.Library.Mathematics
                     {
                         var memorizedDigitTemp = digitSum[0].ToString();
                     
-                        if (memorizedDigit != "0")
+                        if (carry != "0")
                         {
-                            digitSum = AddDigits(digitSum[1].ToString(), memorizedDigit);
+                            digitSum = AddDigits(digitSum[1].ToString(), carry);
                         }
                     
-                        memorizedDigit = memorizedDigitTemp;
+                        carry = memorizedDigitTemp;
                         sumSb.Insert(0, digitSum[1]);
                         break;
                     }
@@ -175,9 +175,9 @@ namespace EagleMoney.NET.Library.Mathematics
                 }
             }
 
-            if (memorizedDigit != "0")
+            if (carry != "0")
             {
-                sumSb.Insert(0, memorizedDigit);
+                sumSb.Insert(0, carry);
             }
 
             return sumSb.ToString();
