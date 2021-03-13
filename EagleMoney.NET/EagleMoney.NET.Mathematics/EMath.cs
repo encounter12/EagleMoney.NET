@@ -19,6 +19,16 @@ namespace EagleMoney.NET.Library.Mathematics
                 throw new ArgumentException($"The second number: {numberTwo} is null or whitespace");
             }
 
+            if (!IsValidNumber(numberOne))
+            {
+                throw new ArgumentException("The first addend is not a valid number");
+            }
+            
+            if (!IsValidNumber(numberTwo))
+            {
+                throw new ArgumentException("The second addend is not a valid number");
+            }
+            
             string sumSign = string.Empty;
             
             if (numberOne.StartsWith("-") && numberTwo.StartsWith("-"))
@@ -40,20 +50,25 @@ namespace EagleMoney.NET.Library.Mathematics
                 return difference;
             }
 
-            string digitSeparator = ".";
+            string sum;
+            
+            var digitSeparator = ".";
 
             if (numberOne.Contains(digitSeparator) || numberTwo.Contains(digitSeparator))
             {
-                string fractionalNumberSum = AddFractionalNumbers(numberOne, numberTwo, digitSeparator);
-                return fractionalNumberSum;
+                sum = AddFractionalNumbers(numberOne, numberTwo, digitSeparator);
+            }
+            else
+            {
+                sum = AddPositiveNaturalNumbers(numberOne, numberTwo);
             }
 
-            string sum = AddPositiveNaturalNumbers(numberOne, numberTwo);
-
-            if (sumSign.Length > 0)
+            if (!string.IsNullOrEmpty(sumSign))
             {
                 sum = sum.Insert(0, sumSign);
             }
+
+            sum = RemoveLeadingZeros(sum);
             
             return sum;
         }
@@ -365,7 +380,7 @@ namespace EagleMoney.NET.Library.Mathematics
             return 1;
         }
 
-        public static string FundamentalSubtract(string minuend, string subtrahend)
+        private static string FundamentalSubtract(string minuend, string subtrahend)
         {
             for (int i = 0; i < AdditionTable.GetLength(0); i++)
             {
@@ -378,11 +393,16 @@ namespace EagleMoney.NET.Library.Mathematics
             return null;
         }
 
-        public static bool IsValidNumber(string str)
+        public static bool IsValidNumber(string numberStr)
         {
             int decimalSeparatorCount = 0;
+
+            if (numberStr.StartsWith("-"))
+            {
+                numberStr = numberStr.Substring(1);
+            }
             
-            foreach (char c in str)
+            foreach (char c in numberStr)
             {
                 if (!char.IsDigit(c) && c != '.')
                 {
@@ -398,7 +418,7 @@ namespace EagleMoney.NET.Library.Mathematics
             return decimalSeparatorCount <= 1;
         }
         
-        public static string GetFundamentalAdditionSum(string numberOne, string numberTwo)
+        private static string GetFundamentalAdditionSum(string numberOne, string numberTwo)
         {
             if (string.IsNullOrWhiteSpace(numberOne) || numberOne.Length > 1)
             {
@@ -423,6 +443,13 @@ namespace EagleMoney.NET.Library.Mathematics
             }
             
             return null;
+        }
+        
+        private static string RemoveLeadingZeros(string numberStr)
+        {
+            numberStr = numberStr.TrimStart('0');
+            numberStr = numberStr.Length > 0 ? numberStr : "0";
+            return numberStr;
         }
         
         private static readonly string[,] AdditionTable = new string[100, 3]
