@@ -271,7 +271,7 @@ namespace EagleMoney.NET.Library.Mathematics
                 Swap(ref minuend, ref subtrahend);
             }
             
-            int comparison = CompareTo(minuend, subtrahend);
+            int comparison = ComparePositiveNaturalNumbers(minuend, subtrahend);
 
             bool diffNegative = false;
 
@@ -343,7 +343,7 @@ namespace EagleMoney.NET.Library.Mathematics
             numberTwo = temp;
         }
 
-        public static int CompareTo(string firstNumber, string secondNumber)
+        public static int ComparePositiveNaturalNumbers(string firstNumber, string secondNumber)
         {
             if (firstNumber.Length > secondNumber.Length)
             {
@@ -365,10 +365,13 @@ namespace EagleMoney.NET.Library.Mathematics
                 {
                     return -1;
                 }
-                
-                if (difference == "0")
+                else if (difference == "0")
                 {
                     digitsEqualCount++;
+                }
+                else
+                {
+                    return 1;
                 }
             }
 

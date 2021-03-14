@@ -8,53 +8,11 @@ namespace EagleMoney.NET.ConsoleMath
     {
         private static void Main(string[] args)
         {
-            // string sum3 = EMath.GetFundamentalAdditionSum("4", "10"); //should throw an error
-
-            int comparison = EMath.CompareTo("3", "5");
-            Console.WriteLine(comparison);
-            
-            int comparison2 = EMath.CompareTo("1200", "5");
-            Console.WriteLine(comparison2);
-            
-            int comparison3 = EMath.CompareTo("12300", "12300");
-            Console.WriteLine(comparison3);
-            
-            string diff = EMath.Subtract("4", "2");
-            Console.WriteLine(diff);
-            
-            string diff2 = EMath.Subtract("9", "1");
-            Console.WriteLine(diff2);
-            
-            string diff3 = EMath.Subtract("50", "1");
-            Console.WriteLine(diff3);
-            
-            string diff4 = EMath.Subtract("7", "12");
-            Console.WriteLine(diff4);
-            
-            string diff5 = EMath.Subtract("101", "102");
-            Console.WriteLine(diff5);
-            
-            string diff6 = EMath.Subtract("1003", "4");
-            Console.WriteLine(diff6);
-            
-            string diff7 = EMath.Subtract("1", "30");
-            Console.WriteLine(diff7);
-            
             Console.WriteLine(EMath.Add("5", "-3"));
             
             Console.WriteLine(EMath.Add("-5", "3"));
             
-            Console.WriteLine(EMath.Subtract("-5", "3"));
-            
             Console.WriteLine(EMath.Add("-1", "-3"));
-            
-            Console.WriteLine(EMath.Subtract("-1", "-3"));
-            
-            Console.WriteLine(EMath.Subtract("-1", "3"));
-            
-            Console.WriteLine(EMath.Subtract("1", "-3"));
-            
-            Console.WriteLine(EMath.Subtract("1", "3"));
             
             Console.WriteLine(EMath.Add("5.2", "3.4"));
             
