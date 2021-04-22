@@ -164,5 +164,18 @@ namespace EagleMoney.NET.Mathematics.Tests
         {
             Assert.AreEqual(result, EMath.ComparePositiveNaturalNumbers(firstDigit, secondDigit));
         }
+        
+        [Test]
+        [TestCase("5.2", "3.4", "8.6")]
+        [TestCase("2.81", "578.211", "581.021")]
+        [TestCase("999.9100001", "0.00000001", "999.91000011")]
+        [TestCase("22.11", "54.89", "77")]
+        public void Add_BothAddendsPositiveFractions_ReturnsResult(
+            string firstAddend,
+            string secondAddend,
+            string result)
+        {
+            Assert.AreEqual(result, EMath.Add(firstAddend, secondAddend));
+        }
     }
 }

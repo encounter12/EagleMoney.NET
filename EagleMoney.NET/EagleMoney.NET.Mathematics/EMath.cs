@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Text;
 
 namespace EagleMoney.NET.Library.Mathematics
@@ -123,9 +124,16 @@ namespace EagleMoney.NET.Library.Mathematics
 
             string wholeNumbersSum = AddPositiveNaturalNumbers(numberOneWholePart, numberTwoWholePart);
 
-            string fractionalNumberSum = $"{wholeNumbersSum}{digitSeparator}{fractionSum}";
+            if (fractionSum.All(x => x == '0'))
+            {
+                return wholeNumbersSum;
+            }
+            else
+            {
+                string fractionalNumberSum = $"{wholeNumbersSum}{digitSeparator}{fractionSum}";
 
-            return fractionalNumberSum;
+                return fractionalNumberSum;
+            }
         }
 
         private static string GetFraction(string number)
@@ -454,7 +462,7 @@ namespace EagleMoney.NET.Library.Mathematics
             numberStr = numberStr.Length > 0 ? numberStr : "0";
             return numberStr;
         }
-        
+
         private static readonly string[,] AdditionTable = new string[100, 3]
         {
             {"0", "0", "0"},
